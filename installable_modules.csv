@@ -1,0 +1,6 @@
+FileSelect Music 2;Bavario;A module that plays SMG2_title_strm.ast after pressing A + B on FileSelect, similar to SMG1.;git;https://github.com/Lord-G-INC/FileSelectMusic2/
+ScenarioSelect Music 2;Bavario;A module that plays SMG2_galaxy08_strm.ast after selecting a star on ScenarioSelect, instead of the standard Intro Music.;git;https://github.com/Lord-G-INC/ScenarioSelectAST
+Syati Global Layouts;-;Provides functionality to have layouts that are always loaded;git;https://github.com/SMGCommunity/Syati_GlobalLayouts
+Syati Object Factories;-;Provides Object Creation factories that other modules can register to. This allows new objects to be recognized by the game.;git;https://github.com/SMGCommunity/Syati_ObjectFactories
+Syati Initilizer Module;-;Required to make Syati Modules run properly;git;https://github.com/SMGCommunity/Syati_Init
+Syati Common Functions;-;Provides access to hook common functions used in the game.;git;https://github.com/SMGCommunity/Syati_CommonFunctionHooks
