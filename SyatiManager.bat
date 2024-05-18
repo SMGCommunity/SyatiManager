@@ -145,8 +145,8 @@ IF !ERRORLEVEL! NEQ 0 (
     ECHO An error occured while trying to build.
     ECHO [R] = Retry, [C] = Cancel
     CHOICE /C RC /N
-    IF !ERRORLEVEL! EQU 1 CLS && GOTO BuildScript
-    IF !ERRORLEVEL! EQU 2 CLS && GOTO MainSection
+    IF !ERRORLEVEL! EQU 1 REM CLS && GOTO BuildScript
+    IF !ERRORLEVEL! EQU 2 REM CLS && GOTO MainSection
 )
 ECHO.
 ECHO Built successfully
@@ -169,8 +169,8 @@ IF %ERRORLEVEL% EQU 1 (
         ECHO An error occured while trying to compile the loader.
         ECHO [R] = Retry, [C] = Cancel
         CHOICE /C RC /N
-        IF !ERRORLEVEL! EQU 1 CLS && GOTO LoaderScript
-        IF !ERRORLEVEL! EQU 2 CLS && GOTO MainSection
+        IF !ERRORLEVEL! EQU 1 REM CLS && GOTO LoaderScript
+        IF !ERRORLEVEL! EQU 2 REM CLS && GOTO MainSection
     )
 )
 IF %ERRORLEVEL% EQU 2 python buildloader.py JPN -o ../Output/
@@ -184,8 +184,8 @@ IF !ERRORLEVEL! NEQ 0 (
     ECHO An error occured while trying to compile the loader.
     ECHO [R] = Retry, [C] = Cancel
     CHOICE /C RC /N
-    IF !ERRORLEVEL! EQU 1 CLS && GOTO LoaderScript
-    IF !ERRORLEVEL! EQU 2 CLS && GOTO MainSection
+    IF !ERRORLEVEL! EQU 1 REM CLS && GOTO LoaderScript
+    IF !ERRORLEVEL! EQU 2 REM CLS && GOTO MainSection
 )
 ECHO.
 ECHO Compiled successfully
@@ -194,7 +194,7 @@ GOTO MainSection
 
 :ModuleManager
 TITLE Syati Manager - Module Manager
-CLS
+REM CLS
 SET ChoiceStr=
 SET ModuleList=
 SET IncrementTotal=0
@@ -252,7 +252,6 @@ IF "%ModuleStr%" EQU "C" GOTO MainSection
 IF "%ModuleStr%" EQU "c" GOTO MainSection
 FOR /F "tokens=1,* delims=," %%A IN ("%ModuleStr%") DO (
     IF "%%B" EQU "" (
-        ECHO Yaay.
         SET ModuleId=%%A
         GOTO :ViewModuleDetails
     ) ELSE FOR %%I IN (%%A,%%B,) DO (
@@ -262,7 +261,9 @@ FOR /F "tokens=1,* delims=," %%A IN ("%ModuleStr%") DO (
             CALL :FindModuleFromList %%I
             IF "!InstallType!" EQU "git" CALL :InstallModuleGit
             IF "!InstallType!" EQU "git_r" CALL :InstallModuleGitRecursive
-            IF "!InstallType!" EQU "curl" CALL :InstallModuleCurl
+            IF "!InstallType!" EQU "curl_uncompressed" CALL :InstallModuleCurlUncompressed
+            IF "!InstallType!" EQU "curl_compressed" CALL :InstallModuleCurlCompressed
+            IF "!InstallType!" EQU "git_folder" CALL :InstallModuleGitFolder
         )
     )
 )
@@ -270,7 +271,7 @@ GOTO :ModuleManager
 
 :ViewModuleDetails
 SET /A Target=%ModuleId%
-CLS
+REM CLS
 CALL :GetNameOfJSON !Target!
 IF %ERRORLEVEL% EQU 1 (
     SET /A Target=%~1-1
@@ -280,6 +281,8 @@ IF %ERRORLEVEL% EQU 1 (
     ECHO Name: !Name!
     ECHO Author: !Author!
     ECHO Description: !Description!
+    ECHO !jsonName! | FINDSTR /C:"PTD" 1>NUL
+    IF NOT ERRORLEVEL 1 ECHO This module is part of PTD.
     ECHO.
     ECHO [0] = Disable, [X] = Remove, [C] = Cancel
     CHOICE /C 0XC /N
@@ -301,6 +304,8 @@ IF %ERRORLEVEL% EQU 1 (
     ECHO Name: !Name!
     ECHO Author: !Author!
     ECHO Description: !Description!
+    ECHO !jsonName! | FINDSTR /C:"PTD" 1>NUL
+    IF NOT ERRORLEVEL 1 ECHO This module is part of PTD.
     ECHO.
     ECHO [1] = Enable, [X] = Remove, [C] = Cancel
     CHOICE /C 1XC /N
@@ -322,13 +327,17 @@ IF %ERRORLEVEL% EQU 1 (
     ECHO Author: !Author!
     ECHO Description: !Description!
     ECHO Install method: !InstallType!
+    ECHO !InstallFolder! | FINDSTR /C:"PTD" 1>NUL
+    IF NOT ERRORLEVEL 1 ECHO This module is part of PTD.
     ECHO.
     ECHO [I] = Install, [C] = Cancel
     CHOICE /C IC /N
     IF !ERRORLEVEL! EQU 1 (
         IF "!InstallType!" EQU "git" CALL :InstallModuleGit
         IF "!InstallType!" EQU "git_r" CALL :InstallModuleGitRecursive
-        IF "!InstallType!" EQU "curl" CALL :InstallModuleCurl
+        IF "!InstallType!" EQU "curl_uncompressed" CALL :InstallModuleCurlUncompressed
+        IF "!InstallType!" EQU "curl_compressed" CALL :InstallModuleCurlCompressed
+        IF "!InstallType!" EQU "git_folder" CALL :InstallModuleGitFolder
     ) ELSE IF !ERRORLEVEL! EQU 2 (
         COLOR 0F
         GOTO :ModuleManager
@@ -418,7 +427,9 @@ FOR /f "tokens=2,* delims=: " %%a IN ('FINDSTR /C:"\"ModuleDependancies\"" "!jso
                         SET InstallUrl=%%K
                         IF "%%J" EQU "git" CALL :InstallModuleGit
                         IF "%%J" EQU "git_r" CALL :InstallModuleGitRecursive
-                        IF "%%J" EQU "curl" CALL :InstallModuleCurl
+                        IF "%%J" EQU "curl_uncompressed" CALL :InstallModuleCurlUncompressed
+                        IF "%%J" EQU "curl_compressed" CALL :InstallModuleCurlCompressed
+                        IF "%%J" EQU "git_folder" CALL :InstallModuleGitFolder
                     )
                     SET Name=!OriginalName!
                 )
@@ -429,12 +440,13 @@ FOR /f "tokens=2,* delims=: " %%a IN ('FINDSTR /C:"\"ModuleDependancies\"" "!jso
 EXIT /B
 
 :GetInstallableModuleData
-FOR /f "tokens=1-5 delims=;" %%a IN ('FINDSTR /C:"%~1" installable_modules.csv') DO (
+FOR /f "tokens=1-6 delims=;" %%a IN ('FINDSTR /C:"%~1" installable_modules.csv') DO (
     SET "Name=%%a"
     SET "Author=%%b"
     SET "Description=%%c"
     SET "InstallType=%%d"
     SET "InstallUrl=%%e"
+    SET "InstallFolder=%%f"
     EXIT /B
 )
 
@@ -493,7 +505,7 @@ CD ../../
 COLOR 0F
 EXIT /B
 
-:InstallModuleCurl
+:InstallModuleCurlUncompressed
 CURL --help >NUL
 IF %ERRORLEVEL% GTR 0 (
     CHOICE /M "cURL was not found. Would you like to download it now" /C YN
@@ -522,7 +534,6 @@ FOR %%A IN ("%InstallUrl%") DO (
     SET "part=%%~nxA"
     SET "fileName=!part!"
 )
-ECHO !fileName!
 FOR /F "delims=." %%J IN ("!fileName!") DO SET fileNameNoExtension=%%J
 "\Program Files\7-Zip\7z" x !fileName! -o!fileNameNoExtension! >NUL
 RM -rf !fileName!
@@ -530,45 +541,120 @@ CD ../../
 COLOR 0F
 EXIT /B
 
+:InstallModuleCurlCompressed
+CURL --help >NUL
+IF %ERRORLEVEL% GTR 0 (
+    CHOICE /M "cURL was not found. Would you like to download it now" /C YN
+    IF %ERRORLEVEL% EQU 2 GOTO :MainSection
+    WINGET INSTALL CURL.CURL
+    ECHO.
+)
+"\Program Files\7-Zip\7z" --help >NUL
+IF %ERRORLEVEL% GTR 0 (
+    CHOICE /M "7z was not found. Would you like to download it now" /C YN
+    IF %ERRORLEVEL% EQU 2 GOTO :MainSection
+    WINGET INSTALL 7zip.7zip
+    ECHO.
+)
+ECHO Downloading module !Name!...
+CD Syati/Modules
+CURL -k -L -O !InstallUrl! 2>NUL
+IF %ERRORLEVEL% GTR 1 (
+    ECHO Error %ERRORLEVEL% while downloading module !Name!.
+    PAUSE
+    GOTO :MainSection
+)
+ECHO Extracting module !Name!...
+SET fileName=
+FOR %%A IN ("%InstallUrl%") DO (
+    SET "part=%%~nxA"
+    SET "fileName=!part!"
+)
+FOR /F "delims=." %%J IN ("!fileName!") DO SET fileNameNoExtension=%%J
+"\Program Files\7-Zip\7z" x !fileName! -so | "\Program Files\7-Zip\7z" x -aoa -si -ttar -o!fileNameNoExtension! >NUL
+RM -rf !fileName!
+CD ../../
+COLOR 0F
+EXIT /B
+
+:InstallModuleGitFolder
+CURL --help >NUL
+IF %ERRORLEVEL% GTR 0 (
+    CHOICE /M "cURL was not found. Would you like to download it now" /C YN
+    IF %ERRORLEVEL% EQU 2 GOTO :MainSection
+    WINGET INSTALL CURL.CURL
+    ECHO.
+)
+"\Program Files\7-Zip\7z" --help >NUL
+IF %ERRORLEVEL% GTR 0 (
+    CHOICE /M "7z was not found. Would you like to download it now" /C YN
+    IF %ERRORLEVEL% EQU 2 GOTO :MainSection
+    WINGET INSTALL 7zip.7zip
+    ECHO.
+)
+ECHO Downloading module !Name!...
+CD Syati/Modules
+SET "urlPart=!InstallUrl:~19!"
+IF "!urlPart:~-1!" == "\" SET "urlPart=!urlPart:~0,-1!"
+FOR /F "tokens=1,2 delims=/" %%A IN ("!urlPart!") DO (
+    SET "repoInstallName=%%A/%%B"
+)
+CURL -k -L -O https://mariogalaxy.org/github2tar?repo=!repoInstallName!^&path=!InstallFolder! 2>NUL
+IF %ERRORLEVEL% GTR 1 (
+    ECHO Error %ERRORLEVEL% while downloading module !Name!.
+    PAUSE
+    GOTO :MainSection
+)
+ECHO Extracting module !Name!...
+FOR /F "delims=." %%J IN ("!InstallFolder!") DO SET folderName=%%J
+"\Program Files\7-Zip\7z" x github2tar -so | "\Program Files\7-Zip\7z" x -aoa -si -ttar -o!folderName! >NUL
+RM -rf github2tar
+CD ../../
+COLOR 0F
+EXIT /B
+
 :DisableModule
+SET StartCopyPath=0
 SET jsonName=%jsonName:\= %
 FOR %%I IN (%jsonName%) DO (
     ECHO %%I | FINDSTR /C:".json" 1>NUL
-    IF ERRORLEVEL 1 (
-        SET folderName=%%I
-    ) ELSE (
+    IF NOT ERRORLEVEL 1 (
         ROBOCOPY Syati\Modules\!folderName! Syati\DisabledModules\!folderName! /E /MOVE >NUL
         COLOR 0F
         EXIT /B
     )
+    IF !StartCopyPath! EQU 1 SET folderName=!folderName!%%I\
+    IF "%%I" EQU "Modules" SET StartCopyPath=1
 )
 
 :RemoveModule
-SET jsonName=!jsonName:\= !
-FOR %%I IN (!jsonName!) DO (
+SET StartCopyPath=0
+SET jsonName=%jsonName:\= %
+FOR %%I IN (%jsonName%) DO (
     ECHO %%I | FINDSTR /C:".json" 1>NUL
-    IF ERRORLEVEL 1 (
-        SET folderName=%%I
-    ) ELSE (
+    IF NOT ERRORLEVEL 1 (
         RM -rf Syati\Modules\!folderName! Syati\DisabledModules\!folderName! >NUL
         COLOR 0F
         EXIT /B
     )
+    IF !StartCopyPath! EQU 1 SET folderName=!folderName!%%I\
+    IF "%%I" EQU "Modules" SET StartCopyPath=1
 )
 ECHO FATAL ERROR: ModuleNotFound in RemoveModule.
 EXIT /B
 
 :EnableModule
-SET jsonName=!jsonName:\= !
-FOR %%I IN (!jsonName!) DO (
+SET StartCopyPath=0
+SET jsonName=%jsonName:\= %
+FOR %%I IN (%jsonName%) DO (
     ECHO %%I | FINDSTR /C:".json" 1>NUL
-    IF ERRORLEVEL 1 (
-        SET folderName=%%I
-    ) ELSE (
+    IF NOT ERRORLEVEL 1 (
         ROBOCOPY Syati\DisabledModules\!folderName! Syati\Modules\!folderName! /E /MOVE >NUL
         COLOR 0F
         EXIT /B
     )
+    IF !StartCopyPath! EQU 1 SET folderName=!folderName!%%I\
+    IF "%%I" EQU "Modules" SET StartCopyPath=1
 )
 ECHO FATAL ERROR: ModuleNotFound in EnableModule.
 EXIT /B
