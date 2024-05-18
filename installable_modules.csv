@@ -4,3 +4,7 @@ Syati Global Layouts;-;Provides functionality to have layouts that are always lo
 Syati Object Factories;-;Provides Object Creation factories that other modules can register to. This allows new objects to be recognized by the game.;git;https://github.com/SMGCommunity/Syati_ObjectFactories
 Syati Initilizer Module;-;Required to make Syati Modules run properly;git;https://github.com/SMGCommunity/Syati_Init
 Syati Common Functions;-;Provides access to hook common functions used in the game.;git;https://github.com/SMGCommunity/Syati_CommonFunctionHooks
+SMG2 Open Ghost;Super Hackio;Cosmic Races in SMG2;git;https://github.com/SuperHackio/SMG2_OpenGhost
+SMG2 FPS Layout;Super Hackio;An FPS Counter for Super Mario Galaxy;git;https://github.com/SuperHackio/SMG2-FPSCounterLayout
+SMG2 WPad Input Display Layout;Super Hackio, SY24;A Layout that shows what inputs are being recieved by the game.;git;https://github.com/SuperHackio/SMG2_WPadDisplayLayout
+Extermination Counter;Super Hackio;That one planet from Space Junk...;git;https://github.com/SuperHackio/SMG2_ExterminationCounter
