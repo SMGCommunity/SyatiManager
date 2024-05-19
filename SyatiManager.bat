@@ -145,11 +145,12 @@ IF !ERRORLEVEL! NEQ 0 (
     ECHO An error occured while trying to build.
     ECHO [R] = Retry, [C] = Cancel
     CHOICE /C RC /N
-    IF !ERRORLEVEL! EQU 1 REM CLS && GOTO BuildScript
-    IF !ERRORLEVEL! EQU 2 REM CLS && GOTO MainSection
+    IF !ERRORLEVEL! EQU 1 CLS && GOTO BuildScript
+    IF !ERRORLEVEL! EQU 2 CLS && GOTO MainSection
 )
 ECHO.
 ECHO Built successfully
+IF EXIST Syati\Output\disc ECHO Note: Make sure to copy the disc/ folder into your game dump, otherwise the built modules may not work correctly.
 GOTO MainSection
 
 :LoaderScript
@@ -169,8 +170,8 @@ IF %ERRORLEVEL% EQU 1 (
         ECHO An error occured while trying to compile the loader.
         ECHO [R] = Retry, [C] = Cancel
         CHOICE /C RC /N
-        IF !ERRORLEVEL! EQU 1 REM CLS && GOTO LoaderScript
-        IF !ERRORLEVEL! EQU 2 REM CLS && GOTO MainSection
+        IF !ERRORLEVEL! EQU 1 CLS && GOTO LoaderScript
+        IF !ERRORLEVEL! EQU 2 CLS && GOTO MainSection
     )
 )
 IF %ERRORLEVEL% EQU 2 python buildloader.py JPN -o ../Output/
@@ -184,8 +185,8 @@ IF !ERRORLEVEL! NEQ 0 (
     ECHO An error occured while trying to compile the loader.
     ECHO [R] = Retry, [C] = Cancel
     CHOICE /C RC /N
-    IF !ERRORLEVEL! EQU 1 REM CLS && GOTO LoaderScript
-    IF !ERRORLEVEL! EQU 2 REM CLS && GOTO MainSection
+    IF !ERRORLEVEL! EQU 1 CLS && GOTO LoaderScript
+    IF !ERRORLEVEL! EQU 2 CLS && GOTO MainSection
 )
 ECHO.
 ECHO Compiled successfully
@@ -194,7 +195,7 @@ GOTO MainSection
 
 :ModuleManager
 TITLE Syati Manager - Module Manager
-REM CLS
+CLS
 SET ChoiceStr=
 SET ModuleList=
 SET IncrementTotal=0
@@ -270,8 +271,9 @@ FOR /F "tokens=1,* delims=," %%A IN ("%ModuleStr%") DO (
 GOTO :ModuleManager
 
 :ViewModuleDetails
+SET folderName=
 SET /A Target=%ModuleId%
-REM CLS
+CLS
 CALL :GetNameOfJSON !Target!
 IF %ERRORLEVEL% EQU 1 (
     SET /A Target=%~1-1
@@ -323,6 +325,7 @@ IF %ERRORLEVEL% EQU 1 (
     COLOR 09
     ECHO Not installed
     CALL :FindModuleFromList !Target!
+    IF ERRORLEVEL 1 GOTO :ModuleManager
     ECHO Name: !Name!
     ECHO Author: !Author!
     ECHO Description: !Description!
@@ -481,7 +484,12 @@ IF %ERRORLEVEL% GTR 1 (
     PAUSE
     GOTO :MainSection
 )
+FOR %%A IN ("!InstallUrl!") DO (
+    SET "part=%%~nxA"
+    SET "folderName=!part!"
+)
 CD ../../
+ROBOCOPY Syati\Modules\!folderName!\disc Syati\Output\disc /E >NUL
 COLOR 0F
 EXIT /B
 
@@ -501,7 +509,12 @@ IF %ERRORLEVEL% GTR 1 (
     PAUSE
     GOTO :MainSection
 )
+FOR %%A IN ("!InstallUrl!") DO (
+    SET "part=%%~nxA"
+    SET "folderName=!part!"
+)
 CD ../../
+ROBOCOPY Syati\Modules\!folderName!\disc Syati\Output\disc /E >NUL
 COLOR 0F
 EXIT /B
 
@@ -538,6 +551,7 @@ FOR /F "delims=." %%J IN ("!fileName!") DO SET fileNameNoExtension=%%J
 "\Program Files\7-Zip\7z" x !fileName! -o!fileNameNoExtension! >NUL
 RM -rf !fileName!
 CD ../../
+ROBOCOPY Syati\Modules\!folderName!\disc Syati\Output\disc /E >NUL
 COLOR 0F
 EXIT /B
 
@@ -574,6 +588,7 @@ FOR /F "delims=." %%J IN ("!fileName!") DO SET fileNameNoExtension=%%J
 "\Program Files\7-Zip\7z" x !fileName! -so | "\Program Files\7-Zip\7z" x -aoa -si -ttar -o!fileNameNoExtension! >NUL
 RM -rf !fileName!
 CD ../../
+ROBOCOPY Syati\Modules\!folderName!\disc Syati\Output\disc /E >NUL
 COLOR 0F
 EXIT /B
 
@@ -606,41 +621,69 @@ IF %ERRORLEVEL% GTR 1 (
     GOTO :MainSection
 )
 ECHO Extracting module !Name!...
-FOR /F "delims=." %%J IN ("!InstallFolder!") DO SET folderName=%%J
+SET folderComma=!InstallFolder:/=,!
+FOR %%J IN (!folderComma!) DO SET folderName=%%J
+ECHO !InstallFolder! | FINDSTR /C:"PTD"
+IF NOT ERRORLEVEL 1 SET folderName=!folderName!_PTD
 "\Program Files\7-Zip\7z" x github2tar -so | "\Program Files\7-Zip\7z" x -aoa -si -ttar -o!folderName! >NUL
 RM -rf github2tar
 CD ../../
+ROBOCOPY Syati\Modules\!folderName!\disc Syati\Output\disc /E >NUL
 COLOR 0F
 EXIT /B
 
 :DisableModule
 SET StartCopyPath=0
 SET jsonName=%jsonName:\= %
-FOR %%I IN (%jsonName%) DO (
+FOR %%I IN (!jsonName!) DO (
     ECHO %%I | FINDSTR /C:".json" 1>NUL
     IF NOT ERRORLEVEL 1 (
-        ROBOCOPY Syati\Modules\!folderName! Syati\DisabledModules\!folderName! /E /MOVE >NUL
-        COLOR 0F
-        EXIT /B
-    )
-    IF !StartCopyPath! EQU 1 SET folderName=!folderName!%%I\
-    IF "%%I" EQU "Modules" SET StartCopyPath=1
-)
-
-:RemoveModule
-SET StartCopyPath=0
-SET jsonName=%jsonName:\= %
-FOR %%I IN (%jsonName%) DO (
-    ECHO %%I | FINDSTR /C:".json" 1>NUL
-    IF NOT ERRORLEVEL 1 (
-        RM -rf Syati\Modules\!folderName! Syati\DisabledModules\!folderName! >NUL
-        COLOR 0F
-        EXIT /B
+        SET discPath="%CD%\Syati\Modules\!folderName!disc"
+        GOTO :DM_AfterLoop
     )
     IF !StartCopyPath! EQU 1 SET folderName=!folderName!%%I\
     IF "%%I" EQU "Modules" SET StartCopyPath=1
 )
 ECHO FATAL ERROR: ModuleNotFound in RemoveModule.
+EXIT /B
+:DM_AfterLoop
+CD %discPath%
+FOR /R %discPath% %%F IN (*) DO (
+    SET fullPath=%%F
+    SET "relativePath=!fullPath:%CD%=!"
+    ECHO %~dp0Syati\Output\disc!relativePath!
+    RM -rf "%~dp0Syati\Output\disc!relativePath!"
+)
+CD %~dp0
+ROBOCOPY Syati\Modules\!folderName! Syati\DisabledModules\!folderName! /E /MOVE >NUL
+COLOR 0F
+EXIT /B
+
+:RemoveModule
+SET StartCopyPath=0
+SET jsonName=%jsonName: =^ %
+SET jsonName=%jsonName:\= %
+FOR %%I IN (!jsonName!) DO (
+    ECHO %%I | FINDSTR /C:".json" 1>NUL
+    IF NOT ERRORLEVEL 1 (
+        SET discPath="%CD%\Syati\Modules\!folderName!disc"
+        GOTO :RM_AfterLoop
+    )
+    IF !StartCopyPath! EQU 1 SET folderName=!folderName!%%I\
+    IF "%%I" EQU "Modules" SET StartCopyPath=1
+)
+ECHO FATAL ERROR: ModuleNotFound in RemoveModule.
+EXIT /B
+:RM_AfterLoop
+CD %discPath%
+FOR /R %discPath% %%F IN (*) DO (
+    SET fullPath=%%F
+    SET "relativePath=!fullPath:%CD%=!"
+    RM -rf "%~dp0Syati\Output\disc!relativePath!"
+)
+CD %~dp0
+RM -rf Syati\Modules\!folderName! Syati\DisabledModules\!folderName! >NUL
+COLOR 0F
 EXIT /B
 
 :EnableModule
@@ -650,11 +693,12 @@ FOR %%I IN (%jsonName%) DO (
     ECHO %%I | FINDSTR /C:".json" 1>NUL
     IF NOT ERRORLEVEL 1 (
         ROBOCOPY Syati\DisabledModules\!folderName! Syati\Modules\!folderName! /E /MOVE >NUL
+        ROBOCOPY Syati\Modules\!folderName!\disc Syati\Output\disc /E >NUL
         COLOR 0F
         EXIT /B
     )
     IF !StartCopyPath! EQU 1 SET folderName=!folderName!%%I\
-    IF "%%I" EQU "Modules" SET StartCopyPath=1
+    IF "%%I" EQU "DisabledModules" SET StartCopyPath=1
 )
 ECHO FATAL ERROR: ModuleNotFound in EnableModule.
 EXIT /B
