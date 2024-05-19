@@ -163,9 +163,13 @@ IF %ERRORLEVEL% NEQ 0 (
     WINGET INSTALL PYTHON3
     ECHO.
 )
+ECHO Full [F] or Partial [P] XML?
+CHOICE /M "If you do not use a Riivolution XML yet, choose Full. " /C FP /N
+SET XMLType=%ERRORLEVEL%
 CHOICE /M "Which region? (ALL, JPN, USA, PAL, KOR, TWN)" /C AJUPKT /N
 IF %ERRORLEVEL% EQU 1 (
-    python buildloader.py -o ../Output/
+    IF !XMLType! EQU 1 python buildloader.py -o ../Output/ --full-xml
+    IF !XMLType! EQU 2 python buildloader.py -o ../Output/
     IF !ERRORLEVEL! NEQ 0 (
         ECHO An error occured while trying to compile the loader.
         ECHO [R] = Retry, [C] = Cancel
@@ -174,11 +178,26 @@ IF %ERRORLEVEL% EQU 1 (
         IF !ERRORLEVEL! EQU 2 CLS && GOTO MainSection
     )
 )
-IF %ERRORLEVEL% EQU 2 python buildloader.py JPN -o ../Output/
-IF %ERRORLEVEL% EQU 3 python buildloader.py USA -o ../Output/
-IF %ERRORLEVEL% EQU 4 python buildloader.py PAL -o ../Output/
-IF %ERRORLEVEL% EQU 5 python buildloader.py KOR -o ../Output/
-IF %ERRORLEVEL% EQU 6 python buildloader.py TWN -o ../Output/
+IF %ERRORLEVEL% EQU 2 (
+    IF !XMLType! EQU 1 python buildloader.py JPN -o ../Output/ --full-xml
+    IF !XMLType! EQU 2 python buildloader.py JPN -o ../Output/
+)
+IF %ERRORLEVEL% EQU 3 (
+    IF !XMLType! EQU 1 python buildloader.py USA -o ../Output/ --full-xml
+    IF !XMLType! EQU 2 python buildloader.py USA -o ../Output/
+)
+IF %ERRORLEVEL% EQU 4 (
+    IF !XMLType! EQU 1 python buildloader.py PAL -o ../Output/ --full-xml
+    IF !XMLType! EQU 2 python buildloader.py PAL -o ../Output/
+)
+IF %ERRORLEVEL% EQU 5 (
+    IF !XMLType! EQU 1 python buildloader.py KOR -o ../Output/ --full-xml
+    IF !XMLType! EQU 2 python buildloader.py KOR -o ../Output/
+)
+IF %ERRORLEVEL% EQU 6 (
+    IF !XMLType! EQU 1 python buildloader.py TWN -o ../Output/ --full-xml
+    IF !XMLType! EQU 2 python buildloader.py TWN -o ../Output/
+)
 CD ../../
 IF !ERRORLEVEL! NEQ 0 (
     ECHO.
