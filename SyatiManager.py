@@ -212,6 +212,8 @@ def installModule (module):
 def getModuleFromFolderPath (moduleFolderPath):
     global moduleData
     for module in moduleData:
+        if (module.ModuleType == "available"):
+            continue
         if (module.FolderPath == moduleFolderPath):
             return module
     return False
@@ -219,6 +221,8 @@ def getModuleFromFolderPath (moduleFolderPath):
 def getInstallableModuleFromFolderName (moduleFolderName):
     global moduleData
     for module in moduleData:
+        if (module.ModuleType != "available"):
+            continue
         if (module.FolderName == moduleFolderName):
             return module
     return False
