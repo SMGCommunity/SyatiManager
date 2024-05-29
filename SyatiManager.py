@@ -265,7 +265,7 @@ def newModule ():
     else:
         newFolderName = newModuleData["Name"].replace(" ", "")
         shutil.copytree("Syati/SyatiModuleTemplate", "Syati/Modules/" + newFolderName)
-        subprocess.run(["rm", "-rf", f"Syati/SyatiModuleTemplate/{newFolderName}/.git"])
+        subprocess.run(["rm", "-rf", f"Syati/Modules/{newFolderName}/.git"])
         os.remove(f"Syati/Modules/{newFolderName}/.gitattributes")
         os.remove(f"Syati/Modules/{newFolderName}/.gitignore")
         os.remove(f"Syati/Modules/{newFolderName}/include/.gitkeep")
@@ -474,8 +474,8 @@ if not os.path.isdir("Syati/"):
 print("Getting newest database...")
 try:
     with request.urlopen("https://github.com/SMGCommunity/SyatiManager/raw/main/installable_modules.json") as req:
-        moduleData = req.read()
-    installableModules = json.loads(moduleData)
+        installableJson = req.read()
+    installableModules = json.loads(installableJson)
 except:
     print("Failed to fetch module list. New modules may not be available.")
     installableModules = json.load(open("installable_modules.json", "r"))
