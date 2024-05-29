@@ -463,7 +463,7 @@ def updateModules ():
                 break
             elif (action.lower() == "a"):
                 updateAll = True
-        if (subprocess.run(["git", "-C", "Syati/Modules/" + module, "pull"], stderr=open(os.devnull, "wb")).returncode):
+        elif (hasGitUpdates("Syati/Modules/" + module) and subprocess.run(["git", "-C", "Syati/Modules/" + module, "pull"], stderr=open(os.devnull, "wb")).returncode):
             print(f"Error while updating {module}. Skipping update...")
 
 print("Syati Manager v2.0\nby Bavario\n-----------------")
