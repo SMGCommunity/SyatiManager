@@ -444,6 +444,8 @@ def moduleManager ():
                 moduleData[currentModule].ModuleType = "enabled"
 
 def hasGitUpdates (dir):
+    if (not os.path.isdir(f"{dir}/.git")):
+        return False
     proc = subprocess.run(f"git -C \"{dir}\" rev-parse FETCH_HEAD", stdout=subprocess.PIPE)
     fetch_head = proc.stdout.decode().strip()
     proc = subprocess.run(f"git -C \"{dir}\" rev-parse HEAD", stdout=subprocess.PIPE)
@@ -452,17 +454,8 @@ def hasGitUpdates (dir):
 
 def updateModules ():
     global moduleData
-    global installableModules
-    try:
-        with request.urlopen("https://github.com/SMGCommunity/SyatiManager/raw/main/installable_modules.json") as req:
-            moduleData = req.read()
-        installableModules = json.loads(moduleData)
-    except:
-        print("Failed to fetch module list. New modules may not be available.")
-        installableModules = json.load(open("installable_modules.json", "r"))
-        return
     updateAll = False
-    for module in os.listdir("Syati/Modules"):        
+    for module in os.listdir("Syati/Modules"):
         if (hasGitUpdates("Syati/Modules/" + module) and not updateAll):
             print(f"{module} has updates available.")
             action = input("[A] = Update All, [U] = Update, [X] = Do Not Update: ")
@@ -477,8 +470,18 @@ print("Syati Manager v2.0\nby Bavario\n-----------------")
 if not os.path.isdir("Syati/"):
     print("No instance of Syati was found. Please run SyatiSetup.py.")
     exit(1)
-print("Checking for updates...")
+
+print("Getting newest database...")
+try:
+    with request.urlopen("https://github.com/SMGCommunity/SyatiManager/raw/main/installable_modules.json") as req:
+        moduleData = req.read()
+    installableModules = json.loads(moduleData)
+except:
+    print("Failed to fetch module list. New modules may not be available.")
+    installableModules = json.load(open("installable_modules.json", "r"))
+print("Checking for module updates...")
 updateModules()
+
 while True:
     print("Would you like to build [B], compile the loader [L], manage modules [M] or quit [Q]?")
     match (input().lower()):
