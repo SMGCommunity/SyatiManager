@@ -374,6 +374,8 @@ def moduleManager ():
         print("--- Enabled Modules: ---")
         enabledModuleAmount = 0
         for module in os.listdir("Syati/Modules"):
+            if "." in module:
+                continue
             with open("Syati/Modules/" + module + "/ModuleInfo.json", "r") as infoJson:
                 moduleJson = json.load(infoJson)
             moduleInfo = createModuleInfoFromJson(moduleJson)
