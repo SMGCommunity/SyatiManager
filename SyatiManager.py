@@ -7,6 +7,7 @@ import json
 import tarfile
 import zipfile
 import shutil
+from pathlib import Path
 class ModuleInfo:
     def __init__(self, items: dict[str] = {}):
         self.Name = str()
@@ -31,7 +32,7 @@ class InstallableModule:
 moduleData = list[ModuleInfo]()
 installableModules = list[InstallableModule]()
 
-def wingetInstall (packageName, displayName):
+def wingetInstall (packageName :str, displayName :str):
     if sys.platform == "win32":
         print(f"{displayName} was not found. Would you like to download it now?")
         prompt = input("[Y/N] ")
@@ -44,116 +45,96 @@ def wingetInstall (packageName, displayName):
         print(f"{displayName} was not found. Please download it using your standard package manager.")
         exit(1)
 
-def buildScript ():
+def buildScript (regionList :list = list(), buildTasks :list = list(), outputPath :str = "Syati/Output"):
     global moduleData
-    if (sys.platform == "win32"):
-        os.system("cls")
-    else:
-        os.system("clear")
-        if (subprocess.run("wine", stderr=open(os.devnull, "wb")).returncode):
-            print("wine was not found. Please download it using your standard package manager.")
-            return
-    print("Which region? Press Enter to build all regions.")
-    match (input("[J] = JPN, [U] = USA, [P] = PAL, [K] = KOR, [T] = TWN: ").lower()):
-        case "j":
-            exitCode = subprocess.run(["./Syati/SyatiModuleBuildTool", "JPN", "Syati/Syati/", "Syati/Modules/", "Syati/Output/"]).returncode
-        case "u":
-            exitCode = subprocess.run(["./Syati/SyatiModuleBuildTool", "USA", "Syati/Syati/", "Syati/Modules/", "Syati/Output/"]).returncode
-        case "p":
-            exitCode = subprocess.run(["./Syati/SyatiModuleBuildTool", "PAL", "Syati/Syati/", "Syati/Modules/", "Syati/Output/"]).returncode
-        case "k":
-            exitCode = subprocess.run(["./Syati/SyatiModuleBuildTool", "KOR", "Syati/Syati/", "Syati/Modules/", "Syati/Output/"]).returncode
-        case "t":
-            exitCode = subprocess.run(["./Syati/SyatiModuleBuildTool", "TWN", "Syati/Syati/", "Syati/Modules/", "Syati/Output/"]).returncode
-        case _:
-            exitCode = subprocess.run(["./Syati/SyatiModuleBuildTool", "JPN", "Syati/Syati/", "Syati/Modules/", "Syati/Output/"]).returncode
-            if (exitCode):
-                print("Error while building target JPN. Continue building?")
-                if (input("[Y/N] ").lower() == "n"):
-                    return
-            exitCode = subprocess.run(["./Syati/SyatiModuleBuildTool", "USA", "Syati/Syati/", "Syati/Modules/", "Syati/Output/"]).returncode
-            if (exitCode):
-                print("Error while building target USA. Continue building?")
-                if (input("[Y/N] ").lower() == "n"):
-                    return
-            exitCode = subprocess.run(["./Syati/SyatiModuleBuildTool", "PAL", "Syati/Syati/", "Syati/Modules/", "Syati/Output/"]).returncode
-            if (exitCode):
-                print("Error while building target PAL. Continue building?")
-                if (input("[Y/N] ").lower() == "n"):
-                    return
-            exitCode = subprocess.run(["./Syati/SyatiModuleBuildTool", "KOR", "Syati/Syati/", "Syati/Modules/", "Syati/Output/"]).returncode
-            if (exitCode):
-                print("Error while building target KOR. Continue building?")
-                if (input("[Y/N] ").lower() == "n"):
-                    return
-            exitCode = subprocess.run(["./Syati/SyatiModuleBuildTool", "TWN", "Syati/Syati/", "Syati/Modules/", "Syati/Output/"]).returncode
-            if (exitCode):
-                print("Error while building target TWN. Continue building?")
-                if (input("[Y/N] ").lower() == "n"):
-                    return
-    if (exitCode):
-        print("\nError while building. Abort.")
-    else:
-        objectdbPath = ""
-        for module in moduleData:
-            if (module.ModuleType != "enabled"):
-                break
-            if os.path.isdir("Syati/Output/disc"):
-                shutil.rmtree("Syati/Output/disc")
-            for buildTask in module.BuildTasks:
-                print(f"Running build task `{buildTask}`")
-                if (buildTask == "SyatiManager_copydisc"):
-                    shutil.copytree(module.FolderPath + "/disc", "Syati/Output/disc")
-                else:
-                    subprocess.run(buildTask)
-            for objectdbEntry in module.ObjectDatabaseEntries:
-                if (not objectdbPath):
-                    objectdbPath = input("Please specify the path to Whitehole's objectdb.json: ")
-                with open(objectdbPath, "r") as f:
-                    objectdbData = json.load(f)
-                objectdbData.append(objectdbEntry)
-                with open(objectdbPath, "w") as f:
-                    json.dump(objectdbData, f)
-        print("\nBuilt successfully!")
-        if os.path.isdir("Syati/Output/disc"):
-            print("Note: Make sure to copy the disc/ folder into your game dump, otherwise the built modules may not work correctly.")
+    if (not regionList):
+        print("Which region? Press Enter to build all regions.")
+        match (input("[J] = JPN, [U] = USA, [P] = PAL, [K] = KOR, [T] = TWN: ").lower()):
+            case "j":
+                regionList = ["JPN"]
+            case "u":
+                regionList = ["USA"]
+            case "p":
+                regionList = ["PAL"]
+            case "k":
+                regionList = ["KOR"]
+            case "t":
+                regionList = ["TWN"]
+            case _:
+                regionList = ["JPN", "USA", "PAL", "KOR", "TWN"]
+    for region in regionList:
+        print(f"Building target {region}...")
+        if (subprocess.run(["./Syati/SyatiModuleBuildTool", region, "Syati/Syati/", "Syati/Modules/", outputPath]).returncode):
+            print(f"Failed building target {region}. Abort.")
+            return False
+    objectdbPath = ""
+    for module in moduleData:
+        if (module.ModuleType != "enabled"):
+            break
+        if os.path.isdir(f"{outputPath}/disc"):
+            shutil.rmtree(f"{outputPath}/disc")
+        for buildTask in module.BuildTasks + buildTasks:
+            print(f"Running build task `{buildTask}`")
+            if (buildTask == "SyatiManager_copydisc"):
+                shutil.copytree(module.FolderPath + "/disc", f"{outputPath}/disc")
+            elif (buildTask == "SyatiManager_buildfullloader"):
+                buildLoaderScript(regionList, True, outputPath)
+            elif (buildTask == "SyatiManager_buildpartialloader"):
+                buildLoaderScript(regionList, False, outputPath)
+            else:
+                subprocess.run(buildTask)
+        for objectdbEntry in module.ObjectDatabaseEntries:
+            if (not objectdbPath):
+                objectdbPath = input("Please specify the path to Whitehole's objectdb.json: ")
+            with open(objectdbPath, "r") as f:
+                objectdbData = json.load(f)
+            objectdbData.append(objectdbEntry)
+            with open(objectdbPath, "w") as f:
+                json.dump(objectdbData, f)
+    print("\nBuilt successfully!")
+    if os.path.isdir(f"{outputPath}/disc"):
+        print("Note: Make sure to copy the disc/ folder into your game dump, otherwise the built modules may not work correctly.")
+    return True
 
-def buildLoaderScript ():
-    if (sys.platform == "win32"):
+def buildLoaderScript (regionList :list = list(), makeFullXML :bool = None, outputPath :str = "../Output"):
+    """if (sys.platform == "win32"):
         os.system("cls")
     else:
         os.system("clear")
         if (subprocess.run("wine", stderr=open(os.devnull, "wb")).returncode):
             print("wine was not found. Please download it using your standard package manager.")
-            return
-    makeFullXML = False
-    print("Full [F] or Partial [P] XML?")
-    if (input("If you do not use a Riivolution XML yet, choose Full. ").lower() == "f"):
-        makeFullXML = True
-    print("Which region? Press Enter to build all regions.")
+            return"""
     os.chdir("Syati/Syati")
-    match (input("[J] = JPN, [U] = USA, [P] = PAL, [K] = KOR, [T] = TWN: ").lower()):
-        case "j":
-            exitCode = subprocess.run(f"python buildloader.py JPN -o ../Output/ {"--full-xml" if makeFullXML else ""}").returncode
-        case "u":
-            exitCode = subprocess.run(f"python buildloader.py USA -o ../Output/ {"--full-xml" if makeFullXML else ""}").returncode
-        case "p":
-            exitCode = subprocess.run(f"python buildloader.py PAL -o ../Output/ {"--full-xml" if makeFullXML else ""}").returncode
-        case "k":
-            exitCode = subprocess.run(f"python buildloader.py KOR -o ../Output/ {"--full-xml" if makeFullXML else ""}").returncode
-        case "t":
-            exitCode = subprocess.run(f"python buildloader.py TWN -o ../Output/ {"--full-xml" if makeFullXML else ""}").returncode
-        case _:
-            exitCode = subprocess.run(["python", "buildloader.py", "-o", "../Output/", ("--full-xml" if makeFullXML else "")]).returncode
+    if (makeFullXML == None):
+        print("Full [F] or Partial [P] XML?")
+        if (input("If you do not use a Riivolution XML yet, choose Full. ").lower() == "f"):
+            makeFullXML = True
+    if (not regionList):
+        print("Which region? Press Enter to build all regions.")
+        match (input("[J] = JPN, [U] = USA, [P] = PAL, [K] = KOR, [T] = TWN: ").lower()):
+            case "j":
+                regionList = ["JPN"]
+            case "u":
+                regionList = ["USA"]
+            case "p":
+                regionList = ["PAL"]
+            case "k":
+                regionList = ["KOR"]
+            case "t":
+                regionList = ["TWN"]
+            case _:
+                regionList = ["JPN", "USA", "PAL", "KOR", "TWN"]
+    for region in regionList:
+        if (subprocess.run(f"python buildloader.py {region} -o {outputPath} {"--full-xml" if makeFullXML else ""}").returncode):
+            print("\nError while building the loader. Abort.")
+            os.chdir("../..")
+            return False
     os.chdir("../..")
-    if (exitCode):
-        print("\nError while building the loader. Abort.")
-    else:
-        print("\nBuilt the loader successfully!")
+    print("\nBuilt the loader successfully!")
+    return True
 
-def installModule (module):
+def installModule (module :InstallableModule, installAllDeps :bool = False):
     global moduleData
-    os.system("cls" if sys.platform == "win32" else "clear")
     match (module.InstallType):
         case "git" | "git_recursive":
             if (subprocess.run(["git"], stdout=open(os.devnull, "wb")).returncode != 1):
@@ -202,14 +183,16 @@ def installModule (module):
     moduleInfo.ModuleType = "enabled"
     moduleInfo.FolderPath = "Syati/Modules/" + module.FolderName
     moduleData.append(moduleInfo)
-    if (not checkDependencies(moduleInfo)):
+    if (not checkDependencies(moduleInfo, installAllDeps)):
         shutil.move(module.FolderPath, "Syati/DisabledModules/")
         module.FolderPath.replace("/Modules/", "/DisabledModules/")
         module.ModuleType = "disabled"
+        print("Abort.")
+        return "disabled"
     print("Done.")
     return True
 
-def getModuleFromFolderPath (moduleFolderPath):
+def getModuleFromFolderPath (moduleFolderPath :str):
     global moduleData
     for module in moduleData:
         if (module.ModuleType == "available"):
@@ -218,7 +201,7 @@ def getModuleFromFolderPath (moduleFolderPath):
             return module
     return False
 
-def getInstallableModuleFromFolderName (moduleFolderName):
+def getInstallableModuleFromFolderName (moduleFolderName :str):
     global moduleData
     for module in moduleData:
         if (module.ModuleType != "available"):
@@ -227,7 +210,7 @@ def getInstallableModuleFromFolderName (moduleFolderName):
             return module
     return False
 
-def checkDependencies (module):
+def checkDependencies (module :ModuleInfo, installAll :bool = False):
     for dependency in module.InstallDependencies:
         dependencyData = getModuleFromFolderPath("Syati/DisabledModules/" + dependency)
         if (dependencyData):
@@ -248,11 +231,11 @@ def checkDependencies (module):
                 if (not dependencyData):
                     print(f"Fatal error: Module {dependency} is required but was not found.")
                     return False
-                print(f"This module requires the installable module {dependency}. Download it now?")
-                if (input("[Y/N] ").lower() == "y"):
-                    installModule(dependencyData)
-                else:
-                    return False
+                if (not installAll):
+                    print(f"This module requires the installable module {dependency}. Download it now?")
+                    if (input("[Y/N] ").lower() == "n"):
+                        return False
+                installModule(dependencyData)
     return True
 
 def newModule ():
@@ -278,7 +261,7 @@ def newModule ():
             json.dump(newModuleData, f)
     os.system("cls" if sys.platform == "win32" else "clear")
 
-def showModuleDetails (moduleId):
+def showModuleDetails (moduleId :int):
     global moduleData
     os.system("cls" if sys.platform == "win32" else "clear")
     if (moduleData[moduleId].ModuleType == "enabled"):
@@ -334,9 +317,10 @@ def showModuleDetails (moduleId):
         print(f"InstallType: {moduleData[moduleId].InstallType}")
         match (input("[I] = Install, [C] = Cancel: ").lower()):
             case "i":
+                os.system("cls" if sys.platform == "win32" else "clear")
                 installModule(moduleData[moduleId])
 
-def createModuleInfoFromJson (moduleJson):
+def createModuleInfoFromJson (moduleJson :object):
     moduleInfo = ModuleInfo()
     moduleInfo.Name = moduleJson.get("Name")
     moduleInfo.Author = moduleJson.get("Author")
@@ -346,7 +330,7 @@ def createModuleInfoFromJson (moduleJson):
     moduleInfo.ObjectDatabaseEntries = moduleJson.get("ObjectDatabaseEntries", list())
     return moduleInfo
 
-def createInstallableModuleFromJson (moduleJson):
+def createInstallableModuleFromJson (moduleJson :object):
     moduleInfo = InstallableModule()
     moduleInfo.Name = moduleJson.get("Name")
     moduleInfo.Author = moduleJson.get("Author")
@@ -358,121 +342,174 @@ def createInstallableModuleFromJson (moduleJson):
     moduleInfo.FolderName = moduleJson.get("FolderName")
     return moduleInfo
 
-def checkIfModuleIsInstalled (moduleName):
+def checkIfModuleIsInstalled (moduleName :str):
     global moduleData
     for module in moduleData:
+        if module.ModuleType == "available":
+            return False
         if module.Name == moduleName:
             return True
     return False
 
-def moduleManager ():
+def initModules (printOutInfo :bool = True):
     global moduleData
     global installableModules
-    while True:
-        moduleData = list()
-        totalModuleAmount = 0
+    moduleData = list()
+    totalModuleAmount = 0
+    if (printOutInfo):
         print("--- Enabled Modules: ---")
-        enabledModuleAmount = 0
-        for module in os.listdir("Syati/Modules"):
-            if "." in module:
-                continue
-            with open("Syati/Modules/" + module + "/ModuleInfo.json", "r") as infoJson:
-                moduleJson = json.load(infoJson)
-            moduleInfo = createModuleInfoFromJson(moduleJson)
-            moduleInfo.ModuleType = "enabled"
-            moduleInfo.FolderPath = "Syati/Modules/" + module
-            moduleData.append(moduleInfo)
+    enabledModuleAmount = 0
+    for module in os.listdir("Syati/Modules"):
+        if module[0] == ".": # ignore modules with a . in front of them
+            continue
+        with open("Syati/Modules/" + module + "/ModuleInfo.json", "r") as infoJson:
+            moduleJson = json.load(infoJson)
+        moduleInfo = createModuleInfoFromJson(moduleJson)
+        moduleInfo.ModuleType = "enabled"
+        moduleInfo.FolderPath = "Syati/Modules/" + module
+        moduleData.append(moduleInfo)
+        if (printOutInfo):
             print(f"#{totalModuleAmount}: {moduleInfo.Name}")
-            totalModuleAmount += 1
-            enabledModuleAmount += 1
-        if (not enabledModuleAmount):
-            print("No enabled modules.")
+        totalModuleAmount += 1
+        enabledModuleAmount += 1
+    if (not enabledModuleAmount and printOutInfo):
+        print("No enabled modules.")
+    if (printOutInfo):
         print("\n--- Disabled Modules: ---")
-        disabledModuleAmount = 0
-        for module in os.listdir("Syati/DisabledModules"):
-            if "." in module:
-                continue
-            with open("Syati/DisabledModules/" + module + "/ModuleInfo.json", "r") as infoJson:
-                moduleJson = json.load(infoJson)
-            moduleInfo = createModuleInfoFromJson(moduleJson)
-            moduleInfo.ModuleType = "disabled"
-            moduleInfo.FolderPath = "Syati/DisabledModules/" + module
-            moduleData.append(moduleInfo)
+    disabledModuleAmount = 0
+    for module in os.listdir("Syati/DisabledModules"):
+        if "." in module:
+            continue
+        with open("Syati/DisabledModules/" + module + "/ModuleInfo.json", "r") as infoJson:
+            moduleJson = json.load(infoJson)
+        moduleInfo = createModuleInfoFromJson(moduleJson)
+        moduleInfo.ModuleType = "disabled"
+        moduleInfo.FolderPath = "Syati/DisabledModules/" + module
+        moduleData.append(moduleInfo)
+        if (printOutInfo):
             print(f"#{totalModuleAmount}: {moduleInfo.Name}")
-            totalModuleAmount += 1
-            disabledModuleAmount += 1
-        if (not disabledModuleAmount):
-            print("No disabled modules.")
+        totalModuleAmount += 1
+        disabledModuleAmount += 1
+    if (not disabledModuleAmount and printOutInfo):
+        print("No disabled modules.")
+    if (printOutInfo):
         print("\n--- Available Modules: ---")
-        installableModuleAmount = 0
-        for module in installableModules:
-            if (checkIfModuleIsInstalled(module.get("Name"))):
-                continue
-            moduleInfo = InstallableModule()
-            moduleInfo.Name = module.get("Name")
-            moduleInfo.Author = module.get("Author")
-            moduleInfo.Description = module.get("Description")
-            moduleInfo.InstallType = module.get("InstallType")
-            moduleInfo.InstallUrl = module.get("InstallUrl")
-            moduleInfo.GitRepo = module.get("GitRepo")
-            moduleInfo.GitPath = module.get("GitPath")
-            moduleInfo.FolderName = module.get("FolderName")
-            moduleInfo.ModuleType = "available"
-            moduleData.append(moduleInfo)
+    installableModuleAmount = 0
+    for module in installableModules:
+        if (checkIfModuleIsInstalled(module.get("Name"))):
+            continue
+        moduleInfo = InstallableModule()
+        moduleInfo.Name = module.get("Name")
+        moduleInfo.Author = module.get("Author")
+        moduleInfo.Description = module.get("Description")
+        moduleInfo.InstallType = module.get("InstallType")
+        moduleInfo.InstallUrl = module.get("InstallUrl")
+        moduleInfo.GitRepo = module.get("GitRepo")
+        moduleInfo.GitPath = module.get("GitPath")
+        moduleInfo.FolderName = module.get("FolderName")
+        moduleInfo.ModuleType = "available"
+        moduleData.append(moduleInfo)
+        if (printOutInfo):
             print(f"#{totalModuleAmount}: {moduleInfo.Name}")
-            totalModuleAmount += 1
-            installableModuleAmount += 1
-        if (not installableModuleAmount):
-            print("No available modules.")
-        print("\n[0] - View Details for Module #0")
-        print("[0,1,2] - Enable Modules #0, #1, #2")
-        print("[N] - Create New Module")
-        print("[C] - Cancel")
-        actionStr = input().lower()
-        if (actionStr == "c"):
-            return
-        elif (actionStr == "n"):
-            newModule()
-        elif (not actionStr.count(",")):
-            showModuleDetails(int(actionStr))
-        else:
-            for currentModule in actionStr.split(","):
-                currentModule = int(currentModule)
-                if (moduleData[currentModule].ModuleType == "available"):
-                    installModule(moduleData[currentModule])
-                    continue
-                elif (moduleData[currentModule].ModuleType == "enabled"):
-                    continue
+        totalModuleAmount += 1
+        installableModuleAmount += 1
+    if (not installableModuleAmount and printOutInfo):
+        print("No available modules.")
 
-                if (not checkDependencies(moduleData[currentModule])):
-                    print("Abort.")
-                    return
-                shutil.move(moduleData[currentModule].FolderPath, "Syati/Modules/")
-                moduleData[currentModule].FolderPath.replace("/DisabledModules/", "/Modules/")
-                moduleData[currentModule].ModuleType = "enabled"
+def moduleManager ():
+    initModules()
+    print("\n[0] - View Details for Module #0")
+    print("[0,1,2] - Enable Modules #0, #1, #2")
+    print("[N] - Create New Module")
+    print("[C] - Cancel")
+    actionStr = input().lower()
+    if (actionStr == "c"):
+        return
+    elif (actionStr == "n"):
+        newModule()
+    elif (not actionStr.count(",")):
+        showModuleDetails(int(actionStr))
+    else:
+        for currentModule in actionStr.split(","):
+            currentModule = int(currentModule)
+            if (moduleData[currentModule].ModuleType == "available"):
+                installModule(moduleData[currentModule])
+                continue
+            elif (moduleData[currentModule].ModuleType == "enabled"):
+                continue
 
-def hasGitUpdates (dir):
-    if (not os.path.isdir(f"{dir}/.git")):
-        return False
-    proc = subprocess.run(f"git -C \"{dir}\" rev-parse FETCH_HEAD", stdout=subprocess.PIPE)
-    fetch_head = proc.stdout.decode().strip()
-    proc = subprocess.run(f"git -C \"{dir}\" rev-parse HEAD", stdout=subprocess.PIPE)
-    head = proc.stdout.decode().strip()
-    return head != fetch_head
+            if (not checkDependencies(moduleData[currentModule])):
+                print("Abort.")
+                return
+            shutil.move(moduleData[currentModule].FolderPath, "Syati/Modules/")
+            moduleData[currentModule].FolderPath.replace("/DisabledModules/", "/Modules/")
+            moduleData[currentModule].ModuleType = "enabled"
+
+def getInstallableModuleFromModuleName (moduleName :str):
+    global installableModules
+    for installableModule in installableModules:
+        if (installableModule["Name"] == moduleName):
+            return installableModule
+    return False
 
 def updateModules ():
     global moduleData
-    updateAll = False
-    for module in os.listdir("Syati/Modules"):
-        if (hasGitUpdates("Syati/Modules/" + module) and not updateAll):
-            print(f"{module} has updates available.")
-            action = input("[A] = Update All, [U] = Update, [X] = Do Not Update: ")
-            if (action.lower() == "x"):
-                break
-            elif (action.lower() == "a"):
-                updateAll = True
-        elif (hasGitUpdates("Syati/Modules/" + module) and subprocess.run(["git", "-C", "Syati/Modules/" + module, "pull"], stderr=open(os.devnull, "wb")).returncode):
-            print(f"Error while updating {module}. Skipping update...")
+    os.system("cls" if sys.platform == "win32" else "clear")
+    print("Updating all modules...")
+    for module in moduleData:
+        if module.ModuleType == "available":
+            print("\nDone.")
+            return
+        print(f"{module.Name}: ", end="\n\t")
+        if not os.path.isdir(f"{module.FolderPath}/.git"):
+            installableModule = getInstallableModuleFromModuleName(module.Name)
+            if (not installableModule):
+                print("Warning: Could not find an install method for module. Skipping update...")
+                continue
+            if (installableModule["InstallType"] == "url_tar"):
+                print("Redownloading module...")
+                pathToModuleTar = f"{module.FolderPath}/../{os.path.basename(module.InstallUrl)}"
+                with request.urlopen(module.InstallUrl) as req:
+                    moduleTar = req.read()
+                with open(pathToModuleTar, "wb") as f:
+                    f.write(moduleTar)
+                shutil.rmtree(module.FolderPath)
+                with tarfile.open(pathToModuleTar) as f:
+                    f.extractall(".")
+                os.remove(pathToModuleTar)
+                print("\tSuccess.")
+            elif (installableModule["InstallType"] == "url_zip"):
+                print("Redownloading module...")
+                pathToModuleTar = f"{module.FolderPath}/../{os.path.basename(module.InstallUrl)}"
+                with request.urlopen(module.InstallUrl) as req:
+                    moduleTar = req.read()
+                with open(pathToModuleTar, "wb") as f:
+                    f.write(moduleTar)
+                shutil.rmtree(module.FolderPath)
+                with zipfile.ZipFile.open(pathToModuleTar) as f:
+                    f.extractall(".")
+                os.remove(pathToModuleTar)
+                print("\tSuccess.")
+            elif (installableModule["InstallType"] == "git_folder"):
+                print("Redownloading module...")
+                pathToModuleTar = f"{module.FolderPath}/../{os.path.basename(installableModule["GitPath"])}"
+                with request.urlopen(f"https://mariogalaxy.org/github2tar?repo={installableModule["GitRepo"]}&path={installableModule["GitPath"]}") as req:
+                    moduleTar = req.read()
+                with open(pathToModuleTar + ".tar.xz", "wb") as f:
+                    f.write(moduleTar)
+                shutil.rmtree(module.FolderPath)
+                os.mkdir(pathToModuleTar)
+                os.chdir(pathToModuleTar)
+                with tarfile.open("../" + os.path.basename(pathToModuleTar) + ".tar.xz") as f:
+                    f.extractall(".")
+                os.chdir("../../..")
+                os.remove(pathToModuleTar + ".tar.xz")
+                print("\tSuccess.")
+            else:
+                print("\tWarning: Could not find an install method for module. Skipping update...")
+        else:
+            if (subprocess.run(["git", "-C", module.FolderPath, "pull"]).returncode):
+                print(f"Error while updating {module}. Skipping update...")
 
 print("Syati Manager v2.0\nby Bavario\n-----------------")
 if not os.path.isdir("Syati/"):
@@ -487,11 +524,44 @@ try:
 except:
     print("Failed to fetch module list. New modules may not be available.")
     installableModules = json.load(open("installable_modules.json", "r"))
-print("Checking for module updates...")
-updateModules()
+
+if (len(sys.argv) > 1):
+    initModules(False)
+    outputPath = f"Syati/Output/{os.path.splitext(os.path.basename(sys.argv[1]))[0]}"
+    print(f"Building solution {os.path.basename(outputPath)}...")
+    with open(sys.argv[1], "r") as f:
+        solutionData = json.load(f)
+    installAll = (True if "InstallAll" in solutionData else False)
+    for module in solutionData["Modules"]:
+        if (os.path.isdir(f"Syati/Modules/{module}")):
+            print(f"Module {module} is already enabled.")
+            continue
+        elif (os.path.isdir(f"Syati/DisabledModules/{module}")):
+            print(f"Enabling module {module}...")
+            shutil.move(f"Syati/DisabledModules/{module}", f"Syati/Modules/{module}")
+        else:
+            installableModule = getInstallableModuleFromFolderName(module)
+            if (not installableModule):
+                print(f"Fatal: No way to install module {module} was found.")
+                exit(1)
+            if (installModule(installableModule, installAll) == "disabled"):
+                print(f"Solution {os.path.basename(outputPath)} cannot be built.")
+    print("\nAll required modules enabled. Building...")
+    if ("BuildTasks" not in solutionData):
+        solutionData["BuildTasks"] = list()
+    if ("OutputPath" not in solutionData):
+        solutionData["OutputPath"] = "Syati/Output"
+    else:
+        path = Path(sys.argv[1])
+        solutionData["OutputPath"] = (str(path.parent) if path.is_file() else str(path)) + "/" + solutionData["OutputPath"]
+    if (not buildScript(solutionData["Regions"], solutionData["BuildTasks"], solutionData["OutputPath"])):
+        print(f"Solution {os.path.basename(outputPath)} cannot be built.")
+        exit(1)
+    print(f"Solution {os.path.basename(outputPath)} built successfully!")
+    exit(0)
 
 while True:
-    print("Would you like to build [B], compile the loader [L], manage modules [M] or quit [Q]?")
+    print("Would you like to build [B], compile the loader [L], manage modules [M], update modules [U] or quit [Q]?")
     match (input().lower()):
         case "b":
             buildScript()
@@ -503,5 +573,8 @@ while True:
             os.system("cls" if sys.platform == "win32" else "clear")
             moduleManager()
             continue
+        case "u":
+            initModules(False)
+            updateModules()
         case "q":
             exit(0)
