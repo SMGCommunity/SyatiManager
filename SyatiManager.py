@@ -417,33 +417,34 @@ def initModules (printOutInfo :bool = True):
         print("No available modules.")
 
 def moduleManager ():
-    initModules()
-    print("\n[0] - View Details for Module #0")
-    print("[0,1,2] - Enable Modules #0, #1, #2")
-    print("[N] - Create New Module")
-    print("[C] - Cancel")
-    actionStr = input().lower()
-    if (actionStr == "c"):
-        return
-    elif (actionStr == "n"):
-        newModule()
-    elif (not actionStr.count(",")):
-        showModuleDetails(int(actionStr))
-    else:
-        for currentModule in actionStr.split(","):
-            currentModule = int(currentModule)
-            if (moduleData[currentModule].ModuleType == "available"):
-                installModule(moduleData[currentModule])
-                continue
-            elif (moduleData[currentModule].ModuleType == "enabled"):
-                continue
-
-            if (not checkDependencies(moduleData[currentModule])):
-                print("Abort.")
-                return
-            shutil.move(moduleData[currentModule].FolderPath, "Syati/Modules/")
-            moduleData[currentModule].FolderPath.replace("/DisabledModules/", "/Modules/")
-            moduleData[currentModule].ModuleType = "enabled"
+    while True:
+        initModules()
+        print("\n[0] - View Details for Module #0")
+        print("[0,1,2] - Enable Modules #0, #1, #2")
+        print("[N] - Create New Module")
+        print("[C] - Cancel")
+        actionStr = input().lower()
+        if (actionStr == "c"):
+            return
+        elif (actionStr == "n"):
+            newModule()
+        elif (not actionStr.count(",")):
+            showModuleDetails(int(actionStr))
+        else:
+            for currentModule in actionStr.split(","):
+                currentModule = int(currentModule)
+                if (moduleData[currentModule].ModuleType == "available"):
+                    installModule(moduleData[currentModule])
+                    continue
+                elif (moduleData[currentModule].ModuleType == "enabled"):
+                    continue
+                
+                if (not checkDependencies(moduleData[currentModule])):
+                    print("Abort.")
+                    return
+                shutil.move(moduleData[currentModule].FolderPath, "Syati/Modules/")
+                moduleData[currentModule].FolderPath.replace("/DisabledModules/", "/Modules/")
+                moduleData[currentModule].ModuleType = "enabled"
 
 def getInstallableModuleFromModuleName (moduleName :str):
     global installableModules
