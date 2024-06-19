@@ -68,11 +68,11 @@ def buildScript (regionList :list = list(), buildTasks :list = list(), outputPat
             print(f"Failed building target {region}. Abort.")
             return False
     objectdbPath = ""
+    if os.path.isdir(f"{outputPath}/disc"):
+        shutil.rmtree(f"{outputPath}/disc")
     for module in moduleData:
         if (module.ModuleType != "enabled"):
             break
-        if os.path.isdir(f"{outputPath}/disc"):
-            shutil.rmtree(f"{outputPath}/disc")
         for buildTask in module.BuildTasks + buildTasks:
             print(f"Running build task `{buildTask}`")
             if (buildTask == "SyatiManager_copydisc"):
@@ -438,7 +438,7 @@ def moduleManager ():
                     continue
                 elif (moduleData[currentModule].ModuleType == "enabled"):
                     continue
-                
+
                 if (not checkDependencies(moduleData[currentModule])):
                     print("Abort.")
                     return
@@ -565,6 +565,7 @@ while True:
     print("Would you like to build [B], compile the loader [L], manage modules [M], update modules [U] or quit [Q]?")
     match (input().lower()):
         case "b":
+            initModules(False)
             buildScript()
             continue
         case "l":
