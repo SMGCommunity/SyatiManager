@@ -45,8 +45,28 @@ def wingetInstall (packageName :str, displayName :str):
         print(f"{displayName} was not found. Please download it using your standard package manager.")
         exit(1)
 
+def runBuildTask (buildTask :dict, srcPath :str):
+    if (buildTask["Task"] == "Copy"):
+        shutil.copytree(f"{srcPath}/{buildTask["From"]}", f"{srcPath}/{buildTask["To"]}")
+    elif (buildTask["Task"] == "Command"):
+        if (sys.platform == "win32" and subprocess.run(buildTask["win32"]).returncode):
+            print("Error while running build task.")
+            return False
+        elif (subprocess.run(buildTask["linux"]).returncode):
+            print("Error while running build task.")
+            return False
+    elif (buildTask["Task"] == "BuildLoader"):
+        if (not buildLoaderScript(buildTask["Regions"], buildTask["FullLoader"], f"{srcPath}/{buildTask["OutputPath"]}")):
+            return False
+    else:
+        print(f"Unknown task type {buildTask["Task"]}.")
+        return False
+    return True
+
 def buildScript (regionList :list = list(), buildTasks :list = list(), outputPath :str = "Syati/Output"):
     global moduleData
+    if (not os.path.isdir(outputPath)):
+        os.makedirs(outputPath)
     if (not regionList):
         print("Which region? Press Enter to build all regions.")
         match (input("[J] = JPN, [U] = USA, [P] = PAL, [K] = KOR, [T] = TWN: ").lower()):
@@ -73,16 +93,10 @@ def buildScript (regionList :list = list(), buildTasks :list = list(), outputPat
     for module in moduleData:
         if (module.ModuleType != "enabled"):
             break
+        print("Running build tasks...")
         for buildTask in module.BuildTasks + buildTasks:
-            print(f"Running build task `{buildTask}`")
-            if (buildTask == "SyatiManager_copydisc"):
-                shutil.copytree(module.FolderPath + "/disc", f"{outputPath}/disc")
-            elif (buildTask == "SyatiManager_buildfullloader"):
-                buildLoaderScript(regionList, True, outputPath)
-            elif (buildTask == "SyatiManager_buildpartialloader"):
-                buildLoaderScript(regionList, False, outputPath)
-            else:
-                subprocess.run(buildTask)
+            if (not runBuildTask(buildTask, module.FolderPath)):
+                return False
         for objectdbEntry in module.ObjectDatabaseEntries:
             if (not objectdbPath):
                 objectdbPath = input("Please specify the path to Whitehole's objectdb.json: ")
@@ -105,6 +119,8 @@ def buildLoaderScript (regionList :list = list(), makeFullXML :bool = None, outp
             print("wine was not found. Please download it using your standard package manager.")
             return"""
     os.chdir("Syati/Syati")
+    if (not os.path.isdir(outputPath)):
+        os.makedirs(outputPath)
     if (makeFullXML == None):
         print("Full [F] or Partial [P] XML?")
         if (input("If you do not use a Riivolution XML yet, choose Full. ").lower() == "f"):
@@ -547,6 +563,7 @@ if (len(sys.argv) > 1):
                 exit(1)
             if (installModule(installableModule, installAll) == "disabled"):
                 print(f"Solution {os.path.basename(outputPath)} cannot be built.")
+    initModules(False)
     print("\nAll required modules enabled. Building...")
     if ("BuildTasks" not in solutionData):
         solutionData["BuildTasks"] = list()

@@ -40,10 +40,23 @@ If you use `git_folder`, instead of providing an `InstallUrl`, you need to inste
 
 ## Additional support
 ### Build Tasks
-By specifying a build task in the ModuleInfo.json file of your Module, SyatiManager will run the task in the command prompt. The only exception is `SyatiManager_copydisc`, which copies the contents of the Module's disc/ folder into the collective Output/disc/ folder.
+By specifying a build task in the ModuleInfo.json file of your Module, SyatiManager will run the task you specified. There are three different build task types:
 ```json
 {
-    "BuildTasks": ["SyatiManager_copydisc", "echo hello"]
+    "BuildTasks": [{
+        "Task": "Copy",
+        "From": "{YourPathHere}",
+        "To": "{YourPathHere}",
+    }, {
+        "Task": "BuildLoader",
+        "Regions": ["PAL", "USA", "JPN"],
+        "FullLoader": true,
+        "OutputPath": "{YourPathHere}"
+    }, {
+        "Task": "Command",
+        "win32": "ECHO Hello",
+        "linux": "echo Hello"
+    }]
 }
 ```
 
@@ -51,7 +64,7 @@ By specifying a build task in the ModuleInfo.json file of your Module, SyatiMana
 By specifying an install dependency in the ModuleInfo.json file of your Module, SyatiManager will check if the desired dependency is installed and enabled. If not, it will simply install/enable that dependency.
 ```json
 {
-    "InstallDependencies": ["Syati_CommonFunctionHooks"]
+    "InstallDependencies": ["ModuleB"]
 }
 ```
 
