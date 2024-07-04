@@ -3,7 +3,9 @@ from urllib import request
 from io import BytesIO
 import subprocess, os, sys
 
-CW = "https://mariogalaxy.org/CodeWarrior-Syati.zip"
+CW_WIN32 = "https://mariogalaxy.org/CodeWarrior-Syati.zip"
+CW_LINUX = "https://mariogalaxy.org/mwcceppc-syati"
+CWASM_LINUX = "https://mariogalaxy.org/mwasmeppc-syati"
 KAMEK = "https://github.com/Treeki/Kamek/releases/download/2024-04-10_prerelease/kamek_2024-04-10_win-x64.zip"
 SYATI = "https://github.com/SMGCommunity/Syati"
 SMBT_WIN32 = "https://github.com/SMGCommunity/SyatiModuleBuildTool/releases/latest/download/SyatiModuleBuildTool.exe"
@@ -13,10 +15,22 @@ TEMPLATE = "https://github.com/SMGCommunity/SyatiModuleTemplate"
 
 def Download_CW():
     print("Downloading CodeWarrior Compiler...")
-    with request.urlopen(CW) as req:
-        data = BytesIO(req.read())
-    with ZipFile(data) as zip:
-        zip.extractall("CodeWarrior")
+    if (sys.platform == "win32"):
+        with request.urlopen(CW_WIN32) as req:
+            data = BytesIO(req.read())
+        with ZipFile(data) as zip:
+            zip.extractall("CodeWarrior")
+    else:
+        with request.urlopen(CW_LINUX) as req:
+            cwData = req.read()
+        with open("CodeWarrior/mwcceppc", "wb") as f:
+            f.write(cwData)
+        with request.urlopen(CWASM_LINUX) as req:
+            cwData = req.read()
+        with open("CodeWarrior/mwasmeppc", "wb") as f:
+            f.write(cwData)
+        os.chmod('mwcceppc', 0o755)
+        os.chmod('mwasmeppc', 0o755)
 
 def Download_Kamek():
     print("Downloading Kamek Linker...")
