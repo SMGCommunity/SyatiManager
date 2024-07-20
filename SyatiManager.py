@@ -99,9 +99,6 @@ def buildScript (regionList :list = list(), buildTasks :list = list(), outputPat
             print(f"Failed building target {region}. Abort.")
             return False
     objectdbPath = ""
-    """if os.path.isdir(f"{outputPath}/disc"):
-        shutil.rmtree(f"{outputPath}/disc")
-        os.makedirs(f"{outputPath}/disc")"""
     for module in moduleData:
         if (module.ModuleType != "enabled"):
             break
@@ -123,13 +120,6 @@ def buildScript (regionList :list = list(), buildTasks :list = list(), outputPat
     return True
 
 def buildLoaderScript (regionList :list = list(), makeFullXML :bool = None, outputPath :str = "../Output"):
-    """if (sys.platform == "win32"):
-        os.system("cls")
-    else:
-        os.system("clear")
-        if (subprocess.run("wine", stderr=open(os.devnull, "wb")).returncode):
-            print("wine was not found. Please download it using your standard package manager.")
-            return"""
     os.chdir("Syati/Syati")
     if (not os.path.isdir(outputPath)):
         os.makedirs(outputPath)
@@ -547,15 +537,17 @@ if not os.path.isdir("Syati/"):
 
 print("Getting newest database...")
 try:
+    if (sys.argv[1] == "--use-local"):
+        del sys.argv[1]
+        raise Exception
     with request.urlopen("https://github.com/SMGCommunity/SyatiManager/raw/main/installable_modules.json") as req:
         installableJson = req.read()
     installableModules = json.loads(installableJson)
 except:
-    print("Failed to fetch module list. New modules may not be available.")
+    print("Using local module list. New modules may not be available.")
     installableModules = json.load(open("installable_modules.json", "r"))
 
 if (len(sys.argv) > 1):
-    initModules(False)
     outputPath = f"Syati/Output/{os.path.splitext(os.path.basename(sys.argv[1]))[0]}"
     print(f"Building solution {os.path.basename(outputPath)}...")
     with open(sys.argv[1], "r") as f:
