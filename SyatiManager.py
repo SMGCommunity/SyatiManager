@@ -45,9 +45,20 @@ def wingetInstall (packageName :str, displayName :str):
         print(f"{displayName} was not found. Please download it using your standard package manager.")
         exit(1)
 
+def copyFilesRecursive (srcPath :str, destPath :str):
+    for member in os.listdir(srcPath):
+        if (os.path.isdir(f"{srcPath}{member}")):
+            if not os.path.isdir(f"{destPath}{member}/"):
+                os.makedirs(f"{destPath}{member}/")
+            copyFilesRecursive(f"{srcPath}{member}/", f"{destPath}{member}/")
+        else:
+            shutil.copy(f"{srcPath}{member}", f"{destPath}{member}")
+
 def runBuildTask (buildTask :dict, srcPath :str):
     if (buildTask["Task"] == "Copy"):
-        shutil.copytree(f"{srcPath}/{buildTask["From"]}", f"{srcPath}/{buildTask["To"]}")
+        if not os.path.isdir(f"{srcPath}/{buildTask["To"]}"):
+            os.makedirs(f"{srcPath}/{buildTask["To"]}")
+        copyFilesRecursive(f"{srcPath}/{buildTask["From"]}", f"{srcPath}/{buildTask["To"]}")
     elif (buildTask["Task"] == "Command"):
         if (sys.platform == "win32" and subprocess.run(buildTask["win32"]).returncode):
             print("Error while running build task.")
@@ -88,12 +99,13 @@ def buildScript (regionList :list = list(), buildTasks :list = list(), outputPat
             print(f"Failed building target {region}. Abort.")
             return False
     objectdbPath = ""
-    if os.path.isdir(f"{outputPath}/disc"):
+    """if os.path.isdir(f"{outputPath}/disc"):
         shutil.rmtree(f"{outputPath}/disc")
+        os.makedirs(f"{outputPath}/disc")"""
     for module in moduleData:
         if (module.ModuleType != "enabled"):
             break
-        print("Running build tasks...")
+        print(f"Running build tasks for {module.Name}...")
         for buildTask in module.BuildTasks + buildTasks:
             if (not runBuildTask(buildTask, module.FolderPath)):
                 return False
