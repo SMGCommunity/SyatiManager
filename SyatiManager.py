@@ -31,6 +31,7 @@ class InstallableModule:
         self.ModuleType = ""
 moduleData = list[ModuleInfo]()
 installableModules = list[InstallableModule]()
+useLocalData = False
 
 def wingetInstall (packageName :str, displayName :str):
     if sys.platform == "win32":
@@ -553,8 +554,8 @@ except:
 if (len(sys.argv) > 1):
     outputPath = f"Syati/Output/{os.path.splitext(os.path.basename(sys.argv[1]))[0]}"
     print(f"Building solution {os.path.basename(outputPath)}...")
-    initModules(False)
     subprocess.call("rm -rf Syati/Modules/*")
+    initModules(False)
     with open(sys.argv[1], "r") as f:
         solutionData = json.load(f)
     installAll = (True if "InstallAll" in solutionData else False)
@@ -573,14 +574,17 @@ if (len(sys.argv) > 1):
             if (installModule(installableModule, installAll) == "disabled"):
                 print(f"Solution {os.path.basename(outputPath)} cannot be built.")
     initModules(False)
+    for localModule in solutionData["LocalModules"]:
+        print(f"Copying local module {os.path.basename(localModule)}...")
+        shutil.copytree(f"{os.path.dirname(sys.argv[1])}/{localModule}", f"Syati/Modules/{os.path.basename(localModule)}")
     print("\nAll required modules enabled. Building...")
-    if ("BuildTasks" not in solutionData):
-        solutionData["BuildTasks"] = list()
     if ("OutputPath" not in solutionData):
         solutionData["OutputPath"] = "Syati/Output"
     else:
         path = Path(sys.argv[1])
         solutionData["OutputPath"] = (str(path.parent) if path.is_file() else str(path)) + "/" + solutionData["OutputPath"]
+    if ("BuildTasks" not in solutionData):
+        solutionData["BuildTasks"] = list()
     if (not buildScript(solutionData["Regions"], solutionData["BuildTasks"], solutionData["OutputPath"])):
         print(f"Solution {os.path.basename(outputPath)} cannot be built.")
         exit(1)
