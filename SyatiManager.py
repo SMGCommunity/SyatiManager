@@ -537,9 +537,12 @@ if not os.path.isdir("Syati/"):
 
 print("Getting newest database...")
 try:
-    if (sys.argv[1] == "--use-local"):
-        del sys.argv[1]
-        raise Exception
+    argc = 0
+    for argument in sys.argv:
+        if argument == "--use-local":
+            del sys.argv[argc]
+            raise Exception
+        argc += 1
     with request.urlopen("https://github.com/SMGCommunity/SyatiManager/raw/main/installable_modules.json") as req:
         installableJson = req.read()
     installableModules = json.loads(installableJson)
@@ -550,6 +553,8 @@ except:
 if (len(sys.argv) > 1):
     outputPath = f"Syati/Output/{os.path.splitext(os.path.basename(sys.argv[1]))[0]}"
     print(f"Building solution {os.path.basename(outputPath)}...")
+    initModules(False)
+    subprocess.call("rm -rf Syati/Modules/*")
     with open(sys.argv[1], "r") as f:
         solutionData = json.load(f)
     installAll = (True if "InstallAll" in solutionData else False)
