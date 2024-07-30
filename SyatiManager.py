@@ -75,7 +75,7 @@ def runBuildTask (buildTask :dict, srcPath :str):
         return False
     return True
 
-def buildScript (regionList :list = list(), buildTasks :list = list(), outputPath :str = "Syati/Output"):
+def buildScript (regionList :list = list(), buildTasks :list = list(), outputPath :str = "Syati/Output", unibuild :bool = False):
     global moduleData
     if (not os.path.isdir(outputPath)):
         os.makedirs(outputPath)
@@ -96,7 +96,7 @@ def buildScript (regionList :list = list(), buildTasks :list = list(), outputPat
                 regionList = ["JPN", "USA", "PAL", "KOR", "TWN"]
     for region in regionList:
         print(f"Building target {region}...")
-        if (subprocess.run(["./Syati/SyatiModuleBuildTool", region, "Syati/Syati/", "Syati/Modules/", outputPath]).returncode):
+        if (subprocess.run(["./Syati/SyatiModuleBuildTool", region, "Syati/Syati/", "Syati/Modules/", outputPath, "-u" if unibuild else ""]).returncode):
             print(f"Failed building target {region}. Abort.")
             return False
     objectdbPath = ""
@@ -574,6 +574,8 @@ if (len(sys.argv) > 1):
             if (installModule(installableModule, installAll) == "disabled"):
                 print(f"Solution {os.path.basename(outputPath)} cannot be built.")
     initModules(False)
+    if ("LocalModules" not in solutionData):
+        solutionData["LocalModules"] = []
     for localModule in solutionData["LocalModules"]:
         print(f"Copying local module {os.path.basename(localModule)}...")
         shutil.copytree(f"{os.path.dirname(sys.argv[1])}/{localModule}", f"Syati/Modules/{os.path.basename(localModule)}")
@@ -585,7 +587,11 @@ if (len(sys.argv) > 1):
         solutionData["OutputPath"] = (str(path.parent) if path.is_file() else str(path)) + "/" + solutionData["OutputPath"]
     if ("BuildTasks" not in solutionData):
         solutionData["BuildTasks"] = list()
-    if (not buildScript(solutionData["Regions"], solutionData["BuildTasks"], solutionData["OutputPath"])):
+    if ("Unibuild" not in solutionData):
+        solutionData["Unibuild"] = False
+    else:
+        print("Using unibuild.")
+    if (not buildScript(solutionData["Regions"], solutionData["BuildTasks"], solutionData["OutputPath"], solutionData["Unibuild"])):
         print(f"Solution {os.path.basename(outputPath)} cannot be built.")
         exit(1)
     print(f"Solution {os.path.basename(outputPath)} built successfully!")
