@@ -163,19 +163,17 @@ def installModule (module :InstallableModule, installAllDeps :bool = False):
             if (subprocess.run(["git", "-C", "Syati/Modules", "clone", module.InstallUrl + (" --recursive" if module.InstallType == "git_recursive" else "")], stderr=open(os.devnull, "wb")).returncode):
                 print(f"Cloning module {module.Name} failed. Abort.")
                 return False
-        case "git_folder":
+        case "lginc_module":
             print(f"Downloading module {module.Name}...")
-            pathToModuleTar = "Syati/Modules/" + os.path.basename(module.GitPath)
-            with request.urlopen(f"https://mariogalaxy.org/github2tar?repo={module.GitRepo}&path={module.GitPath}") as req:
+            with request.urlopen(f"https://mariogalaxy.org/syati-modules?module={module.InstallUrl}") as req:
                 moduleTar = req.read()
-            with open(pathToModuleTar + ".tar.xz", "wb") as f:
+            with open("Syati/Modules/" + module.InstallUrl + ".tar.gz", "wb") as f:
                 f.write(moduleTar)
-            os.mkdir(pathToModuleTar)
-            os.chdir(pathToModuleTar)
-            with tarfile.open("../" + os.path.basename(pathToModuleTar) + ".tar.xz") as f:
+            os.chdir("Syati/Modules/")
+            with tarfile.open(module.InstallUrl + ".tar.gz") as f:
                 f.extractall(".")
-            os.chdir("../../..")
-            os.remove(pathToModuleTar + ".tar.xz")
+            os.chdir("../..")
+            os.remove("Syati/Modules/" + module.InstallUrl + ".tar.gz")
         case "url_tar":
             print(f"Downloading module {module.Name}...")
             pathToModuleTar = "Syati/Modules/" + os.path.basename(module.InstallUrl)
@@ -510,20 +508,19 @@ def updateModules ():
                     f.extractall(".")
                 os.remove(pathToModuleTar)
                 print("\tSuccess.")
-            elif (installableModule["InstallType"] == "git_folder"):
+            elif (installableModule["InstallType"] == "lginc_module"):
                 print("Redownloading module...")
-                pathToModuleTar = f"{module.FolderPath}/../{os.path.basename(installableModule["GitPath"])}"
-                with request.urlopen(f"https://mariogalaxy.org/github2tar?repo={installableModule["GitRepo"]}&path={installableModule["GitPath"]}") as req:
+                with request.urlopen(f"https://mariogalaxy.org/syati-modules?module={installableModule["InstallUrl"]}") as req:
                     moduleTar = req.read()
-                with open(pathToModuleTar + ".tar.xz", "wb") as f:
+                with open(installableModule["InstallUrl"] + ".tar.gz", "wb") as f:
                     f.write(moduleTar)
                 shutil.rmtree(module.FolderPath)
-                os.mkdir(pathToModuleTar)
-                os.chdir(pathToModuleTar)
-                with tarfile.open("../" + os.path.basename(pathToModuleTar) + ".tar.xz") as f:
+                os.mkdir(installableModule["InstallUrl"])
+                os.chdir(installableModule["InstallUrl"])
+                with tarfile.open("../" + os.path.basename(installableModule["InstallUrl"]) + ".tar.gz") as f:
                     f.extractall(".")
                 os.chdir("../../..")
-                os.remove(pathToModuleTar + ".tar.xz")
+                os.remove(installableModule["InstallUrl"] + ".tar.gz")
                 print("\tSuccess.")
             else:
                 print("\tWarning: Could not find an install method for module. Skipping update...")
