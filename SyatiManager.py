@@ -201,9 +201,9 @@ def installModule (module :InstallableModule, installAllDeps :bool = False):
     moduleInfo.FolderPath = "Syati/Modules/" + module.FolderName
     moduleData.append(moduleInfo)
     if (not checkDependencies(moduleInfo, installAllDeps)):
-        shutil.move(module.FolderPath, "Syati/DisabledModules/")
-        module.FolderPath.replace("/Modules/", "/DisabledModules/")
-        module.ModuleType = "disabled"
+        shutil.move(moduleInfo.FolderPath, "Syati/DisabledModules/")
+        moduleInfo.FolderPath.replace("/Modules/", "/DisabledModules/")
+        moduleInfo.ModuleType = "disabled"
         print("Abort.")
         return "disabled"
     print("Done.")
@@ -230,18 +230,20 @@ def getInstallableModuleFromFolderName (moduleFolderName :str):
 def checkDependencies (module :ModuleInfo, installAll :bool = False):
     for dependency in module.InstallDependencies:
         dependencyData = getModuleFromFolderPath("Syati/DisabledModules/" + dependency)
-        if (dependencyData):
-            print(f"This module requires the disabled module {dependencyData.Name}. Enable it now?")
-            if (input("[Y/N] ").lower() == "y"):
-                if (not checkDependencies(dependencyData)):
+        if (dependencyData and not os.path.isdir("Syati/Modules/" + dependency)):
+            if (not installAll):
+                print(f"This module requires the disabled module {dependencyData.Name}. Enable it now?")
+                if (input("[Y/N] ").lower() == "y"):
+                    if (not checkDependencies(dependencyData)):
+                        print("Abort.")
+                        return False
+                else:
                     print("Abort.")
                     return False
-                shutil.move(dependencyData.FolderPath, "Syati/Modules/")
-                dependencyData.FolderPath.replace("/DisabledModules/", "/Modules/")
-                dependencyData.ModuleType = "enabled"
-            else:
-                return False
-        else:
+            shutil.move(dependencyData.FolderPath, "Syati/Modules/")
+            dependencyData.FolderPath.replace("/DisabledModules/", "/Modules/")
+            dependencyData.ModuleType = "enabled"
+        elif (not os.path.isdir("Syati/Modules/" + dependency)):
             dependencyData = getModuleFromFolderPath("Syati/Modules/" + dependency)
             if (not dependencyData):
                 dependencyData = getInstallableModuleFromFolderName(dependency)
@@ -368,7 +370,7 @@ def checkIfModuleIsInstalled (moduleName :str):
             return True
     return False
 
-def initModules (printOutInfo :bool = True):
+def initModules (printOutInfo :bool = True, includeDuplicates :bool = False):
     global moduleData
     global installableModules
     moduleData = list()
@@ -413,7 +415,7 @@ def initModules (printOutInfo :bool = True):
         print("\n--- Available Modules: ---")
     installableModuleAmount = 0
     for module in installableModules:
-        if (checkIfModuleIsInstalled(module.get("Name"))):
+        if (not includeDuplicates and checkIfModuleIsInstalled(module.get("Name"))):
             continue
         moduleInfo = InstallableModule()
         moduleInfo.Name = module.get("Name")
@@ -550,26 +552,24 @@ except:
 
 if (len(sys.argv) > 1):
     outputPath = f"Syati/Output/{os.path.splitext(os.path.basename(sys.argv[1]))[0]}"
+    for module in os.listdir("Syati/Modules"):
+        shutil.move(f"Syati/Modules/{module}", f"Syati/DisabledModules/{module}")
     print(f"Building solution {os.path.basename(outputPath)}...")
-    subprocess.call("rm -rf Syati/Modules/*")
-    initModules(False)
+    initModules(False, True)
     with open(sys.argv[1], "r") as f:
         solutionData = json.load(f)
-    installAll = (True if "InstallAll" in solutionData else False)
+    installAll = (True if "InstallAll" in solutionData and solutionData["InstallAll"] else False)
     for module in solutionData["Modules"]:
-        if (os.path.isdir(f"Syati/Modules/{module}")):
-            print(f"Module {module} is already enabled.")
-            continue
-        elif (os.path.isdir(f"Syati/DisabledModules/{module}")):
-            print(f"Enabling module {module}...")
-            shutil.move(f"Syati/DisabledModules/{module}", f"Syati/Modules/{module}")
-        else:
+        if (installAll or not os.path.isdir(f"Syati/DisabledModules/{module}")):
             installableModule = getInstallableModuleFromFolderName(module)
             if (not installableModule):
                 print(f"Fatal: No way to install module {module} was found.")
                 exit(1)
-            if (installModule(installableModule, installAll) == "disabled"):
+            if (installModule(installableModule, True) == "disabled"):
                 print(f"Solution {os.path.basename(outputPath)} cannot be built.")
+        elif (os.path.isdir(f"Syati/DisabledModules/{module}")):
+            print(f"Enabling module {module}...")
+            shutil.move(f"Syati/DisabledModules/{module}", f"Syati/Modules/{module}")
     initModules(False)
     if ("LocalModules" not in solutionData):
         solutionData["LocalModules"] = []
