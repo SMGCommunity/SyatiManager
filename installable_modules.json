@@ -233,6 +233,14 @@
     },
     {
         "Author": "Aurum",
+        "Description": "Aurum's Syati: PADRecord",
+        "FolderName": "PADRecord",
+        "InstallType": "lginc_module",
+        "InstallUrl": "PADRecord",
+        "Name": "PADRecord"
+    },
+    {
+        "Author": "Aurum",
         "Description": "SMG1 Enemy Port: Poihana",
         "FolderName": "Poihana",
         "InstallType": "lginc_module",
