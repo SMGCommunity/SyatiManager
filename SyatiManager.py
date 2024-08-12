@@ -55,6 +55,17 @@ def copyFilesRecursive (srcPath :str, destPath :str):
         else:
             shutil.copy(f"{srcPath}{member}", f"{destPath}{member}")
 
+def addFilesToArc (arc, dirName :str, pathInArc :str):
+    for file in os.listdir(dirName):
+        print(file)
+        if (os.path.isdir(f"{dirName}/{file}")):
+            print("Is dir")
+            arc.create_folder(f"{pathInArc}/{file}")
+            addFilesToArc(arc, f"{dirName}/{file}", f"{pathInArc}/{file}")
+        else:
+            with open(f"{dirName}/{file}", "rb") as f:
+                arc.create_file(f"{pathInArc}/" + os.path.basename(file), bytearray(f.read()))
+
 def runBuildTask (buildTask :dict, srcPath :str):
     if (buildTask["Task"] == "Copy"):
         if not os.path.isdir(f"{srcPath}/{buildTask["To"]}"):
@@ -70,6 +81,36 @@ def runBuildTask (buildTask :dict, srcPath :str):
     elif (buildTask["Task"] == "BuildLoader"):
         if (not buildLoaderScript(buildTask["Regions"], buildTask["FullLoader"], f"{srcPath}/{buildTask["OutputPath"]}")):
             return False
+    elif ("Arc" in buildTask["Task"] or "Bcsv" in buildTask["Task"]):
+        try:
+            import pyjkernel # RARC
+            import pyjmap # BCSV
+        except Exception as e:
+            print(e)
+            print("Fatal: Please install the missing package using pip.")
+            return False
+        
+        if (buildTask["Task"] == "Arc_Append"):
+            arcPath = input(f"Please provide '{buildTask["RequestArc"]}' from your game dump: ")
+            arc = pyjkernel.from_archive_file(arcPath)
+            addFilesToArc(arc, buildTask["AppendFilePath"], arc._root_._name_)
+            pyjkernel.write_archive_file(arc, arcPath, big_endian=True)
+        else:
+            arcPath = input(f"Please provide '{buildTask["RequestArc"]}' from your game dump: ")
+            arc = pyjkernel.from_archive_file(arcPath)
+            hashtable = pyjmap.SuperMarioGalaxyHashTable()
+            bcsvBuffer = arc.get_file(buildTask["FromBcsv"]).data
+            if (not bcsvBuffer):
+                info = pyjmap.JMapInfo(hashtable) # Not sure if this works
+            info = pyjmap.from_buffer(hashtable, bcsvBuffer, offset=0, big_endian=True)
+            if (buildTask["Task"] == "Bcsv_Write"):
+                info.clear_entries()
+            for row in buildTask["AppendRows"]:
+                info.create_entry()
+                for key in row:
+                    info[-1][key] = row[key]
+            arc._lookup_files_[buildTask["FromBcsv"].lower()].data = info.makebin(True, "shift_jisx0213")
+            pyjkernel.write_archive_file(arc, arcPath, big_endian=True)
     else:
         print(f"Unknown task type {buildTask["Task"]}.")
         return False
