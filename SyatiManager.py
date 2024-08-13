@@ -534,7 +534,7 @@ def updateModules ():
                     moduleTar = req.read()
                 with open(pathToModuleTar, "wb") as f:
                     f.write(moduleTar)
-                shutil.rmtree(module.FolderPath)
+                subprocess.run(["rm", "-rf", module.FolderPath])
                 with tarfile.open(pathToModuleTar) as f:
                     f.extractall(".")
                 os.remove(pathToModuleTar)
@@ -546,7 +546,7 @@ def updateModules ():
                     moduleTar = req.read()
                 with open(pathToModuleTar, "wb") as f:
                     f.write(moduleTar)
-                shutil.rmtree(module.FolderPath)
+                subprocess.run(["rm", "-rf", module.FolderPath])
                 with zipfile.ZipFile.open(pathToModuleTar) as f:
                     f.extractall(".")
                 os.remove(pathToModuleTar)
@@ -558,7 +558,7 @@ def updateModules ():
                 pathToModuleTar = f"{module.FolderPath}/../{installableModule["InstallUrl"]}"
                 with open(pathToModuleTar + ".tar.gz", "wb") as f:
                     f.write(moduleTar)
-                shutil.rmtree(module.FolderPath)
+                subprocess.run(["rm", "-rf", module.FolderPath])
                 with tarfile.open(pathToModuleTar + ".tar.gz") as f:
                     f.extractall(module.FolderPath + "/../")
                 os.remove(pathToModuleTar + ".tar.gz")
@@ -592,6 +592,8 @@ except:
 if (len(sys.argv) > 1):
     outputPath = f"Syati/Output/{os.path.splitext(os.path.basename(sys.argv[1]))[0]}"
     for module in os.listdir("Syati/Modules"):
+        if (os.path.isdir(f"Syati/DisabledModules/{module}")):
+            subprocess.run(["rm", "-rf", f"Syati/DisabledModules/{module}"])
         shutil.move(f"Syati/Modules/{module}", f"Syati/DisabledModules/{module}")
     print(f"Building solution {os.path.basename(outputPath)}...")
     initModules(False, True)
