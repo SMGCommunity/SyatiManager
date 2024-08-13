@@ -457,6 +457,14 @@
     },
     {
         "Author": "Aurum",
+        "Description": "A throwable dice cube with four red circles and two blue crosses on its sides. It activates a different switch depending on the side that it lands on.",
+        "FolderName": "MultipleChoiceDice",
+        "InstallType": "lginc_module",
+        "InstallUrl": "MultipleChoiceDice",
+        "Name": "MultipleChoiceDice"
+    },
+    {
+        "Author": "Aurum",
         "Description": "PTD: The screwable screws from Toy Time Galaxy",
         "FolderName": "ScrewSwitchBase",
         "InstallType": "lginc_module",
