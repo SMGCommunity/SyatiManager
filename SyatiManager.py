@@ -555,21 +555,19 @@ def updateModules ():
                 print("Redownloading module...")
                 with request.urlopen(f"https://mariogalaxy.org/syati-modules?module={installableModule["InstallUrl"]}") as req:
                     moduleTar = req.read()
-                with open(installableModule["InstallUrl"] + ".tar.gz", "wb") as f:
+                pathToModuleTar = f"{module.FolderPath}/../{installableModule["InstallUrl"]}"
+                with open(pathToModuleTar + ".tar.gz", "wb") as f:
                     f.write(moduleTar)
                 shutil.rmtree(module.FolderPath)
-                os.mkdir(installableModule["InstallUrl"])
-                os.chdir(installableModule["InstallUrl"])
-                with tarfile.open("../" + os.path.basename(installableModule["InstallUrl"]) + ".tar.gz") as f:
-                    f.extractall(".")
-                os.chdir("../../..")
-                os.remove(installableModule["InstallUrl"] + ".tar.gz")
+                with tarfile.open(pathToModuleTar + ".tar.gz") as f:
+                    f.extractall(module.FolderPath + "/../")
+                os.remove(pathToModuleTar + ".tar.gz")
                 print("\tSuccess.")
             else:
                 print("\tWarning: Could not find an install method for module. Skipping update...")
         else:
             if (subprocess.run(["git", "-C", module.FolderPath, "pull"]).returncode):
-                print(f"Error while updating {module}. Skipping update...")
+                print(f"Error while updating {module.Name}. Skipping update...")
 
 print("Syati Manager v2.0\nby Bavario\n-----------------")
 if not os.path.isdir("Syati/"):
