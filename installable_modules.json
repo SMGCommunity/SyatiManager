@@ -96,6 +96,14 @@
         "Name": "CollapsePlaneExt"
     },
     {
+        "Author": "Aurum and Evanbowl",
+        "Description": "PT: CollectSwitchCtrl",
+        "FolderName": "CollectSwitchCtrl",
+        "InstallType": "lginc_module",
+        "InstallUrl": "CollectSwitchCtrl",
+        "Name": "CollectSwitchCtrl"
+    },
+    {
         "Author": "Evanbowl",
         "Description": "PTD: Comet Timer Creator",
         "FolderName": "CometTimerObj",
