@@ -68,9 +68,9 @@ def addFilesToArc (arc, dirName :str, pathInArc :str):
 
 def runBuildTask (buildTask :dict, srcPath :str):
     if (buildTask["Task"] == "Copy"):
-        if not os.path.isdir(f"{srcPath}/{buildTask["To"]}"):
-            os.makedirs(f"{srcPath}/{buildTask["To"]}")
-        copyFilesRecursive(f"{srcPath}/{buildTask["From"]}", f"{srcPath}/{buildTask["To"]}")
+        if not os.path.isdir(f"{srcPath}/{buildTask['To']}"):
+            os.makedirs(f"{srcPath}/{buildTask['To']}")
+        copyFilesRecursive(f"{srcPath}/{buildTask['From']}", f"{srcPath}/{buildTask['To']}")
     elif (buildTask["Task"] == "Command"):
         if (sys.platform == "win32" and subprocess.run(buildTask["win32"]).returncode):
             print("Error while running build task.")
@@ -79,7 +79,7 @@ def runBuildTask (buildTask :dict, srcPath :str):
             print("Error while running build task.")
             return False
     elif (buildTask["Task"] == "BuildLoader"):
-        if (not buildLoaderScript(buildTask["Regions"], buildTask["FullLoader"], f"{srcPath}/{buildTask["OutputPath"]}")):
+        if (not buildLoaderScript(buildTask["Regions"], buildTask["FullLoader"], f"{srcPath}/{buildTask['OutputPath']}")):
             return False
     elif ("Arc" in buildTask["Task"] or "Bcsv" in buildTask["Task"]):
         try:
@@ -91,12 +91,12 @@ def runBuildTask (buildTask :dict, srcPath :str):
             return False
         
         if (buildTask["Task"] == "Arc_Append"):
-            arcPath = input(f"Please provide '{buildTask["RequestArc"]}' from your game dump: ")
+            arcPath = input(f"Please provide '{buildTask['RequestArc']}' from your game dump: ")
             arc = pyjkernel.from_archive_file(arcPath)
             addFilesToArc(arc, buildTask["AppendFilePath"], arc._root_._name_)
             pyjkernel.write_archive_file(arc, arcPath, big_endian=True)
         else:
-            arcPath = input(f"Please provide '{buildTask["RequestArc"]}' from your game dump: ")
+            arcPath = input(f"Please provide '{buildTask['RequestArc']}' from your game dump: ")
             arc = pyjkernel.from_archive_file(arcPath)
             hashtable = pyjmap.SuperMarioGalaxyHashTable()
             bcsvBuffer = arc.get_file(buildTask["FromBcsv"]).data
@@ -112,7 +112,7 @@ def runBuildTask (buildTask :dict, srcPath :str):
             arc._lookup_files_[buildTask["FromBcsv"].lower()].data = info.makebin(True, "shift_jisx0213")
             pyjkernel.write_archive_file(arc, arcPath, big_endian=True)
     else:
-        print(f"Unknown task type {buildTask["Task"]}.")
+        print(f"Unknown task type {buildTask['Task']}.")
         return False
     return True
 
@@ -185,7 +185,7 @@ def buildLoaderScript (regionList :list = list(), makeFullXML :bool = None, outp
             case _:
                 regionList = ["JPN", "USA", "PAL", "KOR", "TWN"]
     for region in regionList:
-        if (subprocess.run(f"python buildloader.py {region} -o {outputPath} {"--full-xml" if makeFullXML else ""}").returncode):
+        if (subprocess.run(f"python buildloader.py {region} -o {outputPath} {'--full-xml' if makeFullXML else ''}").returncode):
             print("\nError while building the loader. Abort.")
             os.chdir("../..")
             return False
@@ -553,9 +553,9 @@ def updateModules ():
                 print("\tSuccess.")
             elif (installableModule["InstallType"] == "lginc_module"):
                 print("Redownloading module...")
-                with request.urlopen(f"https://mariogalaxy.org/syati-modules?module={installableModule["InstallUrl"]}") as req:
+                with request.urlopen(f"https://mariogalaxy.org/syati-modules?module={installableModule['InstallUrl']}") as req:
                     moduleTar = req.read()
-                pathToModuleTar = f"{module.FolderPath}/../{installableModule["InstallUrl"]}"
+                pathToModuleTar = f"{module.FolderPath}/../{installableModule['InstallUrl']}"
                 with open(pathToModuleTar + ".tar.gz", "wb") as f:
                     f.write(moduleTar)
                 subprocess.run(["rm", "-rf", module.FolderPath])
