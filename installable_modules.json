@@ -538,10 +538,10 @@
     {
         "Author": "BjornGmr",
         "Description": "A controller for a repeatable cycle.",
-        "FolderName": "SeasonCycleSystem",
+        "FolderName": "CycleSystem",
         "InstallType": "lginc_module",
-        "InstallUrl": "SeasonCycleSystem",
-        "Name": "Season Cycle Controller"
+        "InstallUrl": "CycleSystem",
+        "Name": "Cycle Controller"
     },
     {
         "Author": "VTXG, Bavario",
