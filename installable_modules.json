@@ -534,5 +534,21 @@
         "InstallType": "git",
         "InstallUrl": "https://github.com/SuperHackio/SMG2_OpenBoo",
         "Name": "Spooky Speedster in SMG2"
+    },
+    {
+        "Author": "BjornGmr",
+        "Description": "A controller for a repeatable cycle.",
+        "FolderName": "SeasonCycleSystem",
+        "InstallType": "lginc_module",
+        "InstallUrl": "SeasonCycleSystem",
+        "Name": "Season Cycle Controller"
+    },
+    {
+        "Author": "VTXG, Bavario",
+        "Description": "The Toxic Gas from SM64 makes its way into SMG2!",
+        "FolderName": "ToxicArea",
+        "InstallType": "lginc_module",
+        "InstallUrl": "ToxicArea",
+        "Name": "Toxic Area"
     }
 ]
