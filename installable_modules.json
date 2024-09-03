@@ -550,5 +550,13 @@
         "InstallType": "lginc_module",
         "InstallUrl": "ToxicArea",
         "Name": "Toxic Area"
+    },
+    {
+        "Author": "Aba Gamer, Bavario, VTXG, Super Hackio",
+        "Description": "PT: NoJumpArea",
+        "FolderName": "NoJumpArea",
+        "InstallType": "git",
+        "InstallUrl": "https://github.com/aba4gamer/NoJumpArea/",
+        "Name": "NoJumpArea"
     }
 ]
