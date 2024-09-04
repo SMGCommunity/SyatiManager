@@ -536,6 +536,54 @@
         "Name": "Spooky Speedster in SMG2"
     },
     {
+        "Author": "Aurum",
+        "Description": "A pile of autumn leaves from Gold Leaf Galaxy.",
+        "FolderName": "DeadLeaves",
+        "InstallType": "lginc_module",
+        "InstallUrl": "DeadLeaves",
+        "Name": "Dead Leaves"
+    },
+    {
+        "Author": "AwesomeTMC",
+        "Description": "Adds customizable music to the Star Ball.",
+        "FolderName": "ExtTamakoro",
+        "InstallType": "lginc_module",
+        "InstallUrl": "ExtTamakoro",
+        "Name": "ExtTamakoro"
+    },
+    {
+        "Author": "Aurum",
+        "Description": "PTD: One of the many unused switch controllers from SMG1 that is activated by attacking the purple button",
+        "FolderName": "HitWallTimerSwitch",
+        "InstallType": "lginc_module",
+        "InstallUrl": "HitWallTimerSwitch",
+        "Name": "HitWallTimerSwitch"
+    },
+    {
+        "Author": "Evanbowl, Aurum",
+        "Description": "PTD: A controller switch that de/activates when the player has selected the specified character",
+        "FolderName": "PlayerSwitchCtrl",
+        "InstallType": "lginc_module",
+        "InstallUrl": "PlayerSwitchCtrl",
+        "Name": "PlayerSwitchCtrl"
+    },
+    {
+        "Author": "Evanbowl",
+        "Description": "PTD: A switch that can be jumped on.",
+        "FolderName": "PTimerSwitch",
+        "InstallType": "lginc_module",
+        "InstallUrl": "PTimerSwitch",
+        "Name": "PTimerSwitch"
+    },
+    {
+        "Author": "Someone, Evanbowl",
+        "Description": "PTD: An object that detects if the specified message is in the sensor's range",
+        "FolderName": "SensorDetector",
+        "InstallType": "lginc_module",
+        "InstallUrl": "SensorDetector",
+        "Name": "SensorDetector"
+    },
+    {
         "Author": "BjornGmr",
         "Description": "A controller for a repeatable cycle.",
         "FolderName": "CycleSystem",
