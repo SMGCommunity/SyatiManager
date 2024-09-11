@@ -584,6 +584,22 @@
         "Name": "SensorDetector"
     },
     {
+        "Author": "Someone, Aurum",
+        "Description": "Adds back the Bowser Land Mines that were unused in SMG1",
+        "FolderName": "Jiraira",
+        "InstallType": "lginc_module",
+        "InstallUrl": "Jiraira",
+        "Name": "SMG1: Unused Bowser Land Mines"
+    },
+    {
+        "Author": "BlueXD",
+        "Description": "Adds the unused Pull Star UFO that was unused in SMG1's Game Files",
+        "FolderName": "UFOBlueStarCupsule",
+        "InstallType": "lginc_module",
+        "InstallUrl": "UFOBlueStarCupsule",
+        "Name": "SMG1: Unused Pull Star UFO"
+    },
+    {
         "Author": "BjornGmr",
         "Description": "A controller for a repeatable cycle.",
         "FolderName": "CycleSystem",
