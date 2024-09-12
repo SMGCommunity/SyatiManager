@@ -600,6 +600,14 @@
         "Name": "SMG1: Unused Pull Star UFO"
     },
     {
+        "Author": "Aurum",
+        "Description": "Adds the \"FirePressureRadiate\" actor from SMG1.",
+        "FolderName": "FirePressureRadiate",
+        "InstallType": "lginc_module",
+        "InstallUrl": "FirePressureRadiate",
+        "Name": "FirePressureRadiate"
+    },
+    {
         "Author": "BjornGmr",
         "Description": "A controller for a repeatable cycle.",
         "FolderName": "CycleSystem",
