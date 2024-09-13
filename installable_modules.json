@@ -630,5 +630,29 @@
         "InstallType": "git",
         "InstallUrl": "https://github.com/aba4gamer/NoJumpArea/",
         "Name": "NoJumpArea"
+    },
+    {
+        "Author": "Super Hackio",
+        "Description": "The star pointer bell from SMG1",
+        "FolderName": "SMG2_MagicBell",
+        "InstallType": "git",
+        "InstallUrl": "https://github.com/SuperHackio/SMG2_MagicBell/",
+        "Name": "SMG2 MagicBell Port"
+    },
+    {
+        "Author": "Super Hackio",
+        "Description": "The Note Counter from E3 SMG1",
+        "FolderName": "SMG2_NoteCounterRestored",
+        "InstallType": "git",
+        "InstallUrl": "https://github.com/SuperHackio/SMG2_NoteCounterRestored",
+        "Name": "SMG2 NoteCounter Restored"
+    },
+    {
+        "Author": "Super Hackio",
+        "Description": "A Simple way to add new NPCs to the game",
+        "FolderName": "SMG2_SimpleNPC",
+        "InstallType": "git",
+        "InstallUrl": "https://github.com/SuperHackio/SMG2_SimpleNPC/",
+        "Name": "SimpleNPC"
     }
 ]
