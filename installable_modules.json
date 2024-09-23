@@ -530,7 +530,7 @@
     {
         "Author": "Super Hackio",
         "Description": "Ehehehe... so you're after it too?",
-        "FolderName": "SMG2_BossBegomanFactory",
+        "FolderName": "SMG2_OpenBoo",
         "InstallType": "git",
         "InstallUrl": "https://github.com/SuperHackio/SMG2_OpenBoo",
         "Name": "Spooky Speedster in SMG2"
@@ -654,5 +654,13 @@
         "InstallType": "git",
         "InstallUrl": "https://github.com/SuperHackio/SMG2_SimpleNPC/",
         "Name": "SimpleNPC"
+    },
+    {
+        "Author": "Aba gamer, Bavario, Super Hackio, VTXG",
+        "Description": "Free TimeSlowController",
+        "FolderName": "TimeSlowController",
+        "InstallType": "git",
+        "InstallUrl": "https://github.com/aba4gamer/TimeSlowController/",
+        "Name": "TimeSlowController"
     }
 ]
