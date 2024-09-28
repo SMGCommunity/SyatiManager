@@ -616,6 +616,14 @@
         "Name": "Cycle Controller"
     },
     {
+        "Author": "Evanbowl",
+        "Description": "Custom Coin Spawns\n\nCurrently Supported (Blue Coin)\nKuribo (Obj_arg2)\nSamboHead (Obj_arg1)\nTeresa (Obj_arg6 and Obj_arg7)\n\nCurrently Supported (Red Coin)\nKuribo (Obj_arg3)\nSamboHead (Obj_arg2)\nTeresa (Obj_arg7)",
+        "FolderName": "CustomCoinSpawns",
+        "InstallType": "lginc_module",
+        "InstallUrl": "CustomCoinSpawns",
+        "Name": "Custom Coin Spawns"
+    },
+    {
         "Author": "VTXG, Bavario",
         "Description": "The Toxic Gas from SM64 makes its way into SMG2!",
         "FolderName": "ToxicArea",
