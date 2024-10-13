@@ -670,5 +670,13 @@
         "InstallType": "git",
         "InstallUrl": "https://github.com/aba4gamer/TimeSlowController/",
         "Name": "TimeSlowController"
+    },
+    {
+        "Author": "Bavario",
+        "Description": "A very basic object that when placed, allows you to store the player's position by pressing 1.\nThen you can warp to that stored position by pressing 2.\n\nShoutouts to PKSMG2 for the idea!",
+        "FolderName": "PosWarpCtrl",
+        "InstallType": "lginc_module",
+        "InstallUrl": "PosWarpCtrl",
+        "Name": "Position Warp Controller"
     }
 ]
