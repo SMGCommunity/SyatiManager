@@ -678,5 +678,13 @@
         "InstallType": "lginc_module",
         "InstallUrl": "PosWarpCtrl",
         "Name": "Position Warp Controller"
+    },
+    {
+        "Author": "Bavario",
+        "Description": "An area that can activate its SW_A based on the controller inputs.",
+        "FolderName": "ButtonSwitchArea",
+        "InstallType": "lginc_module",
+        "InstallUrl": "ButtonSwitchArea",
+        "Name": "ButtonSwitchArea"
     }
 ]
