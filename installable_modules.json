@@ -681,6 +681,14 @@
     },
     {
         "Author": "Bavario",
+        "Description": "Provides two areas to interact with the Co-Star Luma.\nSupportTicoSwitchArea: Turns on its SW_A when the player enters the area with 2-Player mode active. The SW_A will turn off either when when the player leaves the area or when 2-Player mode gets disabled.\nNoSupportTicoArea: Fully disables the second controller (and therefore the Co-Star Luma) as long as the player is inside the area.",
+        "FolderName": "SupportTicoAreas",
+        "InstallType": "lginc_module",
+        "InstallUrl": "SupportTicoAreas",
+        "Name": "SupportTico Areas"
+    },
+    {
+        "Author": "Bavario",
         "Description": "An area that can activate its SW_A based on the controller inputs.",
         "FolderName": "ButtonSwitchArea",
         "InstallType": "lginc_module",
