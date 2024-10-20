@@ -694,5 +694,13 @@
         "InstallType": "lginc_module",
         "InstallUrl": "ButtonSwitchArea",
         "Name": "ButtonSwitchArea"
+    },
+    {
+        "Author": "Evanbowl",
+        "Description": "Extends the list of files that are always loaded in memory.",
+        "FolderName": "ExtStationedFileTable",
+        "InstallType": "lginc_module",
+        "InstallUrl": "ExtStationedFileTable",
+        "Name": "Extended Stationed File List"
     }
 ]
