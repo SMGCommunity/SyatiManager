@@ -702,5 +702,13 @@
         "InstallType": "lginc_module",
         "InstallUrl": "ExtStationedFileTable",
         "Name": "Extended Stationed File List"
+    },
+    {
+        "Author": "Bavario",
+        "Description": "Meant as a silly joke. Entering this area will perform one of the following actions:\n\n- Obj_arg0 = -1: Crashes the game.\n- Obj_arg0 = 0: Shuts down the console.\n- Obj_arg0 = 1: Exits to the Home Menu.\n- Obj_arg0 = 2: Very strongly rumbles the Wiimote.\n- Obj_arg0 = 3: Play a random sound effect every frame",
+        "FolderName": "TrollArea",
+        "InstallType": "lginc_module",
+        "InstallUrl": "TrollArea",
+        "Name": "Troll Area"
     }
 ]
