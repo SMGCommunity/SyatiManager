@@ -632,14 +632,6 @@
         "Name": "Toxic Area"
     },
     {
-        "Author": "Aba Gamer, Bavario, VTXG, Super Hackio",
-        "Description": "PT: NoJumpArea",
-        "FolderName": "NoJumpArea",
-        "InstallType": "git",
-        "InstallUrl": "https://github.com/aba4gamer/NoJumpArea/",
-        "Name": "NoJumpArea"
-    },
-    {
         "Author": "Super Hackio",
         "Description": "The star pointer bell from SMG1",
         "FolderName": "SMG2_MagicBell",
@@ -662,14 +654,6 @@
         "InstallType": "git",
         "InstallUrl": "https://github.com/SuperHackio/SMG2_SimpleNPC/",
         "Name": "SimpleNPC"
-    },
-    {
-        "Author": "Aba gamer, Bavario, Super Hackio, VTXG",
-        "Description": "Free TimeSlowController",
-        "FolderName": "TimeSlowController",
-        "InstallType": "git",
-        "InstallUrl": "https://github.com/aba4gamer/TimeSlowController/",
-        "Name": "TimeSlowController"
     },
     {
         "Author": "Bavario",
