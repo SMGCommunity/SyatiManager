@@ -699,7 +699,7 @@
         "Author": "Gabbo",
         "Description": "A Controller that lets you change the color of some Matter Splatter objects when its SW_A is activated.\nWhen the switch is turned off, the color returns to normal.\n- Obj_arg0: Red (0 to 255), Default 0.\n- Obj_arg1: Blue (0 to 255), Default 0.\n- Obj_arg2: Green (0 to 255), Default 0.\n- Obj_arg3: Alpha (0 to 255), Default 255.",
         "FolderName": "ClipAreaColorController",
-        "InstallType": "git",
+        "InstallType": "lginc_module",
         "InstallUrl": "ClipAreaColorController",
         "Name": "Matter Splatter Color Controller"
     }    
