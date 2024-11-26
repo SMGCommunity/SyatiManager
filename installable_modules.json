@@ -689,7 +689,7 @@
     },
     {
         "Author": "Bavario",
-        "Description": "Meant as a silly joke. Entering this area will perform one of the following actions:\n\n- Obj_arg0 = -1: Crashes the game.\n- Obj_arg0 = 0: Shuts down the console.\n- Obj_arg0 = 1: Exits to the Home Menu.\n- Obj_arg0 = 2: Very strongly rumbles the Wiimote.\n- Obj_arg0 = 3: Play a random sound effect every frame",
+        "Description": "Meant as a silly joke. Entering this area will perform one of the following actions:\n\n- Obj_arg0 = -1: Crashes the game.\n- Obj_arg0 = 0: Shuts down the console.\n- Obj_arg0 = 1: Exits to the Home Menu.\n- Obj_arg0 = 2: Very strongly rumbles the Wiimote.\n- Obj_arg0 = 3: Play a random sound effect every frame.",
         "FolderName": "TrollArea",
         "InstallType": "git",
         "InstallUrl": "https://github.com/bavario-lginc/TrollArea",
@@ -702,5 +702,13 @@
         "InstallType": "lginc_module",
         "InstallUrl": "ClipAreaColorController",
         "Name": "Matter Splatter Color Controller"
-    }    
+    },
+    {
+        "Author": "Gabbo",
+        "Description": "A custom lantern that evokes a spherical matter splatter when it is selected with the player's cursor, and disappears after a chosen amount of time.\nA matter splatter setup is needed to make it work.\n- Obj_arg0: The size of the sphere, Default 750.\n- Obj_arg1: The time in frames it takes for the sphere to grow until it reaches its specified size in Obj_arg0, Default 30.\n- Obj_arg2: The time in frames it stays at full size before it shrinks down, Default 180.\n- Obj_arg3: the time in frames it takes for the sphere to shrink down to 0, Default 120.",
+        "FolderName": "LanternClipArea",
+        "InstallType": "lginc_module",
+        "InstallUrl": "LanternClipArea",
+        "Name": "Matter Splatter Lantern"
+    }        
 ]
