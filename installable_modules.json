@@ -710,5 +710,21 @@
         "InstallType": "lginc_module",
         "InstallUrl": "LanternClipArea",
         "Name": "Matter Splatter Lantern"
-    }        
+    },
+    {
+        "Author": "VTXG",
+        "Description": "Makes it so the life counter layout displays the Player's death count.",
+        "FolderName": "DeathCounter",
+        "InstallType": "git",
+        "InstallUrl": "https://github.com/VTXG/DeathCounter",
+        "Name": "Death Counter"
+    },
+    {
+        "Author": "AwesomeTMC",
+        "Description": "Adds a version of OSReport that writes to a log file.",
+        "FolderName": "OSWReport",
+        "InstallType": "lginc_module",
+        "InstallUrl": "OSWReport",
+        "Name": "OSWReport"
+    }
 ]
