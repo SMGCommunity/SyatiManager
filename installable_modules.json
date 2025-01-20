@@ -384,8 +384,8 @@
         "Name": "SMG2 WPad input display layout"
     },
     {
-        "Author": "Bavario",
-        "Description": "Adds the Dive from Super Mario 64. Simply press C while mid-air to perform it.",
+        "Author": "Bavario, VTXG",
+        "Description": "Adds the Dive from Super Mario 64. Simply press A while mid-air to perform it.",
         "FolderName": "DiveMove",
         "InstallType": "git",
         "InstallUrl": "https://github.com/Lord-G-INC/DiveMove",
