@@ -312,11 +312,12 @@ def newModule ():
     else:
         newFolderName = newModuleData["Name"].replace(" ", "")
         shutil.copytree("Syati/SyatiModuleTemplate", "Syati/Modules/" + newFolderName)
-        subprocess.run(["rm", "-rf", f"Syati/Modules/{newFolderName}/.git"])
+        #subprocess.run(["rm", "-rf", f"Syati/Modules/{newFolderName}/.git"])
         os.remove(f"Syati/Modules/{newFolderName}/.gitattributes")
         os.remove(f"Syati/Modules/{newFolderName}/.gitignore")
         os.remove(f"Syati/Modules/{newFolderName}/include/.gitkeep")
         os.remove(f"Syati/Modules/{newFolderName}/source/.gitkeep")
+        os.remove(f"Syati/Modules/{newFolderName}/README.md")
         with open(f"Syati/Modules/{newFolderName}/ModuleInfo.json", "w") as f:
             json.dump(newModuleData, f)
     os.system("cls" if sys.platform == "win32" else "clear")
@@ -484,7 +485,14 @@ def moduleManager ():
         print("[N] - Create New Module")
         print("[C] - Cancel")
         actionStr = input().lower()
-        if (actionStr == "c"):
+        if (actionStr == "a"):
+            i = 0
+            while (i < len(moduleData) - 1):
+                print(f"Installing {moduleData[i].Name}")
+                installModule(moduleData[i])
+                i += 1
+            return
+        elif (actionStr == "c"):
             return
         elif (actionStr == "n"):
             newModule()
