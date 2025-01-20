@@ -312,7 +312,6 @@ def newModule ():
     else:
         newFolderName = newModuleData["Name"].replace(" ", "")
         shutil.copytree("Syati/SyatiModuleTemplate", "Syati/Modules/" + newFolderName)
-        #subprocess.run(["rm", "-rf", f"Syati/Modules/{newFolderName}/.git"])
         os.remove(f"Syati/Modules/{newFolderName}/.gitattributes")
         os.remove(f"Syati/Modules/{newFolderName}/.gitignore")
         os.remove(f"Syati/Modules/{newFolderName}/include/.gitkeep")
@@ -482,6 +481,7 @@ def moduleManager ():
         initModules()
         print("\n[0] - View Details for Module #0")
         print("[0,1,2] - Enable Modules #0, #1, #2")
+        print("[A] - Install All Modules")
         print("[N] - Create New Module")
         print("[C] - Cancel")
         actionStr = input().lower()
@@ -527,6 +527,7 @@ def updateModules ():
     print("Updating all modules...")
     for module in moduleData:
         if module.ModuleType == "available":
+            updateSyati()
             print("\nDone.")
             return
         print(f"{module.Name}: ", end="\n\t")
@@ -542,7 +543,7 @@ def updateModules ():
                     moduleTar = req.read()
                 with open(pathToModuleTar, "wb") as f:
                     f.write(moduleTar)
-                subprocess.run(["rm", "-rf", module.FolderPath])
+                shutil.rmtree(module.FolderPath)
                 with tarfile.open(pathToModuleTar) as f:
                     f.extractall(".")
                 os.remove(pathToModuleTar)
@@ -554,7 +555,7 @@ def updateModules ():
                     moduleTar = req.read()
                 with open(pathToModuleTar, "wb") as f:
                     f.write(moduleTar)
-                subprocess.run(["rm", "-rf", module.FolderPath])
+                shutil.rmtree(module.FolderPath)
                 with zipfile.ZipFile.open(pathToModuleTar) as f:
                     f.extractall(".")
                 os.remove(pathToModuleTar)
@@ -566,7 +567,7 @@ def updateModules ():
                 pathToModuleTar = f"{module.FolderPath}/../{installableModule['InstallUrl']}"
                 with open(pathToModuleTar + ".tar.gz", "wb") as f:
                     f.write(moduleTar)
-                subprocess.run(["rm", "-rf", module.FolderPath])
+                shutil.rmtree(module.FolderPath)
                 with tarfile.open(pathToModuleTar + ".tar.gz") as f:
                     f.extractall(module.FolderPath + "/../")
                 os.remove(pathToModuleTar + ".tar.gz")
@@ -576,6 +577,13 @@ def updateModules ():
         else:
             if (subprocess.run(["git", "-C", module.FolderPath, "pull"]).returncode):
                 print(f"Error while updating {module.Name}. Skipping update...")
+
+def updateSyati ():
+    print("Syati: ", end="\n\t")
+    if (subprocess.run(["git", "-C", "Syati/Syati/", "pull"]).returncode):
+        print(f"\tError while updating Syati.")
+    else:
+        print("\tSuccess.")
 
 print("Syati Manager v2.0\nby Bavario\n-----------------")
 if not os.path.isdir("Syati/"):
@@ -644,7 +652,7 @@ if (len(sys.argv) > 1):
     exit(0)
 
 while True:
-    print("Would you like to build [B], compile the loader [L], manage modules [M], update modules [U] or quit [Q]?")
+    print("Would you like to build [B], compile the loader [L], manage modules [M], update modules and Syati [U] or quit [Q]?")
     match (input().lower()):
         case "b":
             initModules(False)
