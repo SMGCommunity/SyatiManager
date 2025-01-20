@@ -584,6 +584,17 @@ def updateSyati ():
         print(f"\tError while updating Syati.")
     else:
         print("\tSuccess.")
+    askUpdateSMBT()
+
+def askUpdateSMBT ():
+    print("Update SyatiModuleBuildTool?")
+    prompt = input("[Y/N] ")
+    if (prompt.lower() == "y"):
+        with request.urlopen("https://github.com/SMGCommunity/SyatiModuleBuildTool/releases/latest/download/SyatiModuleBuildTool.exe") as req:
+            smbtData = req.read()
+        with open("Syati/SyatiModuleBuildTool", "wb") as f:
+            f.write(smbtData)
+        print("Success.")
 
 print("Syati Manager v2.0\nby Bavario\n-----------------")
 if not os.path.isdir("Syati/"):
