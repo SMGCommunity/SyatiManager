@@ -56,14 +56,6 @@
         "Name": "BlueChip"
     },
     {
-        "Author": "Evanbowl and LordGiganticus",
-        "Description": "PTD: Full Blue Coin System",
-        "FolderName": "BlueCoinSystem",
-        "InstallType": "lginc_module",
-        "InstallUrl": "BlueCoinSystem",
-        "Name": "BlueCoinSystem"
-    },
-    {
         "Author": "AwesomeTMC",
         "Description": "PTD: ChildSwitchArea",
         "FolderName": "ChildSwitchArea",
