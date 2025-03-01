@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="SyatiManager/Assets/Logo.png" width="600">
+    <img src=".github/Logo.png" width="600">
     <p align="center">A C# application for managing <b>Syati Modules</b>, now with a GUI.</p>
 </p>
 
