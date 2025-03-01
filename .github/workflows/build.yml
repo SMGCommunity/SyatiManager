@@ -1,5 +1,8 @@
 name: Build SyatiManager
 
+permissions:
+    contents: write
+
 on:
     push:
         branches: [ main ]
