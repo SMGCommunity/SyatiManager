@@ -1,0 +1,77 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+	<ImplicitUsings>disable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
+	<AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <ApplicationIcon>Assets\Icon.ico</ApplicationIcon>
+    <AssemblyVersion>3.0.0</AssemblyVersion>
+	<AssemblyTitle>Syati Manager</AssemblyTitle>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Avalonia" Version="11.2.2" />
+    <PackageReference Include="Avalonia.Desktop" Version="11.2.2" />
+    <PackageReference Include="Avalonia.Fonts.Inter" Version="11.2.2" />
+    <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
+    <PackageReference Include="Avalonia.Diagnostics" Version="11.2.2">
+      <IncludeAssets Condition="'$(Configuration)' != 'Debug'">None</IncludeAssets>
+      <PrivateAssets Condition="'$(Configuration)' != 'Debug'">All</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="FluentAvaloniaUI" Version="2.2.0" />
+    <PackageReference Include="LibGit2Sharp" Version="0.31.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Source\Libraries\ModulePreset.axaml.cs">
+      <DependentUpon>ModulePreset.axaml</DependentUpon>
+    </Compile>
+    <Compile Update="Source\Libraries\LibraryModule.axaml.cs">
+      <DependentUpon>LibraryModule.axaml</DependentUpon>
+    </Compile>
+    <Compile Update="Source\Solutions\ModuleInfo.axaml.cs">
+      <DependentUpon>ModuleInfo.axaml</DependentUpon>
+    </Compile>
+    <Compile Update="Source\Solutions\IgnoreEntry.axaml.cs">
+      <DependentUpon>IgnoreEntry.axaml</DependentUpon>
+    </Compile>
+    <Compile Update="UI\Views\SplashView.axaml.cs">
+      <DependentUpon>SplashView.axaml</DependentUpon>
+    </Compile>
+    <Compile Update="UI\Windows\PresetLibWindow.axaml.cs">
+      <DependentUpon>PresetLibWindow.axaml</DependentUpon>
+    </Compile>
+    <Compile Update="UI\Windows\ModuleLibWindow.axaml.cs">
+      <DependentUpon>ModuleLibWindow.axaml</DependentUpon>
+    </Compile>
+    <Compile Update="UI\Windows\AppSettingsWindow.axaml.cs">
+      <DependentUpon>AppSettingsWindow.axaml</DependentUpon>
+    </Compile>
+    <Compile Update="UI\Windows\EditIgnoredWindow.axaml.cs">
+      <DependentUpon>EditIgnoredWindow.axaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <AvaloniaResource Include="Assets\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Assets\Icon.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Components\**">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <AvaloniaXaml Update="UI\Windows\PresetLibWindow.axaml">
+      <SubType>Designer</SubType>
+    </AvaloniaXaml>
+  </ItemGroup>
+</Project>

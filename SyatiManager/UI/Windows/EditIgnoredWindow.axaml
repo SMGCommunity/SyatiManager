@@ -1,0 +1,86 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:ui="using:FluentAvalonia.UI.Controls"
+		x:Class="SyatiManager.UI.Windows.EditIgnoredWindow"
+		mc:Ignorable="d"
+		Width="650"
+		Height="500"
+		MinWidth="250"
+		MinHeight="30"
+		Title="Ignored Modules"
+		Background="Transparent"
+		TransparencyLevelHint="Mica,AcrylicBlur"
+		DataContext="{Binding $self}">
+	<Grid RowDefinitions="35,*">
+
+		<!-- Title Bar -->
+		<ExperimentalAcrylicBorder x:Name="AcrylicBorder"
+								   IsHitTestVisible="False"
+								   Grid.ColumnSpan="2">
+			<ExperimentalAcrylicBorder.Material>
+				<ExperimentalAcrylicMaterial
+					BackgroundSource="Digger"
+					TintColor="Black"
+					TintOpacity="1"
+					MaterialOpacity="0.8"/>
+			</ExperimentalAcrylicBorder.Material>
+		</ExperimentalAcrylicBorder>
+
+		<Panel x:Name="TitleBarPanel"
+			   Grid.ColumnSpan="2">
+			<Image Stretch="Uniform"
+				   RenderOptions.BitmapInterpolationMode="MediumQuality"
+				   Width="20"
+				   Height="20"
+				   Margin="6,0,0,0"
+				   HorizontalAlignment="Left"
+				   VerticalAlignment="Center"/>
+			<TextBlock Text="{Binding Title, Mode=OneWay}"
+					   Margin="35,0,0,0"
+					   VerticalAlignment="Center"/>
+		</Panel>
+
+		<!-- Window Content -->
+		<Border Background="{StaticResource BackgroundBrush}"
+				BorderBrush="{StaticResource HighlightHoverBrush}"
+				BorderThickness="0,1,0,0"
+				Grid.Row="1"/>
+
+		<ScrollViewer Margin="10,10,10,62.5"
+					  Grid.Row="1">
+			<ItemsControl x:Name="IgnoreEntriesControl"
+						  ItemsSource="{Binding Solution.IgnoreEntries, Mode=OneWay}">
+				<ItemsControl.ItemsPanel>
+					<ItemsPanelTemplate>
+						<StackPanel Orientation="Vertical"
+									Spacing="2.5"/>
+					</ItemsPanelTemplate>
+				</ItemsControl.ItemsPanel>
+			</ItemsControl>
+		</ScrollViewer>
+
+		<Border Background="{StaticResource BackgroundBrush}"
+				BorderBrush="{StaticResource HighlightHoverBrush}"
+				BorderThickness="0,1,0,0"
+				Height="52.5"
+				VerticalAlignment="Bottom"
+				Grid.Row="1"/>
+
+		<TextBox x:Name="InputIgnoredEntry"
+				 Watermark="Enter a Folder Name to Ignore"
+				 Margin="10,10,45,10"
+				 VerticalAlignment="Bottom"
+				 Grid.Row="1"/>
+		<Button Command="{Binding AddEntry, Mode=OneWay}"
+				Margin="10"
+				Width="30"
+				Height="30"
+				HorizontalAlignment="Right"
+				VerticalAlignment="Bottom"
+				Grid.Row="1">
+			<ui:SymbolIcon Symbol="Add"/>
+		</Button>
+	</Grid>
+</Window>

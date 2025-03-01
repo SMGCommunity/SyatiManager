@@ -1,8 +1,0 @@
-{
-    "BuildTasks": [],
-    "Modules": ["ModuleA", "ModuleB"],
-    "LocalModules": ["LocalModules/ModuleC"],
-    "Regions": ["USA", "PAL", "JPN"],
-    "InstallAll": true,
-    "OutputPath": "CustomCode/Output"
-}

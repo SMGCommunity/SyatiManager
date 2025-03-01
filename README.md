@@ -1,79 +1,72 @@
-# SyatiManager
-Python scripts that allows you to install, manage and compile Syati modules with ease.
+<p align="center">
+    <img src="SyatiManager/Assets/Logo.png" width="600">
+    <p align="center">A C# application for managing <b>Syati Modules</b>, now with a GUI.</p>
+</p>
 
-## How to: Install Syati
-1. Download SyatiSetup.py and SyatiManager.py from this repo, or just the whole repo.
-2. Run `python SyatiSetup.py` in a command prompt, type `Y` and press enter to install.
-3. SyatiManager may prompt you to download `git` and/or `curl` if those are not installed on your system.
+## Features
+- Creating and managing **Syati Solutions**.
+- Downloading Modules through the **Module Library**.
+- Setting up modules with Presets through the **Preset Library**.
+- Compiling **Custom Code** and **Loaders**, along with generating a **Riivolution XML**.
+- Various **QOL features**, such as generating **C++ properties** for **Visual Studio Code**.
 
-## How to: Manage Modules and Build
-Once Syati is installed, you can run `python SyatiManager.py` to manage Syati Modules and build them.
+## Authors
+- [**VTXG**](https://github.com/VTXG): Main programmer/GUI designer.
+- [**Bavario**](https://github.com/bavario-lginc): Programmer/Original SM developer.
+- [**Lord-Giganticus**](https://github.com/Lord-Giganticus): Programmer.
+- [**SY24**](https://github.com/SY-24): Logo and icon designer.
+- [**LGINC Members**](https://github.com/Lord-G-INC): Testing and suggestions.
 
-Simply run SyatiManager.py type `M` and press Enter. You will now see a list of Installed/Enabled Modules, Disabled Modules and Available Modules. Type any module ID to view its details and to enable/disable/install them respectively, or multiple module IDs seperated by commas to automatically enable/install them.
-
-After you have set up your modules right, type `B` and press Enter. Afterwards type the first letter of the region to build for, or simply press Enter to build all regions. You should afterwards find a `CustomCode_{YourRegion}.bin` in the Output folder.
-
-If you do not have a Syati Loader yet, type `L` and press Enter. Type `F` if you do not have a Riivolution XML yet, or `P` if you have one and simply want to add the relevant patches. Afterwards type the first letter of the region to build for, or simply press Enter to build all regions. You should afterwards find a `riivo_{YourRegion}.xml` in the Output folder.
-
-If you want to make a new module from scratch, type `N` and press Enter. Then type in the Name, Author and Description. SyatiManager will then create a new blank module for you to use.
-
-## How to: Add new modules to the database
-Currently the process of adding a new module is to simply add a new entry to the `installable_modules.json` on GitHub. SyatiManager will automatically download it every time you open it, to stay up to date.
-
-A correct module entry should have the following:
-1. The name of your new module
-2. Your name/The name of the author
-3. A basic description of what the module does
-4. A download method. You can currently pick between `git`, `git_recursive`, `git_folder`, `url_tar`, `url_zip`.
-5. A download link.
-6. The folder name of your Module.
-
-Example of such an entry:
-```json
-{"Name": "My cool Module", "Author": "Bavario", "Description": "This module is amazing!", "InstallType": "git", "InstallUrl": "https://github.com/bavario-lginc/MyCoolModule", "FolderName": "MyCoolModule"}
-```
-
-If you use `git_folder`, instead of providing an `InstallUrl`, you need to instead provide a `GitRepo` and `GitPath`:
-```json
-{"Name": "My cool Module", "Author": "Bavario", "Description": "This module is amazing!", "InstallType": "git_folder", "GitRepo": "bavario-lginc/MyCoolModule", "GitPath": "MyCoolFolder/MyCoolSubfolder", "FolderName": "MyCoolSubfolder"}
-```
-
-## Additional support
-### Build Tasks
-By specifying a build task in the ModuleInfo.json file of your Module, SyatiManager will run the task you specified. There are three different build task types:
+## Adding modules to the Module Library
+Adding modules to the Module Library can be done by editing the `Modules.json` file inside `SyatiManager/Components/`. Entries should follow this format:
 ```json
 {
-    "BuildTasks": [{
-        "Task": "Copy",
-        "From": "{YourPathHere}",
-        "To": "{YourPathHere}",
-    }, {
-        "Task": "BuildLoader",
-        "Regions": ["PAL", "USA", "JPN"],
-        "FullLoader": true,
-        "OutputPath": "{YourPathHere}"
-    }, {
-        "Task": "Command",
-        "win32": "ECHO Hello",
-        "linux": "echo Hello"
-    }]
-}
+  "Name": "...",
+  "FolderName": "...",
+  "Description": "...",
+  "Author": "...",
+  "Categories": [],
+  "Install": "..."
+},
 ```
+`Name`: Your module's display name (e.g.: "Syati Initializer Module")<br>
+`FolderName`: Your module's folder name, should not contain spaces (e.g.: "Syati_Init")<br>
+`Author`: The author(s) of your module.<br>
+`Description`: Your module's description. If you feel like the description is too big, you can enter `[External]` as your module's description and it will get a readme based on `Install`'s Url.<br>
+`Categories`: Your module's categories. Try to use the same categories as other modules. If the existing categories do not fit your module, feel free to create a new one.<br>
+`Install`: Where to download the module from. Check the [Install Source System](https://github.com/Lord-G-INC/Syati-Manager?tab=readme-ov-file#install-source-system) section of this readme.
 
-### Install Dependencies
-By specifying an install dependency in the ModuleInfo.json file of your Module, SyatiManager will check if the desired dependency is installed and enabled. If not, it will simply install/enable that dependency.
+## Adding presets to the Preset Library
+Adding presets to the Preset Library can be done by editing the `Presets.json` file inside `SyatiManager/Components/`. New entries should follow this format:
 ```json
 {
-    "InstallDependencies": ["ModuleB"]
-}
+  "Name": "...",
+  "Description": "...",
+  "Author": "...",
+  "Install": "..."
+},
 ```
+`Name`: Your preset's display name (e.g.: "LiveActor Preset")<br>
+`Description`: Your module's description.<br>
+`Author`: The author(s) of your preset.<br>
+`Install`: Where to download the preset from. Check the [Install Source System](https://github.com/Lord-G-INC/Syati-Manager?tab=readme-ov-file#install-source-system) section of this readme.
 
-### ObjectDB Generation
-By specifying an objectdatabase entry in the ModuleInfo.json file of your Module, SyatiManager will add the entry to the objectdb.json file of the user. This allows them to have the object documented when using it in other tools, like Whitehole.
-```json
-{
-    "ObjectDatabaseEntries": [{
-        "InternalName": "MyCoolObject", "Name": "My Cool Object", "Notes": "A very cool object that does amazing things!", "Games": 2, "Progress": 2
-    }]
-}
-```
+## Install Source System
+This system is used in `Modules.json` and `Presets.json` to clone repos and repo folders.<br>
+Install Sources follow the `Type:Url` syntax.
+
+`Type` should be replaced with one of the following types:
+- `git`: Clones a git repo
+- `git_recursive`: Clones a git repo and its submodules.
+- `git_folder`: Downloads a specific folder from a repo.
+- `lginc`: Modular-PTD module. Works like `git_folder`, but only requires the folder name.
+
+`Url` should be replaced with:
+- A repository url. (For `git` or `git_recursive`)
+- A repository folder url. (For `git_folder`)
+- A Modular-PTD module folder name. (For `lginc`)
+
+Examples of valid install sources:
+- `git:https://github.com/SMGCommunity/Syati_Init`
+- `git_folder:https://github.com/SuperHackio/SMG2_AudioTestObjects/tree/Master/SMG2_SoundTestObj`
+- `lginc:BlueCoinSystem`

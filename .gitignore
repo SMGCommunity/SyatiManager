@@ -1,1 +1,9 @@
-Syati/
+.vs/
+.vscode/
+
+*/bin/
+*/dbg/
+*/obj/
+
+*.old
+*.user

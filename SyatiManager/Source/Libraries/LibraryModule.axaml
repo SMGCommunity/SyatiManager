@@ -1,0 +1,38 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:ui="using:FluentAvalonia.UI.Controls"
+			 xmlns:conv="using:SyatiManager.UI.Converters"
+			 x:Class="SyatiManager.Source.Libraries.LibraryModule"
+			 mc:Ignorable="d"
+			 d:DesignWidth="500"
+			 Height="80"
+			 Background="{StaticResource BackgroundBrush}"
+			 BorderBrush="{StaticResource HighlightHoverBrush}"
+			 CornerRadius="10"
+			 BorderThickness="1"
+			 IsHitTestVisible="True"
+			 Classes="SelectableUserControl"
+			 DataContext="{Binding $self}">
+	<Panel>
+		<TextBlock Text="{Binding ModuleName, Mode=OneWay}"
+				   Margin="10,10,10,0"
+				   Classes="H2"/>
+		<TextBlock Text="{Binding Author, Mode=OneWay}"
+				   Margin="10,35,10,10"
+				   Foreground="{StaticResource GrayTextBrush}"/>
+		<TextBlock Text="{Binding Categories, Mode=OneWay, Converter={x:Static conv:LocalConverters.JoinEnumerable}}"
+				   Margin="10,50,10,10"
+				   Foreground="{StaticResource GrayTextBrush}"/>
+
+		<Button Margin="10"
+				Width="30"
+				Height="30"
+				HorizontalAlignment="Right"
+				VerticalAlignment="Bottom"
+				Command="{Binding InstallModule, Mode=OneWay}">
+			<ui:SymbolIcon Symbol="Download"/>
+		</Button>
+	</Panel>
+</UserControl>

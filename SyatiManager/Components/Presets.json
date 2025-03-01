@@ -1,0 +1,18 @@
+[{
+  "Name": "AreaObj Preset",
+  "Description": "A preset for the AreaObj class, the base class of areas.",
+  "Author": "VTXG",
+  "Install": "git_folder:https://github.com/VTXG/SyatiManagerPresets/tree/main/AreaObj"
+},
+{
+  "Name": "LiveActor Preset",
+  "Description": "A preset for the LiveActor class, the base class of objects and enemies.",
+  "Author": "VTXG",
+  "Install": "git_folder:https://github.com/VTXG/SyatiManagerPresets/tree/main/LiveActor"
+},
+{
+  "Name": "NameObj Preset",
+  "Description": "A preset for the NameObj class, the base class of all game objects.",
+  "Author": "VTXG",
+  "Install": "git_folder:https://github.com/VTXG/SyatiManagerPresets/tree/main/NameObj"
+}]

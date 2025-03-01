@@ -1,0 +1,25 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:ui="using:FluentAvalonia.UI.Controls"
+			 x:Class="SyatiManager.Source.Solutions.IgnoreEntry"
+			 mc:Ignorable="d"
+			 d:DesignWidth="700"
+			 Height="45"
+			 DataContext="{Binding $self}">
+	<Grid ColumnDefinitions="*,35">
+		<TextBox Text="{Binding FolderName}"
+				 Margin="5"
+				 VerticalAlignment="Center"/>
+		<Button Command="{Binding Remove, Mode=OneWay}"
+				Margin="5"
+				Width="30"
+				Height="30"
+				HorizontalAlignment="Center"
+				VerticalAlignment="Center"
+				Grid.Column="1">
+			<ui:SymbolIcon Symbol="Delete"/>
+		</Button>
+	</Grid>
+</UserControl>

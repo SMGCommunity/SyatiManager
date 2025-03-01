@@ -1,0 +1,179 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:ui="using:FluentAvalonia.UI.Controls"
+		xmlns:conv="using:SyatiManager.UI.Converters"
+		x:Class="SyatiManager.UI.Windows.PresetLibWindow"
+		mc:Ignorable="d"
+		Width="1000"
+		Height="600"
+		MinWidth="250"
+		MinHeight="30"
+		Title="Module Library"
+		Background="Transparent"
+		TransparencyLevelHint="Mica,AcrylicBlur"
+		DataContext="{Binding $self}">
+	<Grid RowDefinitions="35,*"
+		  ColumnDefinitions="*,*">
+		<!-- Title Bar -->
+		<ExperimentalAcrylicBorder x:Name="AcrylicBorder"
+								   IsHitTestVisible="False"
+								   Grid.ColumnSpan="2">
+			<ExperimentalAcrylicBorder.Material>
+				<ExperimentalAcrylicMaterial
+					BackgroundSource="Digger"
+					TintColor="Black"
+					TintOpacity="1"
+					MaterialOpacity="0.8"/>
+			</ExperimentalAcrylicBorder.Material>
+		</ExperimentalAcrylicBorder>
+		
+		<Panel x:Name="TitleBarPanel"
+			   Grid.ColumnSpan="2">
+			<Image Stretch="Uniform"
+				   RenderOptions.BitmapInterpolationMode="MediumQuality"
+				   Width="20"
+				   Height="20"
+				   Margin="6,0,0,0"
+				   HorizontalAlignment="Left"
+				   VerticalAlignment="Center"/>
+			<TextBlock Text="{Binding Title, Mode=OneWay}"
+					   Margin="35,0,0,0"
+					   VerticalAlignment="Center"/>
+		</Panel>
+
+		<!-- Window Content -->
+		<Border Background="{StaticResource BackgroundBrush}"
+				BorderBrush="{StaticResource HighlightHoverBrush}"
+				BorderThickness="0,1,0,0"
+				Grid.Row="1"
+				Grid.ColumnSpan="2"/>
+		<Panel Margin="15,10,15,0"
+			   VerticalAlignment="Top"
+			   Grid.Row="1">
+			<TextBox x:Name="NameSearchBox"
+					 Watermark="Name"
+					 MinWidth="0">
+				<TextBox.InnerLeftContent>
+					<ui:SymbolIcon Symbol="Zoom"
+								   Margin="8,0,0,0"/>
+				</TextBox.InnerLeftContent>
+			</TextBox>
+		</Panel>
+
+		<ScrollViewer Margin="0,50,0,10"
+					  Grid.Row="1">
+			<ItemsControl x:Name="PresetsControl"
+						  ItemsSource="{Binding PresetLibrary.Items, Mode=OneWay}">
+				<ItemsControl.ItemsPanel>
+					<ItemsPanelTemplate>
+						<StackPanel Orientation="Vertical"
+									Margin="15,0,15,0"
+									Spacing="10"/>
+					</ItemsPanelTemplate>
+				</ItemsControl.ItemsPanel>
+			</ItemsControl>
+		</ScrollViewer>
+
+		<GridSplitter Background="Transparent"
+					  ResizeDirection="Columns"
+					  HorizontalAlignment="Right"
+					  Grid.Row="2"/>
+
+		<Border BorderBrush="{StaticResource HighlightHoverBrush}"
+				BorderThickness="1,0,0,0"
+				Grid.Row="1"
+				Grid.Column="1">
+			<Panel>
+				<!-- Module Info View -->
+				<SelectableTextBlock Text="{Binding PresetLibrary.SelectedItem.PresetName, Mode=OneWay}"
+									 Margin="10"
+									 Classes="H1"
+									 Grid.Row="1"/>
+				
+				<SelectableTextBlock Text="{Binding PresetLibrary.SelectedItem.Author, Mode=OneWay}"
+									 Foreground="{StaticResource GrayTextBrush}"
+									 Margin="10,40,10,10"
+									 IsVisible="{Binding PresetLibrary.SelectedItem, Mode=OneWay, Converter={x:Static ObjectConverters.IsNotNull}}"
+									 Grid.Row="1"/>
+				
+				<SelectableTextBlock Text="{Binding PresetLibrary.SelectedItem.Description, Mode=OneWay}"
+									 Margin="10,70,10,60"
+									 TextWrapping="Wrap"
+									 Grid.Row="1"/>
+				
+				<Border BorderBrush="{StaticResource HighlightHoverBrush}"
+						BorderThickness="0,1,0,0"
+						Height="50"
+						VerticalAlignment="Bottom">
+					<StackPanel Orientation="Horizontal"
+								VerticalAlignment="Center">
+						<Button Command="{Binding ShowInputWindow, Mode=OneWay}"
+								IsEnabled="{Binding PresetLibrary.SelectedItem, Converter={x:Static ObjectConverters.IsNotNull}}"
+								Margin="10,0,0,0"
+								Width="30"
+								Height="30">
+							<ui:SymbolIcon Symbol="Download"/>
+						</Button>
+						
+						<Button Command="{Binding PresetLibrary.SelectedItem.OpenLink, Mode=OneWay}"
+								Margin="10,0,0,0"
+								Width="30"
+								Height="30">
+							<ui:SymbolIcon Symbol="Link"/>
+						</Button>
+					</StackPanel>
+				</Border>
+			</Panel>
+		</Border>
+
+		<Panel x:Name="InputWindow"
+			   Background="#80000000"
+			   IsVisible="False"
+			   Grid.Row="1"
+			   Grid.ColumnSpan="2">
+			<Border Background="{StaticResource BackgroundBrush}"
+					BorderBrush="{StaticResource HighlightHoverBrush}"
+					CornerRadius="5"
+					BorderThickness="1"
+					Width="500"
+					Height="400">
+				<Panel Margin="10">
+					<TextBox x:Name="FolderNameInput"
+						 Watermark="Folder Name"
+						 Margin="0,0,0,0"
+						 VerticalAlignment="Top"/>
+
+					<TextBox x:Name="NameInput"
+							 Watermark="Name"
+							 Margin="0,40,0,0"
+							 VerticalAlignment="Top"/>
+
+					<TextBox x:Name="AuthorInput"
+							 Watermark="Author"
+							 Margin="0,80,0,0"
+							 VerticalAlignment="Top"/>
+
+					<TextBox x:Name="DescriptionInput"
+							 Watermark="Description"
+							 AcceptsReturn="True"
+							 AcceptsTab="True"
+							 Height="215"
+							 Margin="0,120,0,0"
+							 VerticalAlignment="Top"/>
+					
+					<Button Content="Create"
+							Command="{Binding Create, Mode=OneWay}"
+							HorizontalAlignment="Left"
+							VerticalAlignment="Bottom"/>
+					<Button Content="Exit"
+							Command="{Binding HideInputWindow, Mode=OneWay}"
+							Margin="70,0,0,0"
+							HorizontalAlignment="Left"
+							VerticalAlignment="Bottom"/>
+				</Panel>
+			</Border>
+		</Panel>
+	</Grid>
+</Window>

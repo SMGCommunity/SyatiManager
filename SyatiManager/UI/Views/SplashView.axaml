@@ -1,0 +1,87 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 x:Class="SyatiManager.UI.Views.SplashView"
+			 mc:Ignorable="d"
+			 d:DesignWidth="1100"
+			 d:DesignHeight="540"
+			 DataContext="{Binding $self}"
+			 Classes.Finished="{Binding IsFinished}">
+	<UserControl.Styles>
+		<Style Selector=".Finished Panel#SplashRoot">
+			<Setter Property="IsHitTestVisible" Value="False"/>
+			<Style Selector="^ > Image#SplashImage">
+				<Style.Animations>
+					<Animation Delay="0:0:0.1"
+							   Duration="0:0:0.5"
+							   Easing="CubicEaseInOut"
+							   FillMode="Forward">
+						<KeyFrame Cue="0%">
+							<Setter Property="TranslateTransform.X" Value="0" />
+							<Setter Property="Opacity" Value="1.0"/>
+						</KeyFrame>
+						<KeyFrame Cue="100%">
+							<Setter Property="TranslateTransform.X" Value="100" />
+							<Setter Property="Opacity" Value="0.0"/>
+						</KeyFrame>
+					</Animation>
+				</Style.Animations>
+			</Style>
+
+			<Style.Animations>
+				<Animation Delay="0:0:0.1"
+						   Duration="0:0:0.5"
+						   Easing="CubicEaseInOut"
+						   FillMode="Forward">
+					<KeyFrame Cue="0%">
+						<Setter Property="Opacity" Value="1.0"/>
+					</KeyFrame>
+					<KeyFrame Cue="100%">
+						<Setter Property="Opacity" Value="0.0"/>
+						<Setter Property="IsVisible" Value="False"/>
+					</KeyFrame>
+				</Animation>
+			</Style.Animations>
+		</Style>
+	</UserControl.Styles>
+	<Panel Name="SplashRoot"
+		   Background="{StaticResource BackgroundBrush}">
+		<Image Name="SplashImage"
+			   Source="/Assets/Logo.png"
+			   Stretch="Uniform"
+			   RenderOptions.BitmapInterpolationMode="MediumQuality"
+			   Width="600"
+			   HorizontalAlignment="Center"
+			   VerticalAlignment="Center"/>
+
+		<TextBlock Text="{Binding Message, Mode=OneWay}"
+				   Foreground="{StaticResource GrayTextBrush}"
+				   TextAlignment="Center"
+				   Margin="0,0,0,115"
+				   HorizontalAlignment="Center"
+				   VerticalAlignment="Bottom"/>
+
+		<ProgressBar Name="Progress"
+					 Value="{Binding Value, Mode=OneWay}"
+					 Height="10"
+					 Margin="0,0,0,100"
+					 HorizontalAlignment="Center"
+					 VerticalAlignment="Bottom">
+			<ProgressBar.Transitions>
+				<Transitions>
+					<DoubleTransition Property="Value"
+									  Duration="0:0:0.3"
+									  Easing="CubicEaseInOut"/>
+				</Transitions>
+			</ProgressBar.Transitions>
+		</ProgressBar>
+
+		<TextBlock Text="By VTXG, Bavario and Lord-G, Logo by SY24"
+				   Foreground="{StaticResource GrayTextBrush}"
+				   TextAlignment="Center"
+				   Margin="0,0,0,10"
+				   HorizontalAlignment="Center"
+				   VerticalAlignment="Bottom"/>
+	</Panel>
+</UserControl>

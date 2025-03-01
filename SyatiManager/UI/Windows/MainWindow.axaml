@@ -1,0 +1,289 @@
+<Window xmlns="https://github.com/avaloniaui"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:ui="using:FluentAvalonia.UI.Controls"
+		xmlns:sln="using:SyatiManager.Source.Solutions"
+		xmlns:view="using:SyatiManager.UI.Views"
+		x:Class="SyatiManager.UI.Windows.MainWindow"
+		mc:Ignorable="d"
+		Width="1100"
+		Height="600"
+		MinWidth="250"
+		MinHeight="30"
+		Title="Syati Manager"
+		Background="Transparent"
+		TransparencyLevelHint="Mica,AcrylicBlur"
+		DataContext="{Binding $self}">
+	<Grid RowDefinitions="35,30,*"
+		  ColumnDefinitions="*,*">
+		<!-- Title Bar -->
+		<ExperimentalAcrylicBorder x:Name="AcrylicBorder"
+								   IsHitTestVisible="False"
+								   Grid.RowSpan="2"
+								   Grid.ColumnSpan="2">
+			<ExperimentalAcrylicBorder.Material>
+				<ExperimentalAcrylicMaterial
+					BackgroundSource="Digger"
+					TintColor="Black"
+					TintOpacity="1"
+					MaterialOpacity="0.8"/>
+			</ExperimentalAcrylicBorder.Material>
+		</ExperimentalAcrylicBorder>
+		
+		<Panel x:Name="TitleBarPanel"
+			   Grid.ColumnSpan="2">
+			<Image Stretch="Uniform"
+				   RenderOptions.BitmapInterpolationMode="MediumQuality"
+				   Width="20"
+				   Height="20"
+				   Margin="6,0,0,0"
+				   HorizontalAlignment="Left"
+				   VerticalAlignment="Center"/>
+			<TextBlock Text="{Binding Title, Mode=OneWay}"
+					   Margin="35,0,0,0"
+					   VerticalAlignment="Center"/>
+		</Panel>
+
+		<!-- Menu -->
+		<Menu Grid.Row="1"
+			  Grid.ColumnSpan="2">
+			<MenuItem Header="File">
+				<MenuItem Header="New Solution"
+						  Command="{Binding NewSolution, Mode=OneWay}"
+						  HotKey="Ctrl+N">
+					<MenuItem.Icon>
+						<ui:SymbolIcon Symbol="Document"/>
+					</MenuItem.Icon>
+				</MenuItem>
+				<MenuItem Header="Open Solution"
+						  HotKey="Ctrl+O"
+						  Command="{Binding OpenSolution, Mode=OneWay}">
+					<MenuItem.Icon>
+						<ui:SymbolIcon Symbol="OpenFile"/>
+					</MenuItem.Icon>
+				</MenuItem>
+				<MenuItem Header="Save"
+						  HotKey="Ctrl+S"
+						  Command="{Binding Core.SaveSolution, Mode=OneWay}"
+						  IsEnabled="{Binding Core.IsSolutionOpen, Mode=OneWay}">
+					<MenuItem.Icon>
+						<ui:SymbolIcon Symbol="Save"/>
+					</MenuItem.Icon>
+				</MenuItem>
+				<MenuItem Header="Settings"
+						  Command="{Binding OpenAppSettingsWindow, Mode=OneWay}">
+					<MenuItem.Icon>
+						<ui:SymbolIcon Symbol="Settings"/>
+					</MenuItem.Icon>
+				</MenuItem>
+				<MenuItem Header="-"/>
+				<MenuItem Header="Edit Ignored"
+						  HotKey="Ctrl+I"
+						  Command="{Binding OpenEditIgnoredWindow, Mode=OneWay}"
+						  IsEnabled="{Binding Core.IsSolutionOpen, Mode=OneWay}">
+					<MenuItem.Icon>
+						<ui:SymbolIcon Symbol="Edit"/>
+					</MenuItem.Icon>
+				</MenuItem>
+				<MenuItem Header="Reload Modules"
+						  HotKey="Ctrl+R"
+						  Command="{Binding Core.ReloadModules, Mode=OneWay}"
+						  IsEnabled="{Binding Core.IsSolutionOpen, Mode=OneWay}">
+					<MenuItem.Icon>
+						<ui:SymbolIcon Symbol="Refresh"/>
+					</MenuItem.Icon>
+				</MenuItem>
+			</MenuItem>
+			<MenuItem Header="Build">
+				<MenuItem Header="Build Code"
+						  HotKey="Ctrl+Shift+B"
+						  Command="{Binding Core.BuildCode, Mode=OneWay}"
+						  IsEnabled="{Binding Core.IsSolutionOpen, Mode=OneWay}">
+					<MenuItem.Icon>
+						<ui:SymbolIcon Symbol="Code"/>
+					</MenuItem.Icon>
+				</MenuItem>
+				<MenuItem Header="Build Loader"
+						  Command="{Binding Core.BuildLoader, Mode=OneWay}"
+						  IsEnabled="{Binding Core.IsSolutionOpen, Mode=OneWay}">
+					<MenuItem.Icon>
+						<ui:SymbolIcon Symbol="Code"/>
+					</MenuItem.Icon>
+				</MenuItem>
+				<MenuItem Header="Generate C/C++ VS Code Config"
+						  Command="{Binding Core.GenVSCodeConfiguration, Mode=OneWay}"
+						  IsEnabled="{Binding Core.IsSolutionOpen, Mode=OneWay}">
+					<MenuItem.Icon>
+						<ui:SymbolIcon Symbol="Settings"/>
+					</MenuItem.Icon>
+				</MenuItem>
+				<MenuItem Header="Generate VS Code Build Task"
+						  Command="{Binding Core.GenVSCodeBuildTask, Mode=OneWay}"
+						  IsEnabled="{Binding Core.IsSolutionOpen, Mode=OneWay}">
+					<MenuItem.Icon>
+						<ui:SymbolIcon Symbol="Settings"/>
+					</MenuItem.Icon>
+				</MenuItem>
+			</MenuItem>
+			<MenuItem Header="Libraries"
+					  IsEnabled="{Binding Core.IsSolutionOpen, Mode=OneWay}">
+				<MenuItem Header="Module Library"
+						  HotKey="Ctrl+Shift+M"
+						  Command="{Binding OpenModuleLibWindow, Mode=OneWay}">
+					<MenuItem.Icon>
+						<ui:SymbolIcon Symbol="Library"/>
+					</MenuItem.Icon>
+				</MenuItem>
+				<MenuItem Header="Preset Library"
+						  HotKey="Ctrl+Shift+P"
+						  Command="{Binding OpenPresetLibWindow, Mode=OneWay}">
+					<MenuItem.Icon>
+						<ui:SymbolIcon Symbol="Library"/>
+					</MenuItem.Icon>
+				</MenuItem>
+			</MenuItem>
+		</Menu>
+		
+		<!-- Window Content -->
+		<Border Background="{StaticResource BackgroundBrush}"
+				BorderBrush="{StaticResource HighlightHoverBrush}"
+				BorderThickness="0,1,0,0"
+				Grid.Row="2"
+				Grid.ColumnSpan="2"/>
+
+		<!-- Modules -->
+		<TextBlock Text="No Solution Open"
+				   Foreground="{StaticResource GrayTextColor}"
+				   HorizontalAlignment="Center"
+				   VerticalAlignment="Center"
+				   IsVisible="{Binding !Core.IsSolutionOpen, Mode=OneWay}"
+				   IsHitTestVisible="False"
+				   Grid.Row="2"/>
+		
+		<ScrollViewer Grid.Row="2">
+			<ItemsControl ItemsSource="{Binding Core.Solution.Modules, Mode=OneWay}">
+				<ItemsControl.ItemsPanel>
+					<ItemsPanelTemplate>
+						<StackPanel Orientation="Vertical"
+									Margin="15"
+									Spacing="10"/>
+					</ItemsPanelTemplate>
+				</ItemsControl.ItemsPanel>
+			</ItemsControl>
+		</ScrollViewer>
+
+		<GridSplitter Background="Transparent"
+					  ResizeDirection="Columns"
+					  HorizontalAlignment="Right"
+					  Grid.Row="2"/>
+
+		<Border BorderBrush="{StaticResource HighlightHoverBrush}"
+				BorderThickness="1,0,0,0"
+				Grid.Row="2"
+				Grid.Column="1">
+			<Grid RowDefinitions="*,*">
+				
+				<!-- Solution Settings -->
+				<Panel Margin="10">
+					<TextBlock Margin="35,5,0,0"
+							   IsVisible="{Binding Core.IsSolutionOpen, Mode=OneWay}">
+						<Run Text="Modules Path "/>
+						<Run Text="{Binding Core.Solution.ModulesPath, Mode=OneWay, TargetNullValue='(Unset)'}"
+							 Foreground="{StaticResource GrayTextBrush}"/>
+					</TextBlock>
+					<Button Command="{Binding SelectModulesPath, Mode=OneWay}"
+							IsEnabled="{Binding Core.IsSolutionOpen, Mode=OneWay}"
+							Width="30"
+							Height="30"
+							VerticalAlignment="Top">
+						<ui:SymbolIcon Symbol="Folder"/>
+					</Button>
+
+					<TextBlock Margin="35,45,0,0"
+							   IsVisible="{Binding Core.IsSolutionOpen, Mode=OneWay}">
+						<Run Text="Output Path "/>
+						<Run Text="{Binding Core.Solution.OutputPath, Mode=OneWay, TargetNullValue='(Unset)'}"
+							 Foreground="{StaticResource GrayTextBrush}"/>
+					</TextBlock>
+					<Button Command="{Binding SelectOutputPath, Mode=OneWay}"
+							IsEnabled="{Binding Core.IsSolutionOpen, Mode=OneWay}"
+							Width="30"
+							Height="30"
+							Margin="0,40,0,0"
+							VerticalAlignment="Top">
+						<ui:SymbolIcon Symbol="Folder"/>
+					</Button>
+
+					<TextBlock Text="Unibuild"
+							   Margin="95,85,0,0"
+							   IsVisible="{Binding Core.IsSolutionOpen, Mode=OneWay}"/>
+					<ComboBox IsEnabled="{Binding Core.IsSolutionOpen, Mode=OneWay}"
+							  SelectedIndex="{Binding Core.Solution.Unibuild}"
+							  Width="90"
+							  Height="31"
+							  Margin="0,80,0,0">
+						<ComboBoxItem Content="Never"/>
+						<ComboBoxItem Content="Auto"/>
+						<ComboBoxItem Content="Always"/>
+					</ComboBox>
+
+					<CheckBox x:Name="USACheckbox"
+							  Content="USA"
+							  IsEnabled="{Binding Core.IsSolutionOpen, Mode=OneWay}"
+							  Margin="0,120,0,0"
+							  VerticalAlignment="Top"/>
+					<CheckBox x:Name="PALCheckbox"
+							  Content="PAL"
+							  IsEnabled="{Binding Core.IsSolutionOpen, Mode=OneWay}"
+							  Margin="70,120,0,0"
+							  VerticalAlignment="Top"/>
+					<CheckBox x:Name="JPNCheckbox"
+							  Content="JPN"
+							  IsEnabled="{Binding Core.IsSolutionOpen, Mode=OneWay}"
+							  Margin="140,120,0,0"
+							  VerticalAlignment="Top"/>
+					<CheckBox x:Name="KORCheckbox"
+							  Content="KOR"
+							  IsEnabled="{Binding Core.IsSolutionOpen, Mode=OneWay}"
+							  Margin="210,120,0,0"
+							  VerticalAlignment="Top"/>
+					<CheckBox x:Name="TWNCheckbox"
+							  Content="TWN"
+							  IsEnabled="{Binding Core.IsSolutionOpen, Mode=OneWay}"
+							  Margin="280,120,0,0"
+							  VerticalAlignment="Top"/>
+				</Panel>
+				
+				<!-- Module Info View -->
+				<SelectableTextBlock Text="{Binding Core.Solution.SelectedModule.ModuleName, Mode=OneWay}"
+									 Margin="10"
+									 Classes="H1"
+									 Grid.Row="1"/>
+				<SelectableTextBlock Text="{Binding Core.Solution.SelectedModule.Author, Mode=OneWay}"
+									 Foreground="{StaticResource GrayTextBrush}"
+									 Margin="10,40,10,10"
+									 Grid.Row="1"/>
+				<SelectableTextBlock Text="{Binding Core.Solution.SelectedModule.Description, Mode=OneWay}"
+									 Margin="10,70,10,10"
+									 TextWrapping="Wrap"
+									 Grid.Row="1"/>
+				
+				<Border BorderBrush="{StaticResource HighlightHoverBrush}"
+						BorderThickness="0,1,0,0"
+						Grid.Row="1"/>
+
+				<GridSplitter Background="Transparent"
+							  ResizeDirection="Rows"
+							  VerticalAlignment="Top"
+							  Grid.Row="1"/>
+			</Grid>
+		</Border>
+
+		<!-- Splash View -->
+		<view:SplashView x:Name="Splash"
+						 Grid.Row="1"
+						 Grid.RowSpan="2"
+						 Grid.ColumnSpan="2"/>
+	</Grid>
+</Window>

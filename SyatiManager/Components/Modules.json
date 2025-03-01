@@ -1,0 +1,793 @@
+[{
+  "Name": "Syati Common Functions",
+  "FolderName": "Syati_CommonFunctionHooks",
+  "Description": "Provides access to hook common functions used in the game.",
+  "Author": "[Primary Module]",
+  "Categories": ["Codegen","System"],
+  "Install": "git:https://github.com/SMGCommunity/Syati_CommonFunctionHooks"
+},
+{
+  "Name": "Syati Global Layouts",
+  "FolderName": "Syati_GlobalLayouts",
+  "Description": "Provides functionality to have layouts that are always loaded",
+  "Author": "[Primary Module]",
+  "Categories": ["Codegen","Layout"],
+  "Install": "git:https://github.com/SMGCommunity/Syati_GlobalLayouts"
+},
+{
+  "Name": "Syati Initializer Module",
+  "FolderName": "Syati_Init",
+  "Description": "Required to make Syati Modules run properly",
+  "Author": "[Primary Module]",
+  "Categories": ["System"],
+  "Install": "git:https://github.com/SMGCommunity/Syati_Init"
+},
+{
+  "Name": "Syati Object Factories",
+  "FolderName": "Syati_ObjectFactories",
+  "Description": "Provides Object Creation factories that other modules can register to. This allows new objects to be recognized by the game.",
+  "Author": "[Primary Module]",
+  "Categories": ["Codegen","Object"],
+  "Install": "git:https://github.com/SMGCommunity/Syati_ObjectFactories"
+},
+{
+  "Name": "Anagon",
+  "FolderName": "Anagon",
+  "Description": "SMG1 Enemy Port: Swimming Gringill",
+  "Author": "Aurum",
+  "Categories": ["Enemy","Port/Restoration"],
+  "Install": "lginc:Anagon"
+},
+{
+  "Name": "BallBeamer",
+  "FolderName": "BallBeamer",
+  "Description": "SMG1 Enemy Port: Ring Beamer",
+  "Author": "Aurum",
+  "Categories": ["Enemy","Port/Restoration"],
+  "Install": "lginc:BallBeamer"
+},
+{
+  "Name": "BlueChip",
+  "FolderName": "BlueChip",
+  "Description": "Blue Star Chips",
+  "Author": "Aurum",
+  "Categories": ["Collectible"],
+  "Install": "lginc:BlueChip"
+},
+{
+  "Name": "ChildSwitchArea",
+  "FolderName": "ChildSwitchArea",
+  "Description": "PTD: ChildSwitchArea",
+  "Author": "AwesomeTMC",
+  "Categories": ["Area"],
+  "Install": "lginc:ChildSwitchArea"
+},
+{
+  "Name": "ChooChooTrain",
+  "FolderName": "ChooChooTrain",
+  "Description": "SMG1 Class Port: ChooChooTrain",
+  "Author": "Aurum",
+  "Categories": ["Map","Object","Port/Restoration"],
+  "Install": "lginc:ChooChooTrain"
+},
+{
+  "Name": "CocoSambo",
+  "FolderName": "CocoSambo",
+  "Description": "SMG1 Enemy Port: CocoSambo",
+  "Author": "Aurum",
+  "Categories": ["Enemy","Port/Restoration"],
+  "Install": "lginc:CocoSambo"
+},
+{
+  "Name": "CollapsePlaneExt",
+  "FolderName": "CollapsePlaneExt",
+  "Description": "PTD: CollapsePlane Custom Behaviors",
+  "Author": "Evanbowl",
+  "Categories": ["Map","Extension/Patch"],
+  "Install": "lginc:CollapsePlaneExt"
+},
+{
+  "Name": "CollectSwitchCtrl",
+  "FolderName": "CollectSwitchCtrl",
+  "Description": "PT: CollectSwitchCtrl",
+  "Author": "Aurum, Evanbowl",
+  "Categories": ["Collectible","Object"],
+  "Install": "lginc:CollectSwitchCtrl"
+},
+{
+  "Name": "CometTimerObj",
+  "FolderName": "CometTimerObj",
+  "Description": "PTD: Comet Timer Creator",
+  "Author": "Evanbowl",
+  "Categories": ["Object"],
+  "Install": "lginc:CometTimerObj"
+},
+{
+  "Name": "Crystal Box",
+  "FolderName": "CrystalBox",
+  "Description": "PTD: CrystalBox",
+  "Author": "Evanbowl",
+  "Categories": ["Object"],
+  "Install": "lginc:CrystalBox"
+},
+{
+  "Name": "Crystal Switch",
+  "FolderName": "CrystalSwitch",
+  "Description": "SMG1 Actor Port: CrystalSwitch",
+  "Author": "Original PT Developers",
+  "Categories": ["Object","Port/Restoration"],
+  "Install": "lginc:CrystalSwitch"
+},
+{
+  "Name": "Custom File Select Icons",
+  "FolderName": "CustomFileIcons",
+  "Description": "Allows you to change what icons are on the File Select.",
+  "Author": "AwesomeTMC",
+  "Categories": ["Extension/Patch"],
+  "Install": "lginc:CustomFileIcons"
+},
+{
+  "Name": "DharmaSambo",
+  "FolderName": "DharmaSambo",
+  "Description": "SMG1 Enemy Port: DharmaSambo",
+  "Author": "Aurum",
+  "Categories": ["Enemy","Port/Restoration"],
+  "Install": "lginc:DharmaSambo"
+},
+{
+  "Name": "Dummy Display Model Table",
+  "FolderName": "DummyDisplayModelTable",
+  "Description": "PTD: DummyDisplayModelTable",
+  "Author": "Aurum, Evanbowl",
+  "Categories": ["System"],
+  "Install": "lginc:DummyDisplayModelTable"
+},
+{
+  "Name": "Area Manager Extensions (Codegen)",
+  "FolderName": "ExtAreaObjMgr",
+  "Description": "PTD: AreaObjMgr Creation Table Extension",
+  "Author": "Evanbowl",
+  "Categories": ["Area","Codegen"],
+  "Install": "lginc:ExtAreaObjMgr"
+},
+{
+  "Name": "ExtQuakeEffectArea",
+  "FolderName": "ExtQuakeEffectArea",
+  "Description": "PT: Restored QuakeEffectArea",
+  "Author": "Aurum",
+  "Categories": ["Area","Extension/Patch"],
+  "Install": "lginc:ExtQuakeEffectArea"
+},
+{
+  "Name": "ExtShellfishItems",
+  "FolderName": "ExtShellfishItems",
+  "Description": "PT: Extended Shellfish Items",
+  "Author": "Aurum",
+  "Categories": ["Collectible","Extension/Patch"],
+  "Install": "lginc:ExtShellfishItems"
+},
+{
+  "Name": "GSTRecord",
+  "FolderName": "GSTRecord",
+  "Description": "Aurum's Syati: GSTRecord",
+  "Author": "Aurum",
+  "Categories": ["Tool"],
+  "Install": "lginc:GSTRecord"
+},
+{
+  "Name": "JumpGuarder",
+  "FolderName": "JumpGuarder",
+  "Description": "SMG1 Enemy Port: JumpGuarder",
+  "Author": "Aurum",
+  "Categories": ["Enemy","Port/Restoration"],
+  "Install": "lginc:JumpGuarder"
+},
+{
+  "Name": "JumpSwitchArea",
+  "FolderName": "JumpSwitchArea",
+  "Description": "PT: JumpSwitchArea",
+  "Author": "Someone, Aurum",
+  "Categories": ["Area"],
+  "Install": "lginc:JumpSwitchArea"
+},
+{
+  "Name": "LavaBallRisingPlanetLava",
+  "FolderName": "LavaBallRisingPlanetLava",
+  "Description": "PT: LavaBallRisingPlanetLava/ScaleMapObj Class",
+  "Author": "Aurum",
+  "Categories": ["Map"],
+  "Install": "lginc:LavaBallRisingPlanetLava"
+},
+{
+  "Name": "MinorPatches",
+  "FolderName": "MinorPatches",
+  "Description": "Misc: Minor patches (PTD)",
+  "Author": "Evanbowl",
+  "Categories": ["Extension/Patch"],
+  "Install": "lginc:MinorPatches"
+},
+{
+  "Name": "Mogu",
+  "FolderName": "Mogu",
+  "Description": "SMG1 Enemy Port: Mogu",
+  "Author": "Aurum",
+  "Categories": ["Enemy","Port/Restoration"],
+  "Install": "lginc:Mogu"
+},
+{
+  "Name": "PTUtils",
+  "FolderName": "PTUtils",
+  "Description": "PT/PTD Utility Functions",
+  "Author": "Aurum, Evanbowl",
+  "Categories": ["System"],
+  "Install": "lginc:PTUtils"
+},
+{
+  "Name": "PauseMenuNewButton",
+  "FolderName": "PauseMenuNewButton",
+  "Description": "Restart Stage Button",
+  "Author": "Evanbowl",
+  "Categories": ["Layout"],
+  "Install": "lginc:PauseMenuNewButton"
+},
+{
+  "Name": "PADRecord",
+  "FolderName": "PADRecord",
+  "Description": "Aurum's Syati: PADRecord",
+  "Author": "Aurum",
+  "Categories": ["Tool"],
+  "Install": "lginc:PADRecord"
+},
+{
+  "Name": "Poihana",
+  "FolderName": "Poihana",
+  "Description": "SMG1 Enemy Port: Poihana",
+  "Author": "Aurum",
+  "Categories": ["Enemy","Port/Restoration"],
+  "Install": "lginc:Poihana"
+},
+{
+  "Name": "PomponPlant",
+  "FolderName": "PomponPlant",
+  "Description": "SMG1 Actor Port: PomponPlant",
+  "Author": "Someone",
+  "Categories": ["Object","Port/Restoration"],
+  "Install": "lginc:PomponPlant"
+},
+{
+  "Name": "PowerStarAppearPointExt",
+  "FolderName": "PowerStarAppearPointExt",
+  "Description": "PTD: PowerStarAppearPoint Custom Behaviors",
+  "Author": "Evanbowl",
+  "Categories": ["Extension/Patch"],
+  "Install": "lginc:PowerStarAppearPointExt"
+},
+{
+  "Name": "PowerStarSpawner",
+  "FolderName": "PowerStarSpawner",
+  "Description": "PTD: Power Star Spawner",
+  "Author": "Aurum, Evanbowl",
+  "Categories": ["Object","Extension/Patch"],
+  "Install": "lginc:PowerStarSpawner"
+},
+{
+  "Name": "ProductMapObjDataTableClasses",
+  "FolderName": "ProductMapObjDataTableClasses",
+  "Description": "PT: New ProductMapObjDataTable Classes",
+  "Author": "Aurum",
+  "Categories": ["System"],
+  "Install": "lginc:ProductMapObjDataTableClasses"
+},
+{
+  "Name": "Red Coin System",
+  "FolderName": "RedCoinSystem",
+  "Description": "PTD: Red Coin System",
+  "Author": "Evanbowl",
+  "Categories": ["Collectible","System"],
+  "Install": "lginc:RedCoinSystem"
+},
+{
+  "Name": "Custom Launch Star Colors",
+  "FolderName": "SuperSpinDriverCustomColors",
+  "Description": "PTD: Custom Launch Star Colors",
+  "Author": "Aurum, Evanbowl, LordGiganticus",
+  "Categories": ["Object","Extension/Patch"],
+  "Install": "lginc:SuperSpinDriverCustomColors"
+},
+{
+  "Name": "TransparentWall",
+  "FolderName": "TransparentWall",
+  "Description": "SMG1 Class Port: TransparentWall",
+  "Author": "Aurum",
+  "Categories": ["Map","Port/Restoration"],
+  "Install": "lginc:TransparentWall"
+},
+{
+  "Name": "Vanilla Bugfixes",
+  "FolderName": "VanillaBugfixes",
+  "Description": "PT: Miscellaneous Vanilla Bugfixes",
+  "Author": "Aurum",
+  "Categories": ["Extension/Patch"],
+  "Install": "lginc:VanillaBugfixes"
+},
+{
+  "Name": "WatchTowerRotateStep",
+  "FolderName": "WatchTowerRotateStep",
+  "Description": "SMG1 Actor Port: WatchTowerRotateStep",
+  "Author": "Aurum, Someone, Shibboleet",
+  "Categories": ["Object","Port/Restoration"],
+  "Install": "lginc:WatchTowerRotateStep"
+},
+{
+  "Name": "WaterRiseSwitch",
+  "FolderName": "WaterRiseSwitch",
+  "Description": "PTD: A Switch that raises the water level to its position.",
+  "Author": "Bavario",
+  "Categories": ["Object"],
+  "Install": "lginc:WaterRiseSwitch"
+},
+{
+  "Name": "Extermination Counter",
+  "FolderName": "SMG2_ExterminationCounter",
+  "Description": "That one planet from Space Junk...",
+  "Author": "Super Hackio",
+  "Categories": ["Layout","Extension/Patch"],
+  "Install": "git:https://github.com/SuperHackio/SMG2_ExterminationCounter"
+},
+{
+  "Name": "FileSelect Music 2",
+  "FolderName": "FileSelectMusic2",
+  "Description": "A module that plays SMG2_title_strm.ast after pressing A + B on FileSelect, similar to SMG1.",
+  "Author": "Bavario",
+  "Categories": ["Extension/Patch"],
+  "Install": "git:https://github.com/Lord-G-INC/FileSelectMusic2/"
+},
+{
+  "Name": "ScenarioSelect Music 2",
+  "FolderName": "ScenarioSelectAST",
+  "Description": "A module that plays SMG2_galaxy08_strm.ast after selecting a star on ScenarioSelect, instead of the standard Intro Music.",
+  "Author": "Bavario",
+  "Categories": ["Extension/Patch"],
+  "Install": "git:https://github.com/Lord-G-INC/ScenarioSelectAST"
+},
+{
+  "Name": "SMG2 OpenGhost",
+  "FolderName": "SMG2_OpenGhost",
+  "Description": "Cosmic Races in SMG2",
+  "Author": "Super Hackio",
+  "Categories": ["Map","System"],
+  "Install": "git:https://github.com/SuperHackio/SMG2_OpenGhost"
+},
+{
+  "Name": "SMG2 FPS Layout",
+  "FolderName": "SMG2-FPSCounterLayout",
+  "Description": "An FPS Counter for Super Mario Galaxy",
+  "Author": "Super Hackio",
+  "Categories": ["Layout"],
+  "Install": "git:https://github.com/SuperHackio/SMG2-FPSCounterLayout"
+},
+{
+  "Name": "SMG2 WPad Input Display Layout",
+  "FolderName": "SMG2_WPadDisplayLayout",
+  "Description": "A Layout that shows what inputs are being recieved by the game.",
+  "Author": "Super Hackio, SY24",
+  "Categories": ["Layout"],
+  "Install": "git:https://github.com/SuperHackio/SMG2_WPadDisplayLayout"
+},
+{
+  "Name": "Dive Move",
+  "FolderName": "DiveMove",
+  "Description": "Adds the Dive from Super Mario 64. Simply press A while mid-air to perform it.",
+  "Author": "Bavario, VTXG",
+  "Categories": ["Player"],
+  "Install": "git:https://github.com/Lord-G-INC/DiveMove"
+},
+{
+  "Name": "Ground Pound Jump",
+  "FolderName": "GroundPoundJump",
+  "Description": "Adds the Ground Pound Jump move from Super Mario Odyssey. Simply Ground Pound and Jump after landing.",
+  "Author": "Bavario, Evanbowl",
+  "Categories": ["Player"],
+  "Install": "git:https://github.com/Lord-G-INC/GroundPoundJump"
+},
+{
+  "Name": "360° Camera",
+  "FolderName": "360Camera",
+  "Description": "Provides a 360° Camera like in Super Mario Odyssey. You can hold D-Pad Left or Right to circle it around, or D-Pad Up and Down to change the FoV.",
+  "Author": "Bavario",
+  "Categories": ["Player"],
+  "Install": "git:https://github.com/Lord-G-INC/360Camera"
+},
+{
+  "Name": "SMG2 SwingRope Patch",
+  "FolderName": "SwingRope",
+  "Description": "This is the swinging vine from Beach Bowl Galaxy. This actor was left unused in SMG2's code, though. Its constructor is lost, but it can be easily restored. Other than that, all of its functionality is fully intact.",
+  "Author": "Aurum",
+  "Categories": ["Object","Port/Restoration"],
+  "Install": "lginc:SwingRope"
+},
+{
+  "Name": "GCaptureBreakArea",
+  "FolderName": "GCaptureBreakArea",
+  "Description": "PTD: Breaks the current GCapture bubble when entered.",
+  "Author": "Bavario",
+  "Categories": ["Player"],
+  "Install": "lginc:GCaptureBreakArea"
+},
+{
+  "Name": "WaterLeakPipe",
+  "FolderName": "WaterLeakPipe",
+  "Description": "PTD: The leaking water pipe from Freezeflame Galaxy and Deep Dark Galaxy.",
+  "Author": "Aurum",
+  "Categories": ["Object","Port/Restoration"],
+  "Install": "lginc:WaterLeakPipe"
+},
+{
+  "Name": "Kingfin in SMG2",
+  "FolderName": "SMG2_SkeletalFishBossReturns",
+  "Description": "Kingfin makes his grand return...",
+  "Author": "Super Hackio",
+  "Categories": ["Enemy","Port/Restoration"],
+  "Install": "git:https://github.com/SuperHackio/SMG2_SkeletalFishBossReturns"
+},
+{
+  "Name": "NumberedSwitchArea",
+  "FolderName": "NumberedSwitchArea",
+  "Description": "PTD: NumberedSwitchArea",
+  "Author": "Gabbo",
+  "Categories": ["Area"],
+  "Install": "lginc:NumberedSwitchArea"
+},
+{
+  "Name": "BenefitItemMoon",
+  "FolderName": "BenefitItemMoon",
+  "Description": "PTD: 3-Up Moon from SMW",
+  "Author": "EterSky",
+  "Categories": ["Collectible"],
+  "Install": "lginc:BenefitItemMoon"
+},
+{
+  "Name": "MorphSwitchCtrl",
+  "FolderName": "MorphSwitchCtrl",
+  "Description": "PTD: Controller that checks for morph-related stuff",
+  "Author": "EterSky",
+  "Categories": ["Object","Player"],
+  "Install": "lginc:MorphSwitchCtrl"
+},
+{
+  "Name": "MultipleChoiceDice",
+  "FolderName": "MultipleChoiceDice",
+  "Description": "A throwable dice cube with four red circles and two blue crosses on its sides. It activates a different switch depending on the side that it lands on.",
+  "Author": "Aurum",
+  "Categories": ["Object","Port/Restoration"],
+  "Install": "lginc:MultipleChoiceDice"
+},
+{
+  "Name": "ScrewSwitchBase",
+  "FolderName": "ScrewSwitchBase",
+  "Description": "PTD: The screwable screws from Toy Time Galaxy",
+  "Author": "Aurum",
+  "Categories": ["Map","Port/Restoration"],
+  "Install": "lginc:ScrewSwitchBase"
+},
+{
+  "Name": "Metal Mario",
+  "FolderName": "MetalMario",
+  "Description": "Adds Metal Mario from SM64 through the Metal Mushroom to SMG2.",
+  "Author": "Bavario",
+  "Categories": ["Player"],
+  "Install": "git:https://github.com/Lord-G-INC/MetalMario"
+},
+{
+  "Name": "Mecha Bowser Mapparts in SMG2",
+  "FolderName": "SMG2_MechanicKoopaPack",
+  "Description": "Fresh from the Assembly Line",
+  "Author": "Super Hackio",
+  "Categories": ["Map","Port/Restoration"],
+  "Install": "git:https://github.com/SuperHackio/SMG2_MechanicKoopaPack"
+},
+{
+  "Name": "Topmaniac in SMG2",
+  "FolderName": "SMG2_BossBegomanFactory",
+  "Description": "He's here for his revenge...",
+  "Author": "Super Hackio",
+  "Categories": ["Enemy","Port/Restoration"],
+  "Install": "git:https://github.com/SuperHackio/SMG2_BossBegomanFactory"
+},
+{
+  "Name": "Red Star and Ice Flower",
+  "FolderName": "MorphFooAndIce",
+  "Description": "PT: Red Star and Ice Flower",
+  "Author": "Aurum",
+  "Categories": ["Player","Port/Restoration"],
+  "Install": "lginc:MorphFooAndIce"
+},
+{
+  "Name": "Banekiti",
+  "FolderName": "Banekiti",
+  "Description": "The yellow spring dudes from Boo's Boneyard",
+  "Author": "Aurum",
+  "Categories": ["Enemy","Port/Restoration"],
+  "Install": "lginc:Banekiti"
+},
+{
+  "Name": "GoldenTurtle",
+  "FolderName": "GoldenTurtle",
+  "Description": "Gold Koopa Shell",
+  "Author": "Aurum",
+  "Categories": ["Collectible","Port/Restoration"],
+  "Install": "lginc:GoldenTurtle"
+},
+{
+  "Name": "Spooky Speedster in SMG2",
+  "FolderName": "SMG2_OpenBoo",
+  "Description": "Ehehehe... so you're after it too?",
+  "Author": "Super Hackio",
+  "Categories": ["Enemy","Port/Restoration"],
+  "Install": "git:https://github.com/SuperHackio/SMG2_OpenBoo"
+},
+{
+  "Name": "Dead Leaves",
+  "FolderName": "DeadLeaves",
+  "Description": "A pile of autumn leaves from Gold Leaf Galaxy.",
+  "Author": "Aurum",
+  "Categories": ["Map","Port/Restoration"],
+  "Install": "lginc:DeadLeaves"
+},
+{
+  "Name": "ExtTamakoro",
+  "FolderName": "ExtTamakoro",
+  "Description": "Adds customizable music to the Star Ball.",
+  "Author": "AwesomeTMC",
+  "Categories": ["Object","Extension/Patch"],
+  "Install": "lginc:ExtTamakoro"
+},
+{
+  "Name": "HitWallTimerSwitch",
+  "FolderName": "HitWallTimerSwitch",
+  "Description": "PTD: One of the many unused switch controllers from SMG1 that is activated by attacking the purple button",
+  "Author": "Aurum",
+  "Categories": ["Object","Port/Restoration"],
+  "Install": "lginc:HitWallTimerSwitch"
+},
+{
+  "Name": "PlayerSwitchCtrl",
+  "FolderName": "PlayerSwitchCtrl",
+  "Description": "PTD: A controller switch that de/activates when the player has selected the specified character",
+  "Author": "Evanbowl, Aurum",
+  "Categories": ["Object","Player"],
+  "Install": "lginc:PlayerSwitchCtrl"
+},
+{
+  "Name": "PTimerSwitch",
+  "FolderName": "PTimerSwitch",
+  "Description": "PTD: A switch that can be jumped on.",
+  "Author": "Evanbowl",
+  "Categories": ["Object"],
+  "Install": "lginc:PTimerSwitch"
+},
+{
+  "Name": "SensorDetector",
+  "FolderName": "SensorDetector",
+  "Description": "PTD: An object that detects if the specified message is in the sensor's range",
+  "Author": "Someone, Evanbowl",
+  "Categories": ["Object"],
+  "Install": "lginc:SensorDetector"
+},
+{
+  "Name": "SMG1: Unused Bowser Land Mines",
+  "FolderName": "Jiraira",
+  "Description": "Adds back the Bowser Land Mines that were unused in SMG1",
+  "Author": "Someone, Aurum",
+  "Categories": ["Object","Port/Restoration"],
+  "Install": "lginc:Jiraira"
+},
+{
+  "Name": "SMG1: Unused Pull Star UFO",
+  "FolderName": "UFOBlueStarCupsule",
+  "Description": "Adds the unused Pull Star UFO that was unused in SMG1's Game Files",
+  "Author": "BlueXD",
+  "Categories": ["Object","Port/Restoration"],
+  "Install": "lginc:UFOBlueStarCupsule"
+},
+{
+  "Name": "FirePressureRadiate",
+  "FolderName": "FirePressureRadiate",
+  "Description": "Adds the \"FirePressureRadiate\" actor from SMG1.",
+  "Author": "Aurum",
+  "Categories": ["Object","Port/Restoration"],
+  "Install": "lginc:FirePressureRadiate"
+},
+{
+  "Name": "Cycle Controller",
+  "FolderName": "CycleSystem",
+  "Description": "A controller for a repeatable cycle.",
+  "Author": "BjornGmr",
+  "Categories": ["System"],
+  "Install": "lginc:CycleSystem"
+},
+{
+  "Name": "Custom Coin Spawns",
+  "FolderName": "CustomCoinSpawns",
+  "Description": "Custom Coin Spawns\n\nCurrently Supported (Blue Coin)\nKuribo (Obj_arg2)\nSamboHead (Obj_arg1)\nTeresa (Obj_arg6 and Obj_arg7)\n\nCurrently Supported (Red Coin)\nKuribo (Obj_arg3)\nSamboHead (Obj_arg2)\nTeresa (Obj_arg7)",
+  "Author": "Evanbowl",
+  "Categories": ["Collectible","Extension/Patch"],
+  "Install": "lginc:CustomCoinSpawns"
+},
+{
+  "Name": "Toxic Area",
+  "FolderName": "ToxicArea",
+  "Description": "PTD: The Toxic Gas from SM64 makes its way into SMG2!\n - Obj_Arg0: The time (in frames) it takes for the player to die inside this area.\n - Obj_Arg1: Coin restore amount, from 0 to 100.\n - Obj_Arg2: Bubble restore amount, from 0 to 100.\n\n - SW_A: Enable/disable area.",
+  "Author": "VTXG, Bavario",
+  "Categories": ["Area"],
+  "Install": "lginc:ToxicArea"
+},
+{
+  "Name": "SMG2 MagicBell Port",
+  "FolderName": "SMG2_MagicBell",
+  "Description": "The star pointer bell from SMG1",
+  "Author": "Super Hackio",
+  "Categories": ["Collectible","Port/Restoration"],
+  "Install": "git:https://github.com/SuperHackio/SMG2_MagicBell"
+},
+{
+  "Name": "SMG2 NoteCounter Restored",
+  "FolderName": "SMG2_NoteCounterRestored",
+  "Description": "The Note Counter from E3 SMG1",
+  "Author": "Super Hackio",
+  "Categories": ["Collectible","Port/Restoration"],
+  "Install": "git:https://github.com/SuperHackio/SMG2_NoteCounterRestored"
+},
+{
+  "Name": "SimpleNPC",
+  "FolderName": "SMG2_SimpleNPC",
+  "Description": "A Simple way to add new NPCs to the game",
+  "Author": "Super Hackio",
+  "Categories": ["Object","System"],
+  "Install": "git:https://github.com/SuperHackio/SMG2_SimpleNPC"
+},
+{
+  "Name": "Position Warp Controller",
+  "FolderName": "PosWarpCtrl",
+  "Description": "A very basic object that when placed, allows you to store the player's position by pressing 1.\nThen you can warp to that stored position by pressing 2.\n\nShoutouts to PKSMG2 for the idea!",
+  "Author": "Bavario",
+  "Categories": ["Extension/Patch"],
+  "Install": "lginc:PosWarpCtrl"
+},
+{
+  "Name": "SupportTico Areas",
+  "FolderName": "SupportTicoAreas",
+  "Description": "Provides two areas to interact with the Co-Star Luma.\nSupportTicoSwitchArea: Turns on its SW_A when the player enters the area with 2-Player mode active. The SW_A will turn off either when when the player leaves the area or when 2-Player mode gets disabled.\nNoSupportTicoArea: Fully disables the second controller (and therefore the Co-Star Luma) as long as the player is inside the area.",
+  "Author": "Bavario",
+  "Categories": ["Area","Player"],
+  "Install": "lginc:SupportTicoAreas"
+},
+{
+  "Name": "ButtonSwitchArea",
+  "FolderName": "ButtonSwitchArea",
+  "Description": "An area that can activate its SW_A based on the controller inputs.",
+  "Author": "Bavario",
+  "Categories": ["Area"],
+  "Install": "lginc:ButtonSwitchArea"
+},
+{
+  "Name": "Extended Stationed File List",
+  "FolderName": "ExtStationedFileTable",
+  "Description": "Extends the list of files that are always loaded in memory.",
+  "Author": "Evanbowl",
+  "Categories": ["System"],
+  "Install": "lginc:ExtStationedFileTable"
+},
+{
+  "Name": "Troll Area",
+  "FolderName": "TrollArea",
+  "Description": "Meant as a silly joke. Entering this area will perform one of the following actions:\n\n- Obj_arg0 = -1: Crashes the game.\n- Obj_arg0 = 0: Shuts down the console.\n- Obj_arg0 = 1: Exits to the Home Menu.\n- Obj_arg0 = 2: Very strongly rumbles the Wiimote.\n- Obj_arg0 = 3: Play a random sound effect every frame.",
+  "Author": "Bavario",
+  "Categories": ["Area"],
+  "Install": "git:https://github.com/bavario-lginc/TrollArea"
+},
+{
+  "Name": "Matter Splatter Color Controller",
+  "FolderName": "ClipAreaColorController",
+  "Description": "A Controller that lets you change the color of some Matter Splatter objects when its SW_A is activated.\nWhen the switch is turned off, the color returns to normal.\n- Obj_arg0: Red (0 to 255), Default 0.\n- Obj_arg1: Blue (0 to 255), Default 0.\n- Obj_arg2: Green (0 to 255), Default 0.\n- Obj_arg3: Alpha (0 to 255), Default 255.",
+  "Author": "Gabbo",
+  "Categories": ["Extension/Patch"],
+  "Install": "lginc:ClipAreaColorController"
+},
+{
+  "Name": "Matter Splatter Lantern",
+  "FolderName": "LanternClipArea",
+  "Description": "A custom lantern that evokes a spherical matter splatter when it is selected with the player's cursor, and disappears after a chosen amount of time.\nA matter splatter setup is needed to make it work.\n- Obj_arg0: The size of the sphere, Default 750.\n- Obj_arg1: The time in frames it takes for the sphere to grow until it reaches its specified size in Obj_arg0, Default 30.\n- Obj_arg2: The time in frames it stays at full size before it shrinks down, Default 180.\n- Obj_arg3: the time in frames it takes for the sphere to shrink down to 0, Default 120.",
+  "Author": "Gabbo",
+  "Categories": ["Area"],
+  "Install": "lginc:LanternClipArea"
+},
+{
+  "Name": "Death Counter",
+  "FolderName": "DeathCounter",
+  "Description": "Makes it so the life counter layout displays the Player's death count.",
+  "Author": "VTXG",
+  "Categories": ["Layout"],
+  "Install": "git:https://github.com/VTXG/DeathCounter"      
+},
+{
+  "Name": "OSWReport",
+  "FolderName": "OSWReport",
+  "Description": "Adds a version of OSReport that writes to a log file.",
+  "Author": "AwesomeTMC",
+  "Categories": ["System"],
+  "Install": "lginc:OSWReport"      
+},
+{
+  "Name": "Wrapping Area",
+  "FolderName": "WrappingArea",
+  "Description": "An area with a Wrap-Around effect that teleports the player to the other side of the area when he leaves it.",
+  "Author": "Aba gamer, Bavario",
+  "Categories":["Area"],
+  "Install": "git:https://github.com/aba4gamer/WrappingArea"
+},
+{
+  "Name": "TeresaAtomicPatch",
+  "FolderName": "TeresaAtomicPatch",
+  "Description": "Unhardcodes the amount of child Boos a TeresaAtomic can have.",
+  "Author": "Bavario",
+  "Categories":["Enemy","Extension/Patch"],
+  "Install": "lginc:TeresaAtomicPatch"
+},
+{
+  "Name": "DolphinSwitchArea",
+  "FolderName": "DolphinSwitchArea",
+  "Description": "A custom area that enables its SW_A when Mario enters it and if the game is played on Dolphin emulator.",
+  "Author": "Bavario",
+  "Categories":["Area"],
+  "Install": "lginc:DolphinSwitchArea"
+},
+{
+  "Name": "MarioStateSwitchArea",
+  "FolderName": "MarioStateSwitchArea",
+  "Description": "A custom area that enables its SW_A when Mario enters it and is in the given state.",
+  "Author": "Bavario",
+  "Categories":["Area","Player"],
+  "Install": "lginc:MarioStateSwitchArea"  
+},
+{
+  "Name": "Mushroom Bounce Pads",
+  "FolderName": "SMG2_KinokoTrampoline",
+  "Description": "The Mushroom Bounce Pads from Super Mario 3D World. Can also be used to make your own bounce pads (which do not need to be mushrooms)",
+  "Author": "Super Hackio (Original), Bavario (Decompiled after original was lost)",
+  "Categories":["Object","Port/Restoration"],
+  "Install": "git:https://github.com/SuperHackio/SMG2_KinokoTrampoline"
+},
+{
+  "Name": "Switchboard",
+  "FolderName": "TwoWayArrowStep",
+  "Description": "The 2-way Switchboard from 3D Land/3D World that moves on a rail.",
+  "Author": "Bavario",
+  "Categories":["Object","Port/Restoration"],
+  "Install": "git:https://github.com/bavario-lginc/TwoWayArrowStep/"
+  
+},
+{
+  "Name": "Custom Arrow Platform",
+  "FolderName": "CustomArrowStep",
+  "Description": "The arrow platform from Hazy Maze Cave in Super Mario 64. It can be customized to have any amount of arrows facing any direction. The models were made by Alex SMG.",
+  "Author": "Bavario",
+  "Categories":["Object","Port/Restoration"],
+  "Install": "git:https://github.com/bavario-lginc/CustomArrowStep/"  
+},
+{
+  "Name": "JumpStandAutoNeo",
+  "FolderName": "JumpStandAutoNeo",
+  "Description": "Overhauls the vanilla JumpStandAuto object, adding support for many things such as custom launch heights, colors, switch and rail support.",
+  "Author": "Bavario",
+  "Categories":["Extension/Patch","Object"],
+  "Install": "lginc:JumpStandAutoNeo"
+},
+{
+  "Name": "Warp Box",
+  "FolderName": "WarpBox",
+  "Description": "The Warp Box from 3D World/Land and Mario Maker 2.",
+  "Author": "Bavario",
+  "Categories":["Object","Port/Restoration"],
+  "Install": "git:https://github.com/bavario-lginc/WarpBox/"
+}]

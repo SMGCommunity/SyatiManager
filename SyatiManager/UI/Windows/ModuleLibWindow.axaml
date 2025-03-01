@@ -1,0 +1,146 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:ui="using:FluentAvalonia.UI.Controls"
+		xmlns:conv="using:SyatiManager.UI.Converters"
+		x:Class="SyatiManager.UI.Windows.ModuleLibWindow"
+		mc:Ignorable="d"
+		Width="1000"
+		Height="600"
+		MinWidth="250"
+		MinHeight="30"
+		Title="Module Library"
+		Background="Transparent"
+		TransparencyLevelHint="Mica,AcrylicBlur"
+		DataContext="{Binding $self}">
+	<Grid RowDefinitions="35,*"
+		  ColumnDefinitions="*,*">
+		<!-- Title Bar -->
+		<ExperimentalAcrylicBorder x:Name="AcrylicBorder"
+								   IsHitTestVisible="False"
+								   Grid.ColumnSpan="2">
+			<ExperimentalAcrylicBorder.Material>
+				<ExperimentalAcrylicMaterial
+					BackgroundSource="Digger"
+					TintColor="Black"
+					TintOpacity="1"
+					MaterialOpacity="0.8"/>
+			</ExperimentalAcrylicBorder.Material>
+		</ExperimentalAcrylicBorder>
+		
+		<Panel x:Name="TitleBarPanel"
+			   Grid.ColumnSpan="2">
+			<Image Stretch="Uniform"
+				   RenderOptions.BitmapInterpolationMode="MediumQuality"
+				   Width="20"
+				   Height="20"
+				   Margin="6,0,0,0"
+				   HorizontalAlignment="Left"
+				   VerticalAlignment="Center"/>
+			<TextBlock Text="{Binding Title, Mode=OneWay}"
+					   Margin="35,0,0,0"
+					   VerticalAlignment="Center"/>
+		</Panel>
+
+		<!-- Window Content -->
+		<Border Background="{StaticResource BackgroundBrush}"
+				BorderBrush="{StaticResource HighlightHoverBrush}"
+				BorderThickness="0,1,0,0"
+				Grid.Row="1"
+				Grid.ColumnSpan="2"/>
+		<Panel Margin="15,10,15,0"
+			   VerticalAlignment="Top"
+			   Grid.Row="1">
+			<TextBox x:Name="NameSearchBox"
+					 Watermark="Name"
+					 Margin="0,0,150,0"
+					 MinWidth="0">
+				<TextBox.InnerLeftContent>
+					<ui:SymbolIcon Symbol="Zoom"
+								   Margin="8,0,0,0"/>
+				</TextBox.InnerLeftContent>
+			</TextBox>
+			<ComboBox x:Name="CategorySearch"
+					  ItemsSource="{Binding ModuleLibrary.CategoryList, Mode=OneWay}"
+					  SelectedIndex="0"
+					  Width="145"
+					  HorizontalAlignment="Right">
+			</ComboBox>
+		</Panel>
+
+		<ScrollViewer Margin="0,50,0,10"
+					  Grid.Row="1">
+			<ItemsControl x:Name="ModulesControl"
+						  ItemsSource="{Binding ModuleLibrary.Items, Mode=OneWay}">
+				<ItemsControl.ItemsPanel>
+					<ItemsPanelTemplate>
+						<StackPanel Orientation="Vertical"
+									Margin="15,0,15,0"
+									Spacing="10"/>
+					</ItemsPanelTemplate>
+				</ItemsControl.ItemsPanel>
+			</ItemsControl>
+		</ScrollViewer>
+
+		<GridSplitter Background="Transparent"
+					  ResizeDirection="Columns"
+					  HorizontalAlignment="Right"
+					  Grid.Row="2"/>
+
+		<Border BorderBrush="{StaticResource HighlightHoverBrush}"
+				BorderThickness="1,0,0,0"
+				Grid.Row="1"
+				Grid.Column="1">
+			<Panel>
+				<!-- Module Info View -->
+				<SelectableTextBlock Text="{Binding ModuleLibrary.SelectedItem.ModuleName, Mode=OneWay}"
+									 Margin="10"
+									 Classes="H1"
+									 Grid.Row="1"/>
+				
+				<SelectableTextBlock Foreground="{StaticResource GrayTextBrush}"
+									 Margin="10,40,10,10"
+									 IsVisible="{Binding ModuleLibrary.SelectedItem, Mode=OneWay, Converter={x:Static ObjectConverters.IsNotNull}}"
+									 Grid.Row="1">
+					<SelectableTextBlock.Text>
+						<MultiBinding StringFormat="{}{0}  |  {1}">
+							<Binding Path="ModuleLibrary.SelectedItem.Author"
+									 Mode="OneWay"/>
+							<Binding Path="ModuleLibrary.SelectedItem.Categories"
+									 Mode="OneWay"
+									 Converter="{x:Static conv:LocalConverters.JoinEnumerable}"/>
+						</MultiBinding>
+					</SelectableTextBlock.Text>
+				</SelectableTextBlock>
+				
+				<SelectableTextBlock Text="{Binding ModuleLibrary.SelectedItem.Description, Mode=OneWay}"
+									 Margin="10,70,10,10"
+									 TextWrapping="Wrap"
+									 Grid.Row="1"/>
+
+				<Border BorderBrush="{StaticResource HighlightHoverBrush}"
+						BorderThickness="0,1,0,0"
+						Height="50"
+						VerticalAlignment="Bottom">
+					<StackPanel Orientation="Horizontal"
+								VerticalAlignment="Center">
+						<Button Margin="10,0,0,0"
+								Width="30"
+								Height="30"
+								Command="{Binding ModuleLibrary.SelectedItem.InstallModule, Mode=OneWay}">
+							<ui:SymbolIcon Symbol="Download"/>
+						</Button>
+						
+						<Button Margin="10,0,0,0"
+								Width="30"
+								Height="30"
+								Command="{Binding ModuleLibrary.SelectedItem.OpenLink, Mode=OneWay}">
+							<ui:SymbolIcon Symbol="Link"/>
+						</Button>
+					</StackPanel>
+				</Border>
+			</Panel>
+		</Border>
+	</Grid>
+</Window>

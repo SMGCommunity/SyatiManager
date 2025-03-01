@@ -1,0 +1,120 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:ui="using:FluentAvalonia.UI.Controls"
+		xmlns:wnd="using:FluentAvalonia.UI.Windowing"
+		xmlns:conv="using:SyatiManager.UI.Converters"
+		x:Class="SyatiManager.UI.Windows.AppSettingsWindow"
+		mc:Ignorable="d"
+		Width="700"
+		Height="500"
+		Title="Settings"
+		Background="Transparent"
+		TransparencyLevelHint="Mica,AcrylicBlur"
+		DataContext="{Binding $self}">
+	<Window.Styles>
+		<Style Selector="wnd|MinMaxCloseControl">
+			<Style Selector="^ /template/ Button#MinimizeButton">
+				<Setter Property="IsVisible" Value="False"/>
+			</Style>
+
+			<Style Selector="^ /template/ Button#MaxRestoreButton">
+				<Setter Property="IsVisible" Value="False"/>
+			</Style>
+		</Style>
+	</Window.Styles>
+	<Grid RowDefinitions="35,*">
+		<!-- Title Bar -->
+		<ExperimentalAcrylicBorder x:Name="AcrylicBorder"
+								   IsHitTestVisible="False">
+			<ExperimentalAcrylicBorder.Material>
+				<ExperimentalAcrylicMaterial
+					BackgroundSource="Digger"
+					TintColor="Black"
+					TintOpacity="1"
+					MaterialOpacity="0.8" />
+			</ExperimentalAcrylicBorder.Material>
+		</ExperimentalAcrylicBorder>
+
+		<Panel x:Name="TitleBarPanel">
+			<Image Stretch="Uniform"
+				   RenderOptions.BitmapInterpolationMode="MediumQuality"
+				   Width="20"
+				   Height="20"
+				   Margin="6,0,0,0"
+				   HorizontalAlignment="Left"
+				   VerticalAlignment="Center"/>
+			<TextBlock Text="{Binding Title, Mode=OneWay}"
+					   Margin="35,0,0,0"
+					   VerticalAlignment="Center"/>
+		</Panel>
+
+		<!-- Window Content -->
+		<Border Background="{StaticResource BackgroundBrush}"
+				BorderBrush="{StaticResource HighlightHoverBrush}"
+				BorderThickness="0,1,0,0"
+				Grid.Row="1"
+				Grid.ColumnSpan="2"/>
+
+		<ScrollViewer HorizontalScrollBarVisibility="Auto"
+					  VerticalScrollBarVisibility="Auto"
+					  Grid.Row="1">
+			<StackPanel Margin="10">
+				<TextBlock Text="Building"
+						   Margin="0,0,0,10"
+						   Classes="H1"/>
+
+				<TextBlock Text="Syati Path"
+						   Margin="0,0,0,5"/>
+
+				<TextBox Text="{Binding Core.SyatiPath}"
+						 Watermark="Enter a Path">
+					<TextBox.InnerLeftContent>
+						<Button Command="{Binding SelectSyatiPath, Mode=OneWay}"
+								Width="30"
+								Height="30"
+								VerticalAlignment="Top">
+							<ui:SymbolIcon Symbol="Folder"/>
+						</Button>
+					</TextBox.InnerLeftContent>
+				</TextBox>
+
+				<TextBlock Foreground="{StaticResource GrayTextBrush}"
+						   Margin="20,5,0,10"
+						   VerticalAlignment="Top">
+					<Run Text="{Binding Core.CodeWarriorPath, Mode=OneWay}"/>
+					<LineBreak/>
+					<Run Text="{Binding Core.KamekPath, Mode=OneWay}"/>
+				</TextBlock>
+
+				<TextBlock Text="SyatiModuleBuildTool Folder"
+						   Margin="0,0,0,5"/>
+
+				<TextBox Text="{Binding Core.BuildToolFolder}"
+						 Watermark="Enter a Path"
+						 Margin="0,0,0,10">
+					<TextBox.InnerLeftContent>
+						<Button Command="{Binding SelectBuildToolFolder, Mode=OneWay}"
+								Width="30"
+								Height="30"
+								VerticalAlignment="Top">
+							<ui:SymbolIcon Symbol="Folder"/>
+						</Button>
+					</TextBox.InnerLeftContent>
+				</TextBox>
+
+				<StackPanel Orientation="Horizontal"
+							Spacing="10">
+					<Button Content="Update All"
+							Command="{Binding Core.UpdateAllComponents, Mode=OneWay}"
+							IsEnabled="{Binding !Core.IsUpdating, Mode=OneWay}"
+							ToolTip.Tip="Download all necessary applications."/>
+					<CheckBox IsChecked="{Binding Core.AutoUpdateSyati, TargetNullValue=False}" 
+							  Content="Update Syati At Startup"
+							  ToolTip.Tip="If Syati should be automatically updated when opening the application."/>
+				</StackPanel>
+			</StackPanel>
+		</ScrollViewer>
+	</Grid>
+</Window>

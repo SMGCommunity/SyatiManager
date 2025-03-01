@@ -1,0 +1,82 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:ui="using:FluentAvalonia.UI.Controls"
+			 x:Class="SyatiManager.Source.Solutions.ModuleInfo"
+			 mc:Ignorable="d"
+			 d:DesignWidth="500"
+			 Height="80"
+			 Background="{StaticResource BackgroundBrush}"
+			 BorderBrush="{StaticResource HighlightHoverBrush}"
+			 CornerRadius="10"
+			 BorderThickness="1"
+			 IsHitTestVisible="True"
+			 Classes="SelectableUserControl"
+			 DataContext="{Binding $self}">
+	<Panel>
+		<TextBlock Text="{Binding ModuleName, Mode=OneWay}"
+				   Margin="10,10,10,0"
+				   Classes="H2">
+		</TextBlock>
+		<TextBlock Text="{Binding Author, Mode=OneWay}"
+				   Margin="10,35,10,10"
+				   Foreground="{StaticResource GrayTextBrush}"/>
+		<Button Margin="10"
+				Width="30"
+				Height="30"
+				HorizontalAlignment="Right"
+				VerticalAlignment="Bottom">
+			<Button.Flyout>
+				<MenuFlyout FlyoutPresenterClasses="ModernPresenter">
+					<MenuItem Command="{Binding Update, Mode=OneWay}">
+						<MenuItem.Header>
+							<Panel>
+								<ui:SymbolIcon Symbol="Download"
+											   HorizontalAlignment="Left"/>
+								<TextBlock Text="Update"
+										   Margin="30,0,0,0"
+										   HorizontalAlignment="Left"/>
+							</Panel>
+						</MenuItem.Header>
+					</MenuItem>
+					<MenuItem Command="{Binding ToggleIgnore, Mode=OneWay}">
+						<MenuItem.Header>
+							<Panel>
+								<ui:SymbolIcon Symbol="Remove"
+											   HorizontalAlignment="Left"/>
+								<TextBlock Text="Toggle Ignore"
+										   Margin="30,0,0,0"
+										   HorizontalAlignment="Left"/>
+							</Panel>
+						</MenuItem.Header>
+					</MenuItem>
+					<MenuItem Command="{Binding Delete, Mode=OneWay}">
+						<MenuItem.Header>
+							<Panel>
+								<ui:SymbolIcon Symbol="Delete"
+											   HorizontalAlignment="Left"/>
+								<TextBlock Text="Delete"
+										   Margin="30,0,0,0"
+										   HorizontalAlignment="Left"/>
+							</Panel>
+						</MenuItem.Header>
+					</MenuItem>
+					<MenuItem Header="-"/>
+					<MenuItem Command="{Binding OpenFolder, Mode=OneWay}">
+						<MenuItem.Header>
+							<Panel>
+								<ui:SymbolIcon Symbol="Folder"
+											   HorizontalAlignment="Left"/>
+								<TextBlock Text="Open In File Explorer"
+										   Margin="30,0,0,0"
+										   HorizontalAlignment="Left"/>
+							</Panel>
+						</MenuItem.Header>
+					</MenuItem>
+				</MenuFlyout>
+			</Button.Flyout>
+			<ui:SymbolIcon Symbol="MoreVertical"/>
+		</Button>
+	</Panel>
+</UserControl>
