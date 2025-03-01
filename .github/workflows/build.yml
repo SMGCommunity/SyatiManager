@@ -21,15 +21,15 @@ jobs:
           working-directory: SyatiManager
           run: |
             dotnet restore
-            dotnet publish -p:Properties/PublishProfiles/Linux.pubxml
-            dotnet publish -p:Properties/PublishProfiles/MacOS.pubxml
-            dotnet publish -p:Properties/PublishProfiles/Windows.pubxml
+            dotnet publish -p:PublishProfile=Properties\PublishProfiles\Linux.pubxml
+            dotnet publish -p:PublishProfile=Properties\PublishProfiles\MacOS.pubxml
+            dotnet publish -p:PublishProfile=Properties\PublishProfiles\Windows.pubxml
         - shell: cmd
-          working-directory: SyatiManager/bin/Release/net8.0/publish
+          working-directory: SyatiManager\bin\Release\net8.0\publish
           run: |
-            xcopy /s linux-x64 ${{ github.workspace }}/SyatiManager-linux
-            xcopy /s osx-x64 ${{ github.workspace }}/SyatiManager-macos
-            xcopy /s win-x64 ${{ github.workspace }}/SyatiManager-win
+            xcopy /s linux-x64 ${{ github.workspace }}\SyatiManager-linux
+            xcopy /s osx-x64 ${{ github.workspace }}\SyatiManager-macos
+            xcopy /s win-x64 ${{ github.workspace }}\SyatiManager-win
         - shell: cmd
           run: |
             7z a SyatiManager-linux.zip SyatiManager-linux
