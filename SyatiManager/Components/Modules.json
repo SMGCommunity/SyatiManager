@@ -723,7 +723,7 @@
   "FolderName": "WrappingArea",
   "Description": "An area with a Wrap-Around effect that teleports the player to the other side of the area when he leaves it.",
   "Author": "Aba gamer, Bavario",
-  "Categories":["Area"],
+  "Categories": ["Area"],
   "Install": "git:https://github.com/aba4gamer/WrappingArea"
 },
 {
@@ -731,7 +731,7 @@
   "FolderName": "TeresaAtomicPatch",
   "Description": "Unhardcodes the amount of child Boos a TeresaAtomic can have.",
   "Author": "Bavario",
-  "Categories":["Enemy","Extension/Patch"],
+  "Categories": ["Enemy","Extension/Patch"],
   "Install": "lginc:TeresaAtomicPatch"
 },
 {
@@ -739,7 +739,7 @@
   "FolderName": "DolphinSwitchArea",
   "Description": "A custom area that enables its SW_A when Mario enters it and if the game is played on Dolphin emulator.",
   "Author": "Bavario",
-  "Categories":["Area"],
+  "Categories": ["Area"],
   "Install": "lginc:DolphinSwitchArea"
 },
 {
@@ -747,7 +747,7 @@
   "FolderName": "MarioStateSwitchArea",
   "Description": "A custom area that enables its SW_A when Mario enters it and is in the given state.",
   "Author": "Bavario",
-  "Categories":["Area","Player"],
+  "Categories": ["Area","Player"],
   "Install": "lginc:MarioStateSwitchArea"  
 },
 {
@@ -755,7 +755,7 @@
   "FolderName": "SMG2_KinokoTrampoline",
   "Description": "The Mushroom Bounce Pads from Super Mario 3D World. Can also be used to make your own bounce pads (which do not need to be mushrooms)",
   "Author": "Super Hackio (Original), Bavario (Decompiled after original was lost)",
-  "Categories":["Object","Port/Restoration"],
+  "Categories": ["Object","Port/Restoration"],
   "Install": "git:https://github.com/SuperHackio/SMG2_KinokoTrampoline"
 },
 {
@@ -763,7 +763,7 @@
   "FolderName": "TwoWayArrowStep",
   "Description": "The 2-way Switchboard from 3D Land/3D World that moves on a rail.",
   "Author": "Bavario",
-  "Categories":["Object","Port/Restoration"],
+  "Categories": ["Object","Port/Restoration"],
   "Install": "git:https://github.com/bavario-lginc/TwoWayArrowStep/"
   
 },
@@ -772,7 +772,7 @@
   "FolderName": "CustomArrowStep",
   "Description": "The arrow platform from Hazy Maze Cave in Super Mario 64. It can be customized to have any amount of arrows facing any direction. The models were made by Alex SMG.",
   "Author": "Bavario",
-  "Categories":["Object","Port/Restoration"],
+  "Categories": ["Object","Port/Restoration"],
   "Install": "git:https://github.com/bavario-lginc/CustomArrowStep/"  
 },
 {
@@ -780,7 +780,7 @@
   "FolderName": "JumpStandAutoNeo",
   "Description": "Overhauls the vanilla JumpStandAuto object, adding support for many things such as custom launch heights, colors, switch and rail support.",
   "Author": "Bavario",
-  "Categories":["Extension/Patch","Object"],
+  "Categories": ["Extension/Patch","Object"],
   "Install": "lginc:JumpStandAutoNeo"
 },
 {
@@ -788,6 +788,6 @@
   "FolderName": "WarpBox",
   "Description": "The Warp Box from 3D World/Land and Mario Maker 2.",
   "Author": "Bavario",
-  "Categories":["Object","Port/Restoration"],
+  "Categories": ["Object","Port/Restoration"],
   "Install": "git:https://github.com/bavario-lginc/WarpBox/"
 }]

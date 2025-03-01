@@ -24,11 +24,9 @@ namespace SyatiManager.Source.Libraries {
         public override async Task Update() {
             try {
                 using var client = new HttpClient();
+                var json = await client.GetStringAsync("https://raw.githubusercontent.com/SMGCommunity/SyatiManager/refs/heads/main/SyatiManager/Components/Presets.json");
 
-                using var fs = File.OpenWrite(mPath);
-                using var ms = await client.GetStreamAsync("https://raw.githubusercontent.com/SMGCommunity/SyatiManager/refs/heads/main/SyatiManager/Components/Presets.json");
-
-                await ms.CopyToAsync(fs);
+                File.WriteAllText(mPath, json);
             }
             catch (Exception ex) {
                 IOHelper.WriteError("Error while updating the preset library", ex);            
