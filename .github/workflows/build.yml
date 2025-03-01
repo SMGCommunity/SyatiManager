@@ -1,0 +1,45 @@
+name: Build SyatiManager
+
+on:
+    push:
+        branches: [ main ]
+
+jobs:
+    build:
+        runs-on: windows-latest
+
+        steps:
+        - uses: actions/checkout@v4.1.1
+          with:
+            submodules: recursive
+        - uses: actions/setup-dotnet@v4.0.0
+          with:
+            dotnet-version: '8.x.x'
+        - shell: cmd
+          run: mkdir SyatiManager-linux SyatiManager-macos SyatiManager-win
+        - shell: cmd
+          working-directory: SyatiManager
+          run: |
+            dotnet restore
+            dotnet publish -p:Properties/PublishProfiles/Linux.pubxml
+            dotnet publish -p:Properties/PublishProfiles/MacOS.pubxml
+            dotnet publish -p:Properties/PublishProfiles/Windows.pubxml
+        - shell: cmd
+          working-directory: SyatiManager/bin/Release/net8.0/publish
+          run: |
+            xcopy /s linux-x64 ${{ github.workspace }}/SyatiManager-linux
+            xcopy /s osx-x64 ${{ github.workspace }}/SyatiManager-macos
+            xcopy /s win-x64 ${{ github.workspace }}/SyatiManager-win
+        - shell: cmd
+          run: |
+            7z a SyatiManager-linux.zip SyatiManager-linux
+            7z a SyatiManager-macos.zip SyatiManager-macos
+            7z a SyatiManager-win.zip SyatiManager-win
+        - uses: "marvinpinto/action-automatic-releases@latest"
+          with:
+            repo_token: "${{ secrets.GITHUB_TOKEN }}"
+            automatic_release_tag: auto
+            title: "Auto"
+            prerelease: false
+            files: |
+                *.zip
