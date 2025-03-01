@@ -37,7 +37,7 @@ namespace SyatiManager.UI.Windows {
             var path = await AvaloniaHelper.SaveFilePicker(this, Solution.NewOptions);
 
             if (path is not null) {
-                Core.LoadSolution(path.Path.AbsolutePath);
+                Core.LoadSolution(path.Path.LocalPath);
             }
         }
 
@@ -45,7 +45,7 @@ namespace SyatiManager.UI.Windows {
             var files = await AvaloniaHelper.OpenFilePicker(this, Solution.OpenOptions);
 
             if (files is not null && files.Count > 0) {
-                Core.LoadSolution(files[0].Path.AbsolutePath);
+                Core.LoadSolution(files[0].Path.LocalPath);
                 UpdateRegionCheckboxes();
             }
         }
@@ -57,8 +57,8 @@ namespace SyatiManager.UI.Windows {
             var folders = await AvaloniaHelper.OpenFolderPicker(this, AvaloniaHelper.CommonFolderPickerOptions);
 
             if (folders.Count > 0) {
-                Solution.ModulesPath = folders[0].Path.AbsolutePath;
-                Console.WriteLine($"Set modules path to {folders[0].Path.AbsolutePath} [{Solution.Modules.Count} modules]");
+                Solution.ModulesPath = folders[0].Path.LocalPath;
+                Console.WriteLine($"Set modules path to {Solution.ModulesPath} [{Solution.Modules.Count} modules]");
 
                 Solution.Save();
             }
@@ -71,8 +71,8 @@ namespace SyatiManager.UI.Windows {
             var folders = await AvaloniaHelper.OpenFolderPicker(this, AvaloniaHelper.CommonFolderPickerOptions);
 
             if (folders.Count > 0) {
-                Solution.OutputPath = folders[0].Path.AbsolutePath;
-                Console.WriteLine($"Set output path to {folders[0].Path.AbsolutePath}");
+                Solution.OutputPath = folders[0].Path.LocalPath;
+                Console.WriteLine($"Set output path to {Solution.OutputPath}");
 
                 Solution.Save();
             }

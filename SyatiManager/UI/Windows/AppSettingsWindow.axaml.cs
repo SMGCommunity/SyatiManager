@@ -20,8 +20,8 @@ namespace SyatiManager.UI.Windows {
             var folders = await AvaloniaHelper.OpenFolderPicker(this, AvaloniaHelper.CommonFolderPickerOptions);
 
             if (folders.Count > 0) {
-                Core.SyatiPath = folders[0].Path.AbsolutePath;
-                Console.WriteLine($"Set Syati path to {folders[0].Path.AbsolutePath}");
+                Core.SyatiPath = folders[0].Path.LocalPath;
+                Console.WriteLine($"Set Syati path to {Core.SyatiPath}");
             }
         }
 
@@ -29,8 +29,8 @@ namespace SyatiManager.UI.Windows {
             var folders = await AvaloniaHelper.OpenFolderPicker(this, AvaloniaHelper.CommonFolderPickerOptions);
 
             if (folders.Count > 0) {
-                Core.BuildToolFolder = folders[0].Path.AbsolutePath;
-                Console.WriteLine($"Set Build Tool path to {folders[0].Path.AbsolutePath}");
+                Core.BuildToolFolder = folders[0].Path.LocalPath;
+                Console.WriteLine($"Set Build Tool path to {Core.BuildToolFolder}");
             }
         }
 
