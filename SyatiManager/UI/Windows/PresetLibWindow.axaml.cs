@@ -68,9 +68,9 @@ namespace SyatiManager.UI.Windows {
 
             await SyatiCore.Instance.InstallPreset(PresetLibrary.SelectedItem, new() {
                 FolderName = FolderNameInput.Text,
-                Name = FolderNameInput.Text ?? string.Empty,
-                Author = FolderNameInput.Text ?? string.Empty,
-                Description = FolderNameInput.Text ?? string.Empty,
+                Name = NameInput.Text ?? string.Empty,
+                Author = AuthorInput.Text ?? string.Empty,
+                Description = DescriptionInput.Text ?? string.Empty,
             });
         }
 

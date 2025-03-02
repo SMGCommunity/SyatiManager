@@ -527,12 +527,12 @@
   "Install": "lginc:DeadLeaves"
 },
 {
-  "Name": "ExtTamakoro",
-  "FolderName": "ExtTamakoro",
-  "Description": "Adds customizable music to the Star Ball.",
-  "Author": "AwesomeTMC",
+  "Name": "Tamakoro2",
+  "FolderName": "Tamakoro2",
+  "Description": "Adds various features to the Star Ball to allow for more unique uses of the object.",
+  "Author": "Evanbowl, AwesomeTMC",
   "Categories": ["Object","Extension/Patch"],
-  "Install": "lginc:ExtTamakoro"
+  "Install": "lginc:Tamakoro2"
 },
 {
   "Name": "HitWallTimerSwitch",
