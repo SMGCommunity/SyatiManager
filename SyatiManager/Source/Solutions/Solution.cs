@@ -127,10 +127,21 @@ namespace SyatiManager.Source.Solutions {
             mModules.Clear();
 
             foreach (var directory in Directory.EnumerateDirectories(ModulesPath, "*", SearchOption.TopDirectoryOnly)) {
-                var infoPath = Path.Combine(directory, "ModuleInfo.json");
+                LoadModule(directory);
+            }
+
+            foreach (var shortcut in Directory.EnumerateFiles(ModulesPath, "*.lnk", SearchOption.TopDirectoryOnly)) {
+                var dir = IOHelper.GetShortcutPath(shortcut);
+
+                if (Directory.Exists(dir))
+                    LoadModule(dir);
+            }
+
+            void LoadModule(string dir) {
+                var infoPath = Path.Combine(dir, "ModuleInfo.json");
 
                 if (!File.Exists(infoPath))
-                    continue;
+                    return;
 
                 try {
                     AddModule(new(infoPath));

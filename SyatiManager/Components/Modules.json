@@ -143,14 +143,6 @@
   "Install": "lginc:DummyDisplayModelTable"
 },
 {
-  "Name": "Area Manager Extensions (Codegen)",
-  "FolderName": "ExtAreaObjMgr",
-  "Description": "PTD: AreaObjMgr Creation Table Extension",
-  "Author": "Evanbowl",
-  "Categories": ["Area","Codegen"],
-  "Install": "lginc:ExtAreaObjMgr"
-},
-{
   "Name": "ExtQuakeEffectArea",
   "FolderName": "ExtQuakeEffectArea",
   "Description": "PT: Restored QuakeEffectArea",

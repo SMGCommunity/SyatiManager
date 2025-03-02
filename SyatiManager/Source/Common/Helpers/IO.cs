@@ -34,6 +34,48 @@ namespace SyatiManager.Source.Common.Helpers {
             await TarFile.ExtractToDirectoryAsync(decompressor, outFolder, true);
         }
 
+        public static string GetShortcutPath(string shortcut) {
+            try {
+                using FileStream fs = File.OpenRead(shortcut);
+                using BinaryReader reader = new(fs);
+                fs.Seek(0x14, SeekOrigin.Begin);
+                var flags = reader.ReadUInt32();
+
+                if ((flags & 1) == 1) {                  // Bit 1 set means we have to skip the shell item ID list
+                    fs.Seek(0x4c, SeekOrigin.Begin);     // Seek to the end of the header
+                    var offset = reader.ReadUInt16();    // Read the length of the Shell item ID list
+                    fs.Seek(offset, SeekOrigin.Current); // Seek past it (to the file locator info)
+                }
+
+                var fileInfoStartPos = fs.Position;
+
+                var structLength = reader.ReadUInt32();
+                fs.Seek(0xc, SeekOrigin.Current);
+
+                var fileOffset = reader.ReadUInt32();
+                fs.Seek(fileInfoStartPos + fileOffset, SeekOrigin.Begin);
+
+                var length = structLength + fileInfoStartPos - fs.Position - 2;
+                var link = new string(reader.ReadChars((int)length));
+
+                var begin = link.IndexOf("\0\0");
+
+                if (begin > -1) {
+                    var end = link.IndexOf("\\\\", begin + 2) + 2;
+                    end = link.IndexOf('\0', end) + 1;
+
+                    var firstPart = link[..begin];
+                    var secondPart = link[end..];
+
+                    return firstPart + secondPart;
+                }
+                return link;
+            }
+            catch {
+                return string.Empty;
+            }
+        }
+
         public static async Task<string> CloneAsync(string url, string path, CloneOptions options) {
             return await Task.Run(() => Repository.Clone(url, path, options));
         }

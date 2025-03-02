@@ -32,7 +32,7 @@ Adding modules to the Module Library can be done by editing the `Modules.json` f
 `Name`: Your module's display name (e.g.: "Syati Initializer Module")<br>
 `FolderName`: Your module's folder name, should not contain spaces (e.g.: "Syati_Init")<br>
 `Author`: The author(s) of your module.<br>
-`Description`: Your module's description. If you feel like the description is too big, you can enter `[External]` as your module's description and it will get a readme based on `Install`'s Url.<br>
+`Description`: Your module's description. <!-- This will be added later: If you feel like the description is too big, you can enter `[External]` as your module's description and it will get a readme based on `Install`'s Url.<br> -->
 `Categories`: Your module's categories. Try to use the same categories as other modules. If the existing categories do not fit your module, feel free to create a new one.<br>
 `Install`: Where to download the module from. Check the [Install Source System](https://github.com/Lord-G-INC/Syati-Manager?tab=readme-ov-file#install-source-system) section of this readme.
 
