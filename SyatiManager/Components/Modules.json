@@ -782,4 +782,20 @@
   "Author": "Bavario",
   "Categories": ["Object","Port/Restoration"],
   "Install": "git:https://github.com/bavario-lginc/WarpBox/"
+},
+{
+  "Name": "Blue Coin System",
+  "FolderName": "BlueCoinSystem",
+  "Description": "PTD: Full Blue Coin System",
+  "Author": "Evanbowl, Lord-Giganticus",
+  "Categories": ["Collectible","Object","System"],
+  "Install": "git:https://github.com/Evanbowl/BlueCoinSystem"
+},
+{
+  "Name": "Custom Coin Spawns",
+  "FolderName": "CustomCoinSpawns",
+  "Description": "Custom Coin Spawns\n\nCurrently Supported (Blue Coin)\nKuribo (Obj_arg2)\nSamboHead (Obj_arg1)\nTeresa (Obj_arg6 and Obj_arg7)\n\nCurrently Supported (Red Coin)\nKuribo (Obj_arg3)\nSamboHead (Obj_arg2)\nTeresa (Obj_arg7)",
+  "Author": "Evanbowl",
+  "Categories": ["Collectible","Extension/Patch","Object"],
+  "Install": "git:https://github.com/Evanbowl/CustomCoinSpawns"
 }]
