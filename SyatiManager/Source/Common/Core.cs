@@ -150,9 +150,9 @@ namespace SyatiManager.Source.Common {
 
             foreach (var region in regions) {
                 try {
-                    await IOHelper.StartProcessAsync(
-                        BuildToolPath, $"{region} {mSyatiPath} {mSolution.ModulesPath} {mSolution.OutputPath} {(unibuild ? "-u" : string.Empty)}"
-                    );
+                    await IOHelper.StartProcessAsync(BuildToolPath, [
+                        region, mSyatiPath, mSolution.ModulesPath, mSolution.OutputPath, (unibuild ? "-u" : string.Empty)
+                    ]);
                 }
                 catch (Exception ex) {
                     IOHelper.WriteError("SyatiModuleBuildTool Error", ex);
@@ -190,28 +190,26 @@ namespace SyatiManager.Source.Common {
                 var loaderObj = Path.Combine(mSyatiPath, "loader", "loader.o");
 
                 try {
-                    await IOHelper.StartProcessAsync(
-                        CodeWarriorPath,
-                        $"""
-                        -c -Cpp_exceptions off -nodefaults -proc gekko -fp hard -lang=c++ -O4,s -inline on 
-                        -rtti off -sdata 0 -sdata2 0 -align powerpc -func_align 4 -str pool -enum int -DGEKKO 
-                        -i include -I- -i loader -D{region} {Path.Combine(mSyatiPath, "loader", "loader.cpp")} -o {loaderObj}
-                        """,
-                        mSyatiPath
-                    );
+                    await IOHelper.StartProcessAsync(CodeWarriorPath, [
+                        "-c", "-Cpp_exceptions", "off", "-nodefaults", "-proc", "gekko", "-fp",
+                        "hard", "-lang=c++", "-O4,s", "-inline", "on", "-rtti", "off", "-sdata", "0",
+                        "-sdata2", "0", "-align", "powerpc", "-func_align", "4", "-str", "pool",
+                        "-enum", "int", "-DGEKKO", "-i", "include", "-I-", "-i", "loader", $"-D{region}",
+                        Path.Combine(mSyatiPath, "loader", "loader.cpp"), "-o", loaderObj
+                    ],
+                    mSyatiPath);
                 }
                 catch (Exception ex) {
                     IOHelper.WriteError("CodeWarrior Error", ex);
                 }
 
                 try {
-                    await IOHelper.StartProcessAsync(
-                        KamekPath,
-                        $"{loaderObj} -static=0x80001800 -externals={Path.Combine(mSyatiPath, "symbols", $"{region}.txt")} " +
-                        $"-output-riiv={Path.Combine(mSolution.OutputPath, $"riivo_{region}.xml")} " +
-                        $"-output-kamek={Path.Combine(mSolution.OutputPath, $"Loader{EnumHelper.GetRegionLetter(region)}.bin")}",
-                        mSyatiPath
-                    );
+                    await IOHelper.StartProcessAsync(KamekPath, [
+                        loaderObj, "-static=0x80001800", $"-externals={Path.Combine(mSyatiPath, "symbols", $"{region}.txt")}",
+                        $"-output-riiv={Path.Combine(mSolution.OutputPath, $"riivo_{region}.xml")}",
+                        $"-output-kamek={Path.Combine(mSolution.OutputPath, $"Loader{EnumHelper.GetRegionLetter(region)}.bin")}"
+                    ],
+                    mSyatiPath);
                 }
                 catch (Exception ex) {
                     IOHelper.WriteError("Kamek Error", ex);
@@ -372,6 +370,9 @@ namespace SyatiManager.Source.Common {
         }
 
         public async Task UpdateBuildTool() {
+            if (File.Exists(BuildToolPath))
+                return;
+
             var url =
                 OperatingSystem.IsWindows() ? "https://github.com/SMGCommunity/SyatiModuleBuildTool/releases/download/v1.1.0/SyatiModuleBuildTool.exe" :
                 OperatingSystem.IsMacOS() ? "https://github.com/SMGCommunity/SyatiModuleBuildTool/releases/download/v1.1.0/SyatiModuleBuildTool-macos" :

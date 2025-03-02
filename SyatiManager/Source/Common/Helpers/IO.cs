@@ -5,14 +5,17 @@ using System.Formats.Tar;
 using System.IO.Compression;
 using System.IO;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace SyatiManager.Source.Common.Helpers {
     public static class IOHelper {
-        public static async Task StartProcessAsync(string fileName, string args, string? workdir = null) {
+        public static async Task StartProcessAsync(string fileName, IReadOnlyList<string> args, string? workdir = null) {
             var info = new ProcessStartInfo() {
-                FileName = fileName,
-                Arguments = args
+                FileName = fileName
             };
+
+            foreach (var arg in args)
+                info.ArgumentList.Add(arg);
 
             if (workdir is not null)
                 info.WorkingDirectory = workdir;
