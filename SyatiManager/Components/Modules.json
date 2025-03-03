@@ -798,4 +798,20 @@
   "Author": "Evanbowl",
   "Categories": ["Collectible","Extension/Patch","Object"],
   "Install": "git:https://github.com/Evanbowl/CustomCoinSpawns"
+},
+{
+  "Name": "SMG2 OnimasuPivot",
+  "FolderName": "SMG2_OnimasuPivot",
+  "Description": "The alternative Tox Box variant used in Toy Time Galaxy.",
+  "Author": "Super Hackio, HeadPenguin",
+  "Categories": ["Object", "Port/Restoration"],
+  "Install": "git:https://github.com/SuperHackio/SMG2_OnimasuPivot"
+},
+{
+  "Name": "Donut Blocks",
+  "FolderName": "DonutBlocks",
+  "Description": "Brings the Donut Blocks from Super Mario 3D Land/World into SMG2.\nRead the README for instructions on how to set up this module properly.",
+  "Author": "VTXG, Humming Owl",
+  "Categories": ["Object", "Port/Restoration"],
+  "Install": "lginc:DonutBlocks"
 }]
