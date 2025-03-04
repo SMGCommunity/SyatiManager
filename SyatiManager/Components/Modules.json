@@ -3,7 +3,7 @@
   "FolderName": "Syati_CommonFunctionHooks",
   "Description": "Provides access to hook common functions used in the game.",
   "Author": "[Primary Module]",
-  "Categories": ["Codegen","System"],
+  "Categories": ["Codegen","Primary","System"],
   "Install": "git:https://github.com/SMGCommunity/Syati_CommonFunctionHooks"
 },
 {
@@ -11,7 +11,7 @@
   "FolderName": "Syati_GlobalLayouts",
   "Description": "Provides functionality to have layouts that are always loaded",
   "Author": "[Primary Module]",
-  "Categories": ["Codegen","Layout"],
+  "Categories": ["Codegen","Layout","Primary"],
   "Install": "git:https://github.com/SMGCommunity/Syati_GlobalLayouts"
 },
 {
@@ -19,7 +19,7 @@
   "FolderName": "Syati_Init",
   "Description": "Required to make Syati Modules run properly",
   "Author": "[Primary Module]",
-  "Categories": ["System"],
+  "Categories": ["Primary","System"],
   "Install": "git:https://github.com/SMGCommunity/Syati_Init"
 },
 {
@@ -27,7 +27,7 @@
   "FolderName": "Syati_ObjectFactories",
   "Description": "Provides Object Creation factories that other modules can register to. This allows new objects to be recognized by the game.",
   "Author": "[Primary Module]",
-  "Categories": ["Codegen","Object"],
+  "Categories": ["Codegen","Object","Primary"],
   "Install": "git:https://github.com/SMGCommunity/Syati_ObjectFactories"
 },
 {
