@@ -23,7 +23,7 @@ A system used in Modules for code generation. Some notable examples of codegen u
 Syati Solutions (`.syt`) are project files for custom code. They store your project's module folder, output folder, unibuild configuration, build regions and build tasks.
 
 > [!NOTE]
-> Content-wise, a `.syt` is just a `.json`.
+> Content-wise, an `.syt` file is just a `.json` file.
 
 A default custom code project is structured like this:
 ```
@@ -33,40 +33,12 @@ A default custom code project is structured like this:
 ```
 
 ## Module Library
-A database of publicly available modules. They are stored in `SyatiManager/Components/Modules.json` and are automatically updated whenever the app starts.
-Entries should follow this format:
-```json
-{
-  "Name": "...",
-  "FolderName": "...",
-  "Description": "...",
-  "Author": "...",
-  "Categories": [],
-  "Install": "..."
-},
-```
-`Name`: Your module's display name (e.g.: "Syati Initializer Module")<br>
-`FolderName`: Your module's folder name, should not contain spaces (e.g.: "Syati_Init")<br>
-`Author`: The author(s) of your module.<br>
-`Description`: Your module's description.<br>
-`Categories`: Your module's categories. Try to use the same categories as other modules. If the existing categories do not fit your module, feel free to create a new one.<br>
-`Install`: Where to download the module from. Check the Install Source section.
+A database of publicly available modules. They are stored in `SyatiManager/Components/Modules.json` and are automatically updated whenever the app starts.<br>
+Adding new entries guide can be found [here](https://github.com/SMGCommunity/SyatiManager/blob/main/Docs/Guides/AddingToLibs.md#adding-modules-to-the-module-library).
 
 ## Preset Library
-A database of publicly available presets. They are stored in `SyatiManager/Components/Presets.json` and are automatically updated whenever the app starts.
-New entries should follow this format:
-```json
-{
-  "Name": "...",
-  "Description": "...",
-  "Author": "...",
-  "Install": "..."
-},
-```
-`Name`: Your preset's display name (e.g.: "LiveActor Preset")<br>
-`Description`: Your module's description.<br>
-`Author`: The author(s) of your preset.<br>
-`Install`: Where to download the preset from. Check the Install Source section.
+A database of publicly available presets. They are stored in `SyatiManager/Components/Presets.json` and are automatically updated whenever the app starts.<br>
+Adding new entries guide can be found [here](https://github.com/SMGCommunity/SyatiManager/blob/main/Docs/Guides/AddingToLibs.md#adding-presets-to-the-preset-library).
 
 ## Install Source
 This system is used in `Modules.json` and `Presets.json` to clone repos and repo folders.<br>
