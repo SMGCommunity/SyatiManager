@@ -806,4 +806,20 @@
   "Author": "VTXG, Humming Owl",
   "Categories": ["Object", "Port/Restoration"],
   "Install": "lginc:DonutBlocks"
+},
+{
+  "Name": "SuperFlag",
+  "FolderName": "SuperFlag",
+  "Description": "An API for user defined conditionals (read the README for more info).",
+  "Author": "AwesomeTMC, Evanbowl",
+  "Categories": ["System"],
+  "Install": "git:https://github.com/AwesomeTMC/SuperFlag"
+},
+{
+  "Name": "InArcHotswap",
+  "FolderName": "InArcHotswap",
+  "Description": "Allows you to swap certain files within .arc archives (read the README for more info).",
+  "Author": "AwesomeTMC",
+  "Categories": ["Extension/Patch"],
+  "Install": "git:https://github.com/AwesomeTMC/InArcHotswap"
 }]
