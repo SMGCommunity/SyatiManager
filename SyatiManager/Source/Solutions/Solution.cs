@@ -2,11 +2,13 @@
 using Avalonia.Collections;
 using SyatiManager.Source.Common;
 using SyatiManager.Source.Common.Helpers;
+using SyatiManager.Source.Libraries;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace SyatiManager.Source.Solutions {
     public partial class Solution : AvaloniaObject {
@@ -16,6 +18,7 @@ namespace SyatiManager.Source.Solutions {
 
         private readonly string mFilePath;
         private readonly string mFolderPath;
+        private List<string> mInstallModules;
         private string mModulesPath;
         private string mOutputPath;
         private Regions mRegions;
@@ -28,6 +31,10 @@ namespace SyatiManager.Source.Solutions {
 
         public string FolderPath {
             get => mFolderPath;
+        }
+
+        public List<string> InstallModules {
+            get => mInstallModules;
         }
 
         public string VSCodeFolder {
@@ -93,6 +100,7 @@ namespace SyatiManager.Source.Solutions {
         public Solution(string path) {
             mSelectionHolder = new();
             mModules = [];
+            mInstallModules = [];
             mIgnoreEntries = [];
             mTasks = [];
 
@@ -116,6 +124,7 @@ namespace SyatiManager.Source.Solutions {
         private void LoadConfig() {
             JsonHelper.Deserialize(out SolutionData data, File.ReadAllText(mFilePath), $"Parsed solution JSON is null. [{mFilePath}]");
 
+            mInstallModules = data.Modules;
             mModulesPath = data.ModulesPath;
             mOutputPath = data.OutputPath;
             mRegions = data.Regions;
@@ -123,7 +132,7 @@ namespace SyatiManager.Source.Solutions {
             mTasks = data.Tasks;
         }
 
-        private void LoadModules() {
+        private async Task LoadModules() {
             mModules.Clear();
 
             foreach (var directory in Directory.EnumerateDirectories(ModulesPath, "*", SearchOption.TopDirectoryOnly)) {
@@ -135,6 +144,20 @@ namespace SyatiManager.Source.Solutions {
 
                 if (Directory.Exists(dir))
                     LoadModule(dir);
+            }
+
+            foreach (var module in InstallModules) {
+                LibraryModule? libModule = SyatiCore.ModuleLibrary[module];
+
+                if (libModule == null) {
+                    Console.WriteLine($"Cannot locate module {module}. Skipping download...");
+                    continue;
+                }
+                if (Directory.Exists(Path.Join(ModulesPath, libModule.FolderName))) {
+                    Console.WriteLine($"Module {module} is already installed. Skipping download...");
+                    continue;
+                }
+                await SyatiCore.Instance.InstallModule(libModule, false, false, this);
             }
 
             void LoadModule(string dir) {
@@ -163,6 +186,7 @@ namespace SyatiManager.Source.Solutions {
 
         public void Save() {
             var data = new SolutionData() {
+                Modules = mInstallModules,
                 ModulesPath = mModulesPath,
                 OutputPath = mOutputPath,
                 Regions = mRegions,
@@ -202,11 +226,16 @@ namespace SyatiManager.Source.Solutions {
 
             module.PointerPressed += ModuleClicked;
             mModules.Add(module);
+            if (!mInstallModules.Contains(module.FolderName))
+                mInstallModules.Add(module.FolderName);
         }
 
         public void RemoveModule(ModuleInfo? module) {
-            if (module is not null)
+            if (module is not null) {
+                if (mInstallModules.Contains(module.FolderName))
+                    mInstallModules.Remove(module.FolderName);
                 mModules.Remove(module);
+            }
         }
 
         public void DeleteModule(ModuleInfo module, bool isUpdate = false) {
@@ -224,6 +253,8 @@ namespace SyatiManager.Source.Solutions {
 
                 Directory.Delete(module.FolderPath, true);
             }
+            if (mInstallModules.Contains(module.FolderName)) 
+                mInstallModules.Remove(module.FolderName);
 
 
             if (!isUpdate)
@@ -284,6 +315,7 @@ namespace SyatiManager.Source.Solutions {
     }
 
     public class SolutionData {
+        public List<string> Modules { get; set; } = [];
         public string ModulesPath { get; set; } = string.Empty;
 
         public string OutputPath { get; set; } = string.Empty;

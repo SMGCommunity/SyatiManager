@@ -398,11 +398,12 @@ namespace SyatiManager.Source.Common {
                 mSolution.ModulesPath = mSolution.ModulesPath;
         }
 
-        public async Task InstallModule(LibraryModule libModule, bool isDependency = false, bool isUpdate = false) {
-            if (mSolution is null)
+        public async Task InstallModule(LibraryModule libModule, bool isDependency = false, bool isUpdate = false, Solution? solution = null) {
+            solution ??= mSolution;
+            if (solution is null)
                 return;
             
-            if (!isUpdate && mSolution.IsModuleInstalled(libModule.FolderName)) {
+            if (!isUpdate && solution.IsModuleInstalled(libModule.FolderName)) {
                 Console.WriteLine($"{libModule.FolderName} is already installed.");
                 return;
             }
@@ -410,13 +411,13 @@ namespace SyatiManager.Source.Common {
             try {
                 Console.WriteLine($"{(isUpdate ? "Updating" : "Installing")} module {libModule.FolderName}...");
 
-                var folder = Path.Combine(mSolution.ModulesPath, libModule.FolderName);
+                var folder = Path.Combine(solution.ModulesPath, libModule.FolderName);
                 var infoPath = Path.Combine(folder, "ModuleInfo.json");
 
                 await libModule.Install.InstallAsync(folder);
 
                 var module = new ModuleInfo(infoPath);
-                mSolution.AddModule(module, true);
+                solution.AddModule(module, true);
 
                 Console.WriteLine($"{(isUpdate ? "Updated" : "Installed")} {libModule.FolderName} successfully.");
 
