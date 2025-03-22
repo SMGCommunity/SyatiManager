@@ -843,7 +843,7 @@
   "Name": "ObjectPullArea",
   "FolderName": "ObjectPullArea",
   "Description": "An area that when entered, allows objects to be pulled towards the player.",
-  "Author": "Bavario",
+  "Author": "Bavario, AwesomeTMC",
   "Categories": ["Player", "Port/Restoration"],
   "Install": "lginc:ObjectPullArea"
 }]
