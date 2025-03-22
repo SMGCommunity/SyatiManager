@@ -838,4 +838,12 @@
   "Author": "VTXG",
   "Categories": ["Tool"],
   "Install": "git_folder:https://github.com/Lord-G-INC/GalaxyToolkit/tree/main/Modules/GalaxyToolkit"
+},
+{
+  "Name": "ObjectPullArea",
+  "FolderName": "ObjectPullArea",
+  "Description": "An area that when entered, allows objects to be pulled towards the player.",
+  "Author": "Bavario",
+  "Categories": ["Player", "Port/Restoration"],
+  "Install": "lginc:ObjectPullArea"
 }]
