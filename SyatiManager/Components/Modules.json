@@ -822,4 +822,28 @@
   "Author": "AwesomeTMC",
   "Categories": ["Extension/Patch"],
   "Install": "git:https://github.com/AwesomeTMC/InArcHotswap"
+},
+{
+  "Name": "SMG2_SimpleMirrorObj",
+  "FolderName": "SMG2_SimpleMirrorObj",
+  "Description": "Ports the removed SimpleMirrorObj back into SMG2 as a ProductMapObjDataTable class, allowing the game to render Mirror Actors with MirrorArea.",
+  "Author": "Super Hackio",
+  "Categories": ["Port/Restoration"],
+  "Install": "git:https://github.com/SuperHackio/SMG2_SimpleMirrorObj"
+},
+{
+  "Name": "Galaxy Toolkit",
+  "FolderName": "GalaxyToolkit",
+  "Description": "An external tool for SMG2 modding that hooks into Dolphin Emulator and provides ways of interacting with it.\nhttps://github.com/Lord-G-INC/GalaxyToolkit",
+  "Author": "VTXG",
+  "Categories": ["Tool"],
+  "Install": "git_folder:https://github.com/Lord-G-INC/GalaxyToolkit/tree/main/Modules/GalaxyToolkit"
+},
+{
+  "Name": "ObjectPullArea",
+  "FolderName": "ObjectPullArea",
+  "Description": "An area that when entered, allows objects to be pulled towards the player.",
+  "Author": "Bavario, AwesomeTMC",
+  "Categories": ["Player", "Port/Restoration"],
+  "Install": "lginc:ObjectPullArea"
 }]
