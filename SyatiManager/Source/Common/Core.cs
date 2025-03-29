@@ -9,6 +9,7 @@ using System.IO;
 using System.IO.Compression;
 using System.Net.Http;
 using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace SyatiManager.Source.Common {
     public class SyatiCore : AvaloniaObject {
@@ -331,6 +332,9 @@ namespace SyatiManager.Source.Common {
                     using var stream = await client.GetStreamAsync("https://mariogalaxy.org/CodeWarrior-Syati.zip");
                     ZipFile.ExtractToDirectory(stream, CodeWarriorFolder, true);
                 } else {
+                    if (!Directory.Exists(CodeWarriorFolder)) 
+                        Directory.CreateDirectory(CodeWarriorFolder);
+
                     using var compilerStream = await client.GetStreamAsync("https://mariogalaxy.org/mwcceppc-syati");
                     using var compilerDest = File.OpenWrite(Path.Combine(CodeWarriorFolder, "mwcceppc"));
                     compilerStream.CopyTo(compilerDest);
@@ -338,6 +342,9 @@ namespace SyatiManager.Source.Common {
                     using var assemblerStream = await client.GetStreamAsync("https://mariogalaxy.org/mwasmeppc-syati");
                     using var assemblerDest = File.OpenWrite(Path.Combine(CodeWarriorFolder, "mwasmeppc"));
                     assemblerStream.CopyTo(assemblerDest);
+
+                    Process.Start($"chmod +x {Path.Combine(CodeWarriorFolder, "mwcceppc")}");
+                    Process.Start($"chmod +x {Path.Combine(CodeWarriorFolder, "mwasmeppc")}");
                 }
                 Console.WriteLine("Installed CodeWarrior successfully.");
             }
