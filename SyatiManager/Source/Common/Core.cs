@@ -327,9 +327,18 @@ namespace SyatiManager.Source.Common {
 
             try {
                 using var client = new HttpClient();
-                using var stream = await client.GetStreamAsync("https://mariogalaxy.org/CodeWarrior-Syati.zip");
+                if (OperatingSystem.IsWindows()) {
+                    using var stream = await client.GetStreamAsync("https://mariogalaxy.org/CodeWarrior-Syati.zip");
+                    ZipFile.ExtractToDirectory(stream, CodeWarriorFolder, true);
+                } else {
+                    using var compilerStream = await client.GetStreamAsync("https://mariogalaxy.org/mwcceppc-syati");
+                    using var compilerDest = File.OpenWrite(Path.Combine(CodeWarriorFolder, "mwcceppc"));
+                    compilerStream.CopyTo(compilerDest);
 
-                ZipFile.ExtractToDirectory(stream, CodeWarriorFolder, true);
+                    using var assemblerStream = await client.GetStreamAsync("https://mariogalaxy.org/mwasmeppc-syati");
+                    using var assemblerDest = File.OpenWrite(Path.Combine(CodeWarriorFolder, "mwasmeppc"));
+                    assemblerStream.CopyTo(assemblerDest);
+                }
                 Console.WriteLine("Installed CodeWarrior successfully.");
             }
             catch (Exception ex) {
