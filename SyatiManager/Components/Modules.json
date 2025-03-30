@@ -846,4 +846,20 @@
   "Author": "Bavario, AwesomeTMC",
   "Categories": ["Player", "Port/Restoration"],
   "Install": "lginc:ObjectPullArea"
+},
+{
+  "Name": "ExtPostFogArea",
+  "FolderName": "ExtPostFogArea",
+  "Description": "New functionality for PostFogArea",
+  "Author": "Gabbo",
+  "Categories": ["Area", "Extension/Patch"],
+  "Install": "lginc:ExtPostFogArea"
+},
+{
+  "Name": "ForbidWaterSearchArea",
+  "FolderName": "ForbidWaterSearchArea",
+  "Description": "Enables ForbidWaterSearchArea to be used.",
+  "Author": "Bavario",
+  "Categories": ["Area", "Extension/Patch"],
+  "Install": "lginc:ForbidWaterSearchArea"
 }]
