@@ -862,4 +862,12 @@
   "Author": "Bavario",
   "Categories": ["Area", "Extension/Patch"],
   "Install": "lginc:ForbidWaterSearchArea"
+},
+{
+  "Name": "AnmModelSwitchMultiMove",
+  "FolderName": "AnmModelSwitchMultiMove",
+  "Description": "A new ProductMapObj class that has multiple animations based on the switch that is active.",
+  "Author": "Bavario",
+  "Categories": ["Object", "Extension/Patch"],
+  "Install": "lginc:AnmModelSwitchMultiMove"
 }]
