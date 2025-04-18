@@ -870,4 +870,12 @@
   "Author": "Bavario",
   "Categories": ["Object", "Extension/Patch"],
   "Install": "lginc:AnmModelSwitchMultiMove"
+},
+{
+  "Name": "PTD Timer Layout",
+  "FolderName": "TimerLayout",
+  "Description": "Adds a layout that shows the current stage Clear Time.",
+  "Author": "Evanbowl",
+  "Categories": ["Player", "Port/Restoration"],
+  "Install": "lginc:TimerLayout"
 }]

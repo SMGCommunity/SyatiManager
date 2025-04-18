@@ -79,6 +79,9 @@ namespace SyatiManager.UI.Windows {
         }
 
         public void OpenEditIgnoredWindow() {
+            if (Solution is null)
+                return;
+
             new EditIgnoredWindow().Show(this);
         }
 
@@ -87,10 +90,16 @@ namespace SyatiManager.UI.Windows {
         }
 
         public void OpenModuleLibWindow() {
+            if (Solution is null)
+                return;
+
             new ModuleLibWindow().Show(this);
         }
 
         public void OpenPresetLibWindow() {
+            if (Solution is null)
+                return;
+
             new PresetLibWindow().Show(this);
         }
 
