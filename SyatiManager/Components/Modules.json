@@ -878,4 +878,12 @@
   "Author": "Evanbowl",
   "Categories": ["Player", "Port/Restoration"],
   "Install": "lginc:TimerLayout"
+},
+{
+  "Name": "Kamella in SMG2",
+  "FolderName": "SMG2_BossKameckReturns",
+  "Description": "She's here for her revenge...",
+  "Author": "Super Hackio",
+  "Categories": ["Port/Restoration", "Enemy"],
+  "Install": "git:https://github.com/SuperHackio/SMG2_BossKameckReturns"
 }]
