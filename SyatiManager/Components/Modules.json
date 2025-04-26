@@ -31,6 +31,14 @@
   "Install": "git:https://github.com/SMGCommunity/Syati_ObjectFactories"
 },
 {
+  "Name": "Syati Class Extensions",
+  "FolderName": "Syati_ClassExtensions",
+  "Description": "Allows multiple modules to declare additional variables/functions for the same pre-existing classes.",
+  "Author": "[Primary Module]",
+  "Categories": ["Codegen","Extension/Patch","Primary"],
+  "Install": "git:https://github.com/SMGCommunity/Syati_ClassExtensions"
+},
+{
   "Name": "Anagon",
   "FolderName": "Anagon",
   "Description": "SMG1 Enemy Port: Swimming Gringill",
