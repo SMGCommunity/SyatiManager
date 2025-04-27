@@ -894,4 +894,12 @@
   "Author": "Super Hackio",
   "Categories": ["Port/Restoration", "Enemy"],
   "Install": "git:https://github.com/SuperHackio/SMG2_BossKameckReturns"
+},
+{
+  "Name": "SMG2 Signboard Balloon Stretch",
+  "FolderName": "SMG2_SignboardBalloonStretch",
+  "Description": "Adds a new Signboard message layout for use with the Shout MSBT option.",
+  "Author": "Super Hackio",
+  "Categories": ["Extension/Patch", "Object"],
+  "Install": "git:https://github.com/SuperHackio/SMG2_SignboardBalloonStretch"
 }]
