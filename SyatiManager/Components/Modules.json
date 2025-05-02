@@ -906,8 +906,16 @@
 {
   "Name": "ExtCometScreenFilter",
   "FolderName": "ExtCometScreenFilter",
-  "Description": "Restores the screen filter effect seen in SMG1's comet missions.",
+  "Description": "Restores the screen filter effect seen in SMG1's comet missions.\nSimply provides the basic SMG1 implementation. If you want more customizability, use 'SMG2 Comet Screen Filter Colors' (aka. SMG2_CometScreenFilter)",
   "Author": "VTXG, BlueXD",
   "Categories": ["Layout", "Port/Restoration"],
   "Install": "lginc:ExtCometScreenFilter"
+},
+{
+  "Name": "SMG2 Comet Screen Filter Colors",
+  "FolderName": "SMG2_CometScreenFilter",
+  "Description": "Restores the screen filter effect seen in SMG1's comet missions.\nIf you want a more lightweight implementation, use 'ExtCometScreenFilter'.",
+  "Author": "Super Hackio",
+  "Categories": ["Codegen", "Layout", "Port/Restoration"],
+  "Install": "git:https://github.com/SuperHackio/SMG2_CometScreenFilter"
 }]
