@@ -896,6 +896,13 @@
   "Install": "git:https://github.com/SuperHackio/SMG2_BossKameckReturns"
 },
 {
+  "Name": "Yoshi Eating Extensions",
+  "FolderName": "SMG2_YoshiEatExtensions",
+  "Description": "Allows more objects to be consumed by Yoshi.",
+  "Categories": ["Codegen", "Extension/Patch"],
+  "Install":"git:https://github.com/SuperHackio/SMG2_YoshiEatExtensions"
+},
+{
   "Name": "SMG2 Signboard Balloon Stretch",
   "FolderName": "SMG2_SignboardBalloonStretch",
   "Description": "Adds a new Signboard message layout for use with the Shout MSBT option.",
