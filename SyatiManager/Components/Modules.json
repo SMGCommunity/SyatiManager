@@ -925,4 +925,12 @@
   "Author": "Super Hackio",
   "Categories": ["Codegen", "Layout", "Port/Restoration"],
   "Install": "git:https://github.com/SuperHackio/SMG2_CometScreenFilter"
+},
+{
+  "Name": "SeesawMoveNut",
+  "FolderName": "SMG2_SeesawMoveNut",
+  "Description": "Bolt Lifts from SMG1 ported as a ProductMapObjDataTable class.",
+  "Author": "MTLenz",
+  "Categories": ["Object", "Port/Restoration"],
+  "Install": "git:https://github.com/MagnetLenz/SMG2_SeesawMoveNut"
 }]
