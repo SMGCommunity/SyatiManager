@@ -899,6 +899,7 @@
   "Name": "Yoshi Eating Extensions",
   "FolderName": "SMG2_YoshiEatExtensions",
   "Description": "Allows more objects to be consumed by Yoshi.",
+  "Author": "Super Hackio",
   "Categories": ["Codegen", "Extension/Patch"],
   "Install":"git:https://github.com/SuperHackio/SMG2_YoshiEatExtensions"
 },
