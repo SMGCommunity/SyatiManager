@@ -804,7 +804,7 @@
   "FolderName": "SMG2_OnimasuPivot",
   "Description": "The alternative Tox Box variant used in Toy Time Galaxy.",
   "Author": "Super Hackio, HeadPenguin",
-  "Categories": ["Object", "Port/Restoration"],
+  "Categories": ["Object","Port/Restoration"],
   "Install": "git:https://github.com/SuperHackio/SMG2_OnimasuPivot"
 },
 {
@@ -812,7 +812,7 @@
   "FolderName": "DonutBlocks",
   "Description": "Brings the Donut Blocks from Super Mario 3D Land/World into SMG2.\nRead the README for instructions on how to set up this module properly.",
   "Author": "VTXG, Humming Owl",
-  "Categories": ["Object", "Port/Restoration"],
+  "Categories": ["Object","Port/Restoration"],
   "Install": "lginc:DonutBlocks"
 },
 {
@@ -852,7 +852,7 @@
   "FolderName": "ObjectPullArea",
   "Description": "An area that when entered, allows objects to be pulled towards the player.",
   "Author": "Bavario, AwesomeTMC",
-  "Categories": ["Player", "Port/Restoration"],
+  "Categories": ["Player","Port/Restoration"],
   "Install": "lginc:ObjectPullArea"
 },
 {
@@ -860,7 +860,7 @@
   "FolderName": "ExtPostFogArea",
   "Description": "New functionality for PostFogArea",
   "Author": "Gabbo",
-  "Categories": ["Area", "Extension/Patch"],
+  "Categories": ["Area","Extension/Patch"],
   "Install": "lginc:ExtPostFogArea"
 },
 {
@@ -868,7 +868,7 @@
   "FolderName": "ForbidWaterSearchArea",
   "Description": "Enables ForbidWaterSearchArea to be used.",
   "Author": "Bavario",
-  "Categories": ["Area", "Extension/Patch"],
+  "Categories": ["Area","Extension/Patch"],
   "Install": "lginc:ForbidWaterSearchArea"
 },
 {
@@ -876,7 +876,7 @@
   "FolderName": "AnmModelSwitchMultiMove",
   "Description": "A new ProductMapObj class that has multiple animations based on the switch that is active.",
   "Author": "Bavario",
-  "Categories": ["Object", "Extension/Patch"],
+  "Categories": ["Object","Extension/Patch"],
   "Install": "lginc:AnmModelSwitchMultiMove"
 },
 {
@@ -884,7 +884,7 @@
   "FolderName": "TimerLayout",
   "Description": "Adds a layout that shows the current stage Clear Time.",
   "Author": "Evanbowl",
-  "Categories": ["Player", "Port/Restoration"],
+  "Categories": ["Player","Port/Restoration"],
   "Install": "lginc:TimerLayout"
 },
 {
@@ -892,7 +892,7 @@
   "FolderName": "SMG2_BossKameckReturns",
   "Description": "She's here for her revenge...",
   "Author": "Super Hackio",
-  "Categories": ["Port/Restoration", "Enemy"],
+  "Categories": ["Port/Restoration","Enemy"],
   "Install": "git:https://github.com/SuperHackio/SMG2_BossKameckReturns"
 },
 {
@@ -900,7 +900,7 @@
   "FolderName": "SMG2_YoshiEatExtensions",
   "Description": "Allows more objects to be consumed by Yoshi.",
   "Author": "Super Hackio",
-  "Categories": ["Codegen", "Extension/Patch"],
+  "Categories": ["Codegen","Extension/Patch"],
   "Install":"git:https://github.com/SuperHackio/SMG2_YoshiEatExtensions"
 },
 {
@@ -908,7 +908,7 @@
   "FolderName": "SMG2_SignboardBalloonStretch",
   "Description": "Adds a new Signboard message layout for use with the Shout MSBT option.",
   "Author": "Super Hackio",
-  "Categories": ["Extension/Patch", "Object"],
+  "Categories": ["Extension/Patch","Object"],
   "Install": "git:https://github.com/SuperHackio/SMG2_SignboardBalloonStretch"
 },
 {
@@ -916,7 +916,7 @@
   "FolderName": "ExtCometScreenFilter",
   "Description": "Restores the screen filter effect seen in SMG1's comet missions.\nSimply provides the basic SMG1 implementation. If you want more customizability, use 'SMG2 Comet Screen Filter Colors' (aka. SMG2_CometScreenFilter)",
   "Author": "VTXG, BlueXD",
-  "Categories": ["Layout", "Port/Restoration"],
+  "Categories": ["Layout","Port/Restoration"],
   "Install": "lginc:ExtCometScreenFilter"
 },
 {
@@ -924,7 +924,7 @@
   "FolderName": "SMG2_CometScreenFilter",
   "Description": "Restores the screen filter effect seen in SMG1's comet missions.\nIf you want a more lightweight implementation, use 'ExtCometScreenFilter'.",
   "Author": "Super Hackio",
-  "Categories": ["Codegen", "Layout", "Port/Restoration"],
+  "Categories": ["Codegen","Layout","Port/Restoration"],
   "Install": "git:https://github.com/SuperHackio/SMG2_CometScreenFilter"
 },
 {
@@ -932,6 +932,14 @@
   "FolderName": "SMG2_SeesawMoveNut",
   "Description": "Bolt Lifts from SMG1 ported as a ProductMapObjDataTable class.",
   "Author": "MTLenz",
-  "Categories": ["Object", "Port/Restoration"],
+  "Categories": ["Object","Port/Restoration"],
   "Install": "git:https://github.com/MagnetLenz/SMG2_SeesawMoveNut"
+},
+{
+  "Name": "SMG2 Byaml",
+  "FolderName": "SMG2-Byaml",
+  "Description": "BYAML file format in SMG2.",
+  "Author": "shibbo",
+  "Categories": ["Port/Restoration","System"],
+  "Install": "git:https://github.com/shibbo/SMG2-Byaml"
 }]
