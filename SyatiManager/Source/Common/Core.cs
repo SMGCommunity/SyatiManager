@@ -390,9 +390,9 @@ namespace SyatiManager.Source.Common {
                 return;
 
             var url =
-                OperatingSystem.IsWindows() ? "https://github.com/SMGCommunity/SyatiModuleBuildTool/releases/download/v1.1.0/SyatiModuleBuildTool.exe" :
-                OperatingSystem.IsMacOS() ? "https://github.com/SMGCommunity/SyatiModuleBuildTool/releases/download/v1.1.0/SyatiModuleBuildTool-macos" :
-                "https://github.com/SMGCommunity/SyatiModuleBuildTool/releases/download/v1.1.0/SyatiModuleBuildTool-linux";
+                OperatingSystem.IsWindows() ? "https://github.com/SMGCommunity/SyatiModuleBuildTool/releases/download/auto/SyatiModuleBuildTool.exe" :
+                OperatingSystem.IsMacOS() ? "https://github.com/SMGCommunity/SyatiModuleBuildTool/releases/download/auto/SyatiModuleBuildTool-macos" :
+                "https://github.com/SMGCommunity/SyatiModuleBuildTool/releases/download/auto/SyatiModuleBuildTool-linux";
 
             try {
                 Directory.CreateDirectory(mBuildToolFolder);
