@@ -942,4 +942,12 @@
   "Author": "shibbo",
   "Categories": ["Port/Restoration","System"],
   "Install": "git:https://github.com/shibbo/SMG2-Byaml"
+},
+{
+  "Name": "Localized Object Data Extension",
+  "FolderName": "LocalizedObjectData",
+  "Description": "Allows you to localize objects per language. Simply place the ObjectData .arc files in LocalizeData/<language here>/ObjectData/.",
+  "Author": "Bavario",
+  "Categories": ["Extension/Patch"],
+  "Install": "lginc:LocalizedObjectData"
 }]
