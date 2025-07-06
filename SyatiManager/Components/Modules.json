@@ -950,4 +950,12 @@
   "Author": "Bavario",
   "Categories": ["Extension/Patch"],
   "Install": "lginc:LocalizedObjectData"
+},
+{
+  "Name": "PlayerFollowActor",
+  "FolderName": "PlayerFollowActor",
+  "Description": "Adds an actor that replaces the player model. More changes will be made in the future.",
+  "Author": "Bavario",
+  "Categories": ["Extension/Patch", "Player", "Object"],
+  "Install": "git:https://github.com/Lord-G-INC/PlayerFollowActor"
 }]
