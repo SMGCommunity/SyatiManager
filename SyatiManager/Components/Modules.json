@@ -896,6 +896,14 @@
   "Install": "git:https://github.com/SuperHackio/SMG2_BossKameckReturns"
 },
 {
+  "Name": "LavaSteam",
+  "FolderName": "LavaSteam",
+  "Description": "Lava Steam in SMG2. Documentation is on GitHub.",
+  "Author": "Evanbowl",
+  "Categories": ["Object"],
+  "Install": "git:https://github.com/Evanbowl/SMG2-LavaSteam"
+},
+{
   "Name": "Yoshi Eating Extensions",
   "FolderName": "SMG2_YoshiEatExtensions",
   "Description": "Allows more objects to be consumed by Yoshi.",
