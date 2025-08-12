@@ -287,6 +287,14 @@
   "Install": "lginc:RedCoinSystem"
 },
 {
+  "Name": "Custom Coin Base Module",
+  "FolderName": "CoinBase",
+  "Description": "Base Code for custom Coins",
+  "Author": "Evanbowl",
+  "Categories": ["Collectible","Object","System"],
+  "Install": "lginc:CoinBase"
+},
+{
   "Name": "Custom Launch Star Colors",
   "FolderName": "SuperSpinDriverCustomColors",
   "Description": "PTD: Custom Launch Star Colors",
