@@ -39,6 +39,14 @@
   "Install": "git:https://github.com/SMGCommunity/Syati_ClassExtensions"
 },
 {
+  "Name": "Syati Extended Save Files",
+  "FolderName": "Syati_ExtGameData",
+  "Description": "A module that allows the creation of new binary data chunks in GameData.bin.",
+  "Author": "VTXG, Evanbowl",
+  "Categories": ["Codegen","Extension/Patch","Primary","System"],
+  "Install": "git:https://github.com/SMGCommunity/Syati_ExtGameData"
+},
+{
   "Name": "Anagon",
   "FolderName": "Anagon",
   "Description": "SMG1 Enemy Port: Swimming Gringill",
