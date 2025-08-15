@@ -808,14 +808,6 @@
   "Install": "git:https://github.com/Evanbowl/BlueCoinSystem"
 },
 {
-  "Name": "Custom Coin Spawns",
-  "FolderName": "CustomCoinSpawns",
-  "Description": "Custom Coin Spawns\n\nCurrently Supported (Blue Coin)\nKuribo (Obj_arg2)\nSamboHead (Obj_arg1)\nTeresa (Obj_arg6 and Obj_arg7)\n\nCurrently Supported (Red Coin)\nKuribo (Obj_arg3)\nSamboHead (Obj_arg2)\nTeresa (Obj_arg7)",
-  "Author": "Evanbowl",
-  "Categories": ["Collectible","Extension/Patch","Object"],
-  "Install": "git:https://github.com/Evanbowl/CustomCoinSpawns"
-},
-{
   "Name": "SMG2 OnimasuPivot",
   "FolderName": "SMG2_OnimasuPivot",
   "Description": "The alternative Tox Box variant used in Toy Time Galaxy.",
@@ -966,14 +958,6 @@
   "Author": "shibbo",
   "Categories": ["Port/Restoration","System"],
   "Install": "git:https://github.com/shibbo/SMG2-Byaml"
-},
-{
-  "Name": "Localized Object Data Extension",
-  "FolderName": "LocalizedObjectData",
-  "Description": "Allows you to localize objects per language. Simply place the ObjectData .arc files in LocalizeData/<language here>/ObjectData/.",
-  "Author": "Bavario",
-  "Categories": ["Extension/Patch"],
-  "Install": "lginc:LocalizedObjectData"
 },
 {
   "Name": "PlayerFollowActor",
