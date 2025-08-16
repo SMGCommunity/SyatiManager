@@ -966,4 +966,12 @@
   "Author": "Bavario",
   "Categories": ["Extension/Patch", "Player", "Object"],
   "Install": "git:https://github.com/Lord-G-INC/PlayerFollowActor"
+},
+{
+  "Name": "SimpleBreakableObj Extensions",
+  "FolderName": "SimpleBreakableObjExt",
+  "Description": "Allows for the creation of custom SimpleBreakableObjs.",
+  "Author": "Bavario",
+  "Categories": ["Extension/Patch"],
+  "Install": "git:https://github.com/Lord-G-INC/SimpleBreakableObjExt"
 }]
