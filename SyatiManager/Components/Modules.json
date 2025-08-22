@@ -964,7 +964,7 @@
   "FolderName": "PlayerFollowActor",
   "Description": "Adds an actor that replaces the player model. More changes will be made in the future.",
   "Author": "Bavario",
-  "Categories": ["Extension/Patch", "Player", "Object"],
+  "Categories": ["Extension/Patch","Player","Object"],
   "Install": "git:https://github.com/Lord-G-INC/PlayerFollowActor"
 },
 {
@@ -972,6 +972,14 @@
   "FolderName": "SimpleBreakableObjExt",
   "Description": "Allows for the creation of custom SimpleBreakableObjs.",
   "Author": "Bavario",
+  "Categories": ["Extension/Patch"],
+  "Install": "lginc:SimpleBreakableObjExt"
+},
+{
+  "Name": "Worm Holes",
+  "FolderName": "ExtBlackHole",
+  "Description": "Adds a new teleporting feature to black holes",
+  "Author": "Aba Gamer, VTXG",
   "Categories": ["Extension/Patch"],
   "Install": "lginc:SimpleBreakableObjExt"
 }]
