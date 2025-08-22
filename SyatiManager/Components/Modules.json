@@ -981,5 +981,5 @@
   "Description": "Adds a new teleporting feature to black holes",
   "Author": "Aba Gamer, VTXG",
   "Categories": ["Extension/Patch"],
-  "Install": "lginc:SimpleBreakableObjExt"
+  "Install": "git:https://github.com/aba4gamer/ExtBlackHole"
 }]
