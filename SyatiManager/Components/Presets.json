@@ -5,6 +5,12 @@
   "Install": "git_folder:https://github.com/VTXG/SyatiManagerPresets/tree/main/AreaObj"
 },
 {
+  "Name": "LayoutActor Preset",
+  "Description": "A preset for the LayoutActor class, the base class of layouts.",
+  "Author": "VTXG",
+  "Install": "git_folder:https://github.com/VTXG/SyatiManagerPresets/tree/main/LayoutActor"
+},
+{
   "Name": "LiveActor Preset",
   "Description": "A preset for the LiveActor class, the base class of objects and enemies.",
   "Author": "VTXG",
