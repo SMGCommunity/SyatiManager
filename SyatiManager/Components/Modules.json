@@ -982,4 +982,12 @@
   "Author": "Aba Gamer, VTXG",
   "Categories": ["Extension/Patch"],
   "Install": "git:https://github.com/aba4gamer/ExtBlackHole"
+},
+{
+  "Name": "CrashHelper",
+  "FolderName": "CrashHelper",
+  "Description": "Allows you to identify the cause of a game crash with more context and information than the standard crash debugger.",
+  "Author": "Bavario",
+  "Categories": ["Extension/Patch"],
+  "Install": "git:https://github.com/Lord-G-INC/CrashHelper"
 }]
