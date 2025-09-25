@@ -715,7 +715,7 @@
   "FolderName": "ClipAreaDropLaser",
   "Description": "A port of the bouncing Matter Splatter light seen in Matter Splatter Galaxy in SMG1. Also restores SMG1's ClipDropArea under the new name ClipDropAreaScale.\nNote to other Module Developers: This module uses SceneObj Slot 90.",
   "Author": "Evanbowl",
-  "Categories": ["Ojbect","Port/Restoration"],
+  "Categories": ["Object","Port/Restoration"],
   "Install": "lginc:ClipAreaDropLaser"
 },
 {
