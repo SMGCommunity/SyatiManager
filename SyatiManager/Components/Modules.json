@@ -711,6 +711,14 @@
   "Install": "lginc:LanternClipArea"
 },
 {
+  "Name": "Matter Splatter Hole Laser",
+  "FolderName": "ClipAreaDropLaser",
+  "Description": "A port of the bouncing Matter Splatter light seen in Matter Splatter Galaxy in SMG1.\nNote to other Module Developers: This module uses SceneObj Slot 90.",
+  "Author": "Evanbowl",
+  "Categories": ["Object","Port/Restoration"],
+  "Install": "lginc:ClipAreaDropLaser"
+},
+{
   "Name": "Death Counter",
   "FolderName": "DeathCounter",
   "Description": "Makes it so the life counter layout displays the Player's death count.",
