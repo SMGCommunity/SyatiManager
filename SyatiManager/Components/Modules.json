@@ -998,4 +998,36 @@
   "Author": "Bavario",
   "Categories": ["Extension/Patch"],
   "Install": "git:https://github.com/Lord-G-INC/CrashHelper"
+},
+{
+  "Name": "SMG2_HorrorRestored",
+  "FolderName": "SMG2_HorrorRestored",
+  "Description": "A restoration/interpretation of the unused Horror mode",
+  "Author": "Super Hackio",
+  "Categories": ["Area","Player","Port/Restoration"],
+  "Install": "git:https://github.com/SuperHackio/SMG2_HorrorRestored"
+},
+{
+  "Name": "Extra MarioSubMeter meters",
+  "FolderName": "SMG2_MarioSubMeter",
+  "Description": "This module allows you to add more meters to MarioSubMeter",
+  "Author": "Super Hackio",
+  "Categories": ["Codegen","Extension/Patch","Layout"],
+  "Install": "git:https://github.com/SuperHackio/SMG2_MarioSubMeter"
+},
+{
+  "Name": "SMG2 SimpleTutorialObj",
+  "FolderName": "SMG2_SimpleTutorialObj",
+  "Description": "Simplistic custom tutorial layouts",
+  "Author": "Super Hackio",
+  "Categories": ["Layout","Object"],
+  "Install": "git:https://github.com/SuperHackio/SMG2_SimpleTutorialObj"
+},
+{
+  "Name": "SMG2 Bouldergiest-EX",
+  "FolderName": "SMG2_PoltaEx",
+  "Description": "A more extreme bouldergiest battle!",
+  "Author": "Super Hackio",
+  "Categories": ["Enemy","Extension/Patch","Port/Restoration"],
+  "Install": "git:https://github.com/SuperHackio/SMG2_PoltaEx"
 }]
