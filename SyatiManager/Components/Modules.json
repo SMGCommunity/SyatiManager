@@ -808,6 +808,14 @@
   "Install": "git:https://github.com/bavario-lginc/WarpBox/"
 },
 {
+  "Name": "Earthen Pipe Extensions",
+  "FolderName": "EarthenPipeExt",
+  "Description": "Adds path support and a proper appear cutscene to the Pipe.",
+  "Author": "Bavario",
+  "Categories": ["Extension/Patch","Object"],
+  "Install": "lginc:EarthenPipeExt"
+},
+{
   "Name": "Blue Coin System",
   "FolderName": "BlueCoinSystem",
   "Description": "PTD: Full Blue Coin System",
