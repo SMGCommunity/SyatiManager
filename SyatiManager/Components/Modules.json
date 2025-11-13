@@ -1038,4 +1038,12 @@
   "Author": "Super Hackio",
   "Categories": ["Enemy","Extension/Patch","Port/Restoration"],
   "Install": "git:https://github.com/SuperHackio/SMG2_PoltaEx"
+},
+{
+  "Name": "LavaJamboSunPlanet",
+  "FolderName": "LavaJamboSunPlanet",
+  "Description": "The Giant lava planet from Melty Molten Galaxy (Sinking Lava Spire), ported to SMG2.",
+  "Author": "GlacialVitality",
+  "Categories": ["Object","Port"],
+  "Install": "git:https://github.com/glacialvitality/LavaJamboSunPlanet"
 }]
