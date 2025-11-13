@@ -1046,4 +1046,12 @@
   "Author": "GlacialVitality",
   "Categories": ["Object","Port"],
   "Install": "git:https://github.com/glacialvitality/LavaJamboSunPlanet"
+},
+{
+  "Name": "StageInstrumentTable",
+  "FolderName": "StageInstrumentTable",
+  "Description": "Allows use of BGM_DASH_YOSHI and BGM_SLIDER in any stage.",
+  "Author": "Evanbowl",
+  "Categories": ["Extension/Patch", "System"],
+  "Install": "lginc:StageInstrumentTable"
 }]
