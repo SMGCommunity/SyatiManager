@@ -197,6 +197,15 @@ namespace SyatiManager.Source.Common {
             mSolution.CreateDirectories();
 
             foreach (var region in regions) {
+                var regionName = region switch {
+                    "USA" => "SB4E",
+                    "PAL" => "SB4P",
+                    "JPN" => "SB4J",
+                    "TWN" => "SB4W",
+                    "KOR" => "SB4K",
+                    _ => string.Empty
+                };
+
                 var loaderObj = Path.Combine(mSyatiPath, "loader", "loader.o");
 
                 try {
@@ -204,25 +213,27 @@ namespace SyatiManager.Source.Common {
                         "-c", "-Cpp_exceptions", "off", "-nodefaults", "-proc", "gekko", "-fp",
                         "hard", "-lang=c++", "-O4,s", "-inline", "on", "-rtti", "off", "-sdata", "0",
                         "-sdata2", "0", "-align", "powerpc", "-func_align", "4", "-str", "pool",
-                        "-enum", "int", "-DGEKKO", "-i", "include", "-I-", "-i", "loader", $"-D{region}",
+                        "-enum", "int", "-DGEKKO", "-i", "include", "-I-", "-i", "loader", $"-D{regionName}",
                         Path.Combine(mSyatiPath, "loader", "loader.cpp"), "-o", loaderObj
                     ],
                     mSyatiPath);
                 }
                 catch (Exception ex) {
                     IOHelper.WriteError("CodeWarrior Error", ex);
+                    return;
                 }
 
                 try {
                     await IOHelper.StartProcessAsync(KamekPath, [
-                        loaderObj, "-static=0x80001800", $"-externals={Path.Combine(mSyatiPath, "symbols", $"{region}.txt")}",
-                        $"-output-riiv={Path.Combine(mSolution.OutputPath, $"riivo_{region}.xml")}",
+                        loaderObj, "-static=0x80001800", $"-externals={Path.Combine(mSyatiPath, "symbols", $"{regionName}.txt")}",
+                        $"-output-riiv={Path.Combine(mSolution.OutputPath, $"riivo_{regionName}.xml")}",
                         $"-output-kamek={Path.Combine(mSolution.OutputPath, $"Loader{EnumHelper.GetRegionLetter(region)}.bin")}"
                     ],
                     mSyatiPath);
                 }
                 catch (Exception ex) {
                     IOHelper.WriteError("Kamek Error", ex);
+                    return;
                 }
             }
 
