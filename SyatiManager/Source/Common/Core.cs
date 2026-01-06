@@ -151,8 +151,17 @@ namespace SyatiManager.Source.Common {
 
             foreach (var region in regions) {
                 try {
+                    var regionName = region switch {
+                        "USA" => "SB4E",
+                        "PAL" => "SB4P",
+                        "JPN" => "SB4J",
+                        "TWN" => "SB4W",
+                        "KOR" => "SB4K",
+                        _ => string.Empty
+                    };
+
                     await IOHelper.StartProcessAsync(BuildToolPath, [
-                        region, mSyatiPath, mSolution.ModulesPath, mSolution.OutputPath, (unibuild ? "-u" : string.Empty)
+                        regionName, mSyatiPath, mSolution.ModulesPath, mSolution.OutputPath, (unibuild ? "-u" : string.Empty)
                     ]);
                 }
                 catch (Exception ex) {
