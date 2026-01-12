@@ -227,7 +227,7 @@ namespace SyatiManager.Source.Common {
                     await IOHelper.StartProcessAsync(KamekPath, [
                         loaderObj, "-static=0x80001800", $"-externals={Path.Combine(mSyatiPath, "symbols", $"{regionName}.txt")}",
                         $"-output-riiv={Path.Combine(mSolution.OutputPath, $"riivo_{regionName}.xml")}",
-                        $"-output-code={Path.Combine(mSolution.OutputPath, $"Loader{EnumHelper.GetRegionLetter(region)}.bin")}"
+                        $"-output-code={Path.Combine(mSolution.OutputPath, $"Loader{regionName}.bin")}"
                     ],
                     mSyatiPath);
                 }
