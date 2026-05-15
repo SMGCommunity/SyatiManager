@@ -1054,4 +1054,12 @@
   "Author": "Evanbowl",
   "Categories": ["Extension/Patch", "System"],
   "Install": "lginc:StageInstrumentTable"
+},
+{
+  "Name": "BeamGoRoundPlanet",
+  "FolderName": "BeamGoRoundPlanet",
+  "Description": "The BeamGoRoundPlanet Object from Dreadnought Ported to SMG2",
+  "Author": "GlacialVitality",
+  "Categories": ["Object", "Port"],
+  "Install": "git:https://github.com/glacialvitality/BeamGoRoundPlanet"
 }]
