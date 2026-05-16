@@ -1062,4 +1062,12 @@
   "Author": "GlacialVitality",
   "Categories": ["Object", "Port"],
   "Install": "git:https://github.com/glacialvitality/BeamGoRoundPlanet"
+},
+{
+  "Name": "UFO Restored",
+  "FolderName": "UFOBaseRestored",
+  "Description": "UFOs from Battlerock Galaxy ported to SMG2",
+  "Author": "GlacialVitality",
+  "Categories": ["Object", "Port"],
+  "Install": "git:https://github.com/glacialvitality/UFOBaseRestored"
 }]
