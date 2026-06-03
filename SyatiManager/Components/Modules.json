@@ -1070,4 +1070,67 @@
   "Author": "GlacialVitality",
   "Categories": ["Object", "Port"],
   "Install": "git:https://github.com/glacialvitality/UFOBaseRestored"
+},
+{
+  "Name": "Custom Storybooks",
+  "FolderName": "SMG2-Custom-PictureBooks",
+  "Author": "Aba Gamer, Super Hackio",
+  "Description": "SMG1 port: PictureBook",
+  "Categories": ["Port/Restoration", "Object"]
+},
+{
+  "Name": "Iron Cannon Ball Shooters",
+  "FolderName": "SMG2_IronCannonLauncher",
+  "Author": "Super Hackio",
+  "Description": "The round cannonballs from SMG1",
+  "Categories": ["Port/Restoration", "Object"]
+},
+{
+  "Name": "Sling Pods in SMG2",
+  "FolderName": "SMG2_SpaceCocoon",
+  "Author": "Super Hackio",
+  "Description": "Brings Sling Pods from SMG1 into SMG2. Still supports slinging toads.",
+  "Categories": ["Port/Restoration", "Object"]
+},
+{
+  "Name": "SMG2 Command Stream",
+  "FolderName": "SMG2_CommandStream",
+  "Author": "Super Hackio",
+  "Description": "Ports the Command Stream star pointer mode to SMG2",
+  "Categories": ["Port/Restoration"]
+},
+{
+  "Name": "Tarantox in SMG2",
+  "FolderName": "SMG2_TombSpiderReturns",
+  "Author": "Super Hackio",
+  "Description": "Get this spider away from me please",
+  "Categories": ["Port/Restoration", "Boss", "Enemy"]
+},
+{
+  "Name": "Cannon Shell API",
+  "FolderName": "SMG2_CannonShellBase",
+  "Author": "Super Hackio",
+  "Description": "API for CannonShell related objects.",
+  "Categories": ["Port/Restoration"]
+},
+{
+  "Name": "Megaleg in SMG2",
+  "FolderName": "SMG2_TripodBossReturns",
+  "Author": "Super Hackio",
+  "Description": "It's finally here...",
+  "Categories": ["Port/Restoration", "Boss"]
+},
+{
+  "Name": "Syati Extended Star Pointer",
+  "FolderName": "Syati_ExtStarPointer",
+  "Author": "[Primary Module]",
+  "Description": "A module that allows the creation of new Star Pointer modes.",
+  "Categories": ["Primary", "Extension/Patch"]
+},
+{
+  "Name": "Neo Mario Galaxy Coin and Starbit mushroom items",
+  "FolderName": "NMG_CollectKinoko",
+  "Author": "Aurum",
+  "Description": "Adds a new golden coin mushroom and a purple starbit mushroom to the game as collectables (as seen in Neo Mario Galaxy)",
+  "Categories": ["Collectible", "Object"]
 }]
