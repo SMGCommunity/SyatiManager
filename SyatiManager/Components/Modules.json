@@ -1150,4 +1150,12 @@
   "Description": "That one planet on the top of Buoy Base Galaxy to SMG2.",
   "Categories": ["Port/Restoration", "Map"],
   "Install": "git:https://github.com/MyronDragon/HatchWaterPlanet"
+},
+{
+  "Name": "Starbit Color Extension",
+  "FolderName": "SMG2_StarPieceColors",
+  "Author": "Super Hackio",
+  "Description": "Adds the ablity for custom starbit colours! This module includes all 6 vanilla colors. (Note: Does not affect the Hungry Luma starbits on the sticks)",
+  "Categories": ["Collectible", "Extension/Patch"],
+  "Install": "git:https://github.com/SuperHackio/SMG2_StarPieceColors"
 }]
