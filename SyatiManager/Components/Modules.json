@@ -1142,4 +1142,12 @@
   "Description": "Adds a new golden coin mushroom and a purple starbit mushroom to the game as collectables (as seen in Neo Mario Galaxy)",
   "Categories": ["Collectible", "Object"],
   "Install": "git:https://github.com/SMGCommunity/NMG_CollectKinoko"
+},
+{
+  "Name": "Pokéball Planet to SMG2",
+  "FolderName": "HatchWaterPlanet",
+  "Author": "Myron Dragon",
+  "Description": "That one planet on the top of Buoy Base Galaxy to SMG2.",
+  "Categories": ["Port/Restoration", "Map"],
+  "Install": "git:https://github.com/MyronDragon/HatchWaterPlanet"
 }]
