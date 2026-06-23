@@ -1152,6 +1152,14 @@
   "Install": "git:https://github.com/MyronDragon/HatchWaterPlanet"
 },
 {
+  "Name": "Wired 2D Areas",
+  "FolderName": "SMG2-Wired2DAreas",
+  "Author": "Aba Gamer",
+  "Description": "Adds freely shaped 2D areas. Like wired gravities, but for 2D areas.",
+  "Categories": ["Object"],
+  "Install": "git:https://github.com/aba4gamer/SMG2-Wired2DAreas"
+},
+{
   "Name": "Starbit Color Extension",
   "FolderName": "SMG2_StarPieceColors",
   "Author": "Super Hackio",
