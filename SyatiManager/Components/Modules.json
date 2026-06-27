@@ -1166,4 +1166,12 @@
   "Description": "Adds the ablity for custom starbit colours! This module includes all 6 vanilla colors. (Note: Does not affect the Hungry Luma starbits on the sticks)",
   "Categories": ["Collectible", "Extension/Patch"],
   "Install": "git:https://github.com/SuperHackio/SMG2_StarPieceColors"
+},
+{
+  "Name": "TicoKit Debug Menu API",
+  "FolderName": "TicoKit_DebugMenu",
+  "Author": "VTXG, Evanbowl",
+  "Description": "Provides an on-screen text display for debugging.",
+  "Categories": ["Codegen","System"],
+  "Install": "git:https://github.com/VTXG/TicoKit_DebugMenu"
 }]
