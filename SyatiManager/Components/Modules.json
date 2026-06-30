@@ -699,7 +699,7 @@
   "FolderName": "ClipAreaColorController",
   "Description": "A Controller that lets you change the color of some Matter Splatter objects when its SW_A is activated.\nWhen the switch is turned off, the color returns to normal.\n- Obj_arg0: Red (0 to 255), Default 0.\n- Obj_arg1: Blue (0 to 255), Default 0.\n- Obj_arg2: Green (0 to 255), Default 0.\n- Obj_arg3: Alpha (0 to 255), Default 255.",
   "Author": "Gabbo",
-  "Categories": ["Extension/Patch"],
+  "Categories": ["Area"],
   "Install": "lginc:ClipAreaColorController"
 },
 {
@@ -707,7 +707,7 @@
   "FolderName": "LanternClipArea",
   "Description": "A custom lantern that evokes a spherical matter splatter when it is selected with the player's cursor, and disappears after a chosen amount of time.\nA matter splatter setup is needed to make it work.\n- Obj_arg0: The size of the sphere, Default 750.\n- Obj_arg1: The time in frames it takes for the sphere to grow until it reaches its specified size in Obj_arg0, Default 30.\n- Obj_arg2: The time in frames it stays at full size before it shrinks down, Default 180.\n- Obj_arg3: the time in frames it takes for the sphere to shrink down to 0, Default 120.",
   "Author": "Gabbo",
-  "Categories": ["Area"],
+  "Categories": ["Object"],
   "Install": "lginc:LanternClipArea"
 },
 {
@@ -1174,4 +1174,12 @@
   "Description": "Provides an on-screen text display for debugging.",
   "Categories": ["Codegen","System"],
   "Install": "git:https://github.com/VTXG/TicoKit_DebugMenu"
+},
+{
+  "Name": "RevolvingWayObj",
+  "FolderName": "SMG2_RevolvingWayObj",
+  "Author": "Gabbo",
+  "Description": "Class: RevolvingWayObj. Restoration of the scrapped RevolvingWay from the first game.\nNote to other Module Developers: This module uses SceneObj Slot 22",
+  "Categories": ["Port/Restoration","Map"],
+  "Install": "git:https://github.com/Gabbo089/SMG2_RevolvingWayObj"
 }]
